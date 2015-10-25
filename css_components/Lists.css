@@ -1,0 +1,16 @@
+.card a h2, .card h2 {
+    font-size: 22px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 80px;
+    top: 5px;
+    color: black;
+}
+
+.card p {
+    color: #555555;
+    left: 80px;
+    top: 15px;
+    position: absolute;
+}
