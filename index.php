@@ -27,6 +27,7 @@
         <core-scaffold>
 
             <!-- Drawer Panel -->
+
             <core-header-panel navigation flex>
                 <core-toolbar style="background-color: #7986CB;">
                     Schlopolis 2.0
