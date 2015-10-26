@@ -26,8 +26,8 @@
 	<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 	<link rel="import" href="../bower_components/paper-input/paper-autogrow-textarea.html">
 	<link rel="import" href="../bower_components/paper-input/paper-char-counter.html">
-	<link rel="stylesheet" href="../css_components/pages_main.css" type="text/css" />
-	<link rel="stylesheet" href="../css_components/Lists.css" type="text/css" />
+	<link rel="stylesheet" href="../style/pages_main.css" type="text/css" />
+	<link rel="stylesheet" href="../style/Lists.css" type="text/css" />
 </head>
 <body fullbleed unresolved>
 <core-scaffold>
@@ -54,7 +54,7 @@
 
 
 	<?php
-		require_once '../php_components/main.php';
+		require_once '../php/main.php';
 
 		$link = DBConnect();
 

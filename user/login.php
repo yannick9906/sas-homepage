@@ -9,7 +9,7 @@
 	$action = $_GET['action'];
 
 	if($action == 1) {
-		require_once '../php_components/main.php';
+		require_once '../php/main.php';
 		$usrname = $_POST['usrname'];
 		$passwd  = md5($_POST['passwd']);
 		$link    = DBConnect();
@@ -61,7 +61,7 @@
 	<link rel="import" href="../bower_components/core-icons/social-icons.html">
 	<link rel="import" href="../bower_components/core-icons/av-icons.html">
 	<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-	<link rel="stylesheet" href="../css_components/pages_main.css" type="text/css" />
+	<link rel="stylesheet" href="../style/pages_main.css" type="text/css" />
 </head>
 <body fullbleed unresolved onload="countdown()">
 <core-scaffold>

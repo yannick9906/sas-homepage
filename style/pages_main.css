@@ -13,6 +13,7 @@ html, body {
 
 core-scaffold::shadow core-toolbar { /* Toolbar */
     background-color: #3F51B5;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 paper-tabs {
@@ -52,7 +53,7 @@ h2, .card2 h2{
     padding: 0;
     margin: 0;
     color: #000000;
-
+    font-family: 'Ubuntu', sans-serif;
 }
 
 a {
@@ -70,6 +71,7 @@ p, .card2 p  {
 .card2 h2 {
     font-size: 22px;
     color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 paper-button[raised] {

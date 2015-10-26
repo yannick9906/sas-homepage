@@ -21,7 +21,7 @@
         <link rel="import" href="bower_components/core-icons/social-icons.html">
         <link rel="import" href="bower_components/core-icons/av-icons.html">
         <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-        <link rel="stylesheet" href="css_components/pages_main.css" type="text/css" />
+        <link rel="stylesheet" href="style/pages_main.css" type="text/css" />
     </head>
     <body fullbleed unresolved onload="countdown()">
         <core-scaffold>
@@ -54,7 +54,7 @@
             <paper-shadow z="1" class="card">
                 <a href="pages/Calendar.php"><h2>Nächster Termin</h2></a>
                 <?php
-                    require_once 'php_components/main.php';
+                    require_once 'php/main.php';
                     $link = DBConnect();
 
                     $res = $link->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
@@ -87,6 +87,6 @@
             </div>-->
         </core-scaffold>
 
-        <script src="js_components/main.js"></script>
+        <script src="javascript/main.js"></script>
     </body>
 </html>

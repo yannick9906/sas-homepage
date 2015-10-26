@@ -21,7 +21,7 @@
 	<link rel="import" href="../bower_components/core-icons/social-icons.html">
 	<link rel="import" href="../bower_components/core-icons/av-icons.html">
 	<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-	<link rel="stylesheet" href="../css_components/pages_main.css" type="text/css" />
+	<link rel="stylesheet" href="../style/pages_main.css" type="text/css" />
 </head>
 <body fullbleed unresolved>
 <core-scaffold>
@@ -48,7 +48,7 @@
 
 
 	<?php
-		require_once '../php_components/main.php';
+		require_once '../php/main.php';
 
 		$link = DBConnect();
 
