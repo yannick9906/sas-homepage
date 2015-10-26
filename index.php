@@ -16,7 +16,7 @@
             //Naechster Termin
             $res = $pdo->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
             $timestamp = strtotime($res->Date);
-            $evDate  = date("d.m.Y H:i", $timestamp);
+            $evDate  = date("d.m.Y", $timestamp);
             $evTitle = $res->title;
 
             //Spruch der Woche
@@ -40,6 +40,27 @@
 
             break;
         case 1: //Kalender
+            require_once 'php/main.php';
+            $db = DBConnect();
+            $pgData = [
+                "header" => "Kalender",
+                "page" => [
+                    "items"  => []
+                ]
+            ];
 
+            $i = 0;
+            $res = $db->query("SELECT * FROM calendar  WHERE `Date` > CURDATE() ORDER BY `Date` ASC");
+            while($row = $res->fetch_object()) {
+                $timestamp = strtotime($row->Date);
+                $evDate = date("d.m.Y", $timestamp);
+                $pgData["page"]["items"][$i]["title"] = $row->title;
+                $pgData["page"]["items"][$i]["text"]  = $row->info;
+                $pgData["page"]["items"][$i]["date"]  = $evDate;
+                $i++;
+            }
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
             break;
     }
