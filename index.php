@@ -3,10 +3,13 @@
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
 
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
+    require_once 'php/Mobile_Detect.php'; // Mobile Detect
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
+    $pdo = new PDO_MYSQL();
+    $detect = new Mobile_Detect;
     Dwoo\Autoloader::register();
     $dwoo = new Dwoo\Core();
-    $pdo = new PDO_MYSQL();
+
 
     switch($pg) {
         case 0: //Home
@@ -32,7 +35,11 @@
                 ]
             ];
 
-            $dwoo->output("tpl/mobile/home.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
+            else echo "You're a PC!";
+
+            break;
+        case 1: //Kalender
 
             break;
     }

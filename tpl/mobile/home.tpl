@@ -11,7 +11,7 @@
             <paper-shadow z="2" id="countdown" class="card"></paper-shadow>
 
             <paper-shadow z="1" class="card">
-                <a href="pages/Calendar.php"><h2>Nächster Termin</h2></a>
+                <a href="index.php?p=1"><h2>Nächster Termin</h2></a>
                 <p>{$page.evDate} - {$page.evTitle}</p>
             </paper-shadow>
 
