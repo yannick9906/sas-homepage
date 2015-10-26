@@ -9,7 +9,7 @@
 	<link rel="import" href="../bower_components/polymer/polymer.html" />
 	<link rel="manifest" href="../manifest.json" />
 	<meta name="mobile-web-app-capable" content="yes" />
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html">
 	<link rel="import" href="../bower_components/core-item/core-item.html">
@@ -54,6 +54,10 @@
 	<paper-shadow z="1" class="card2">
 		<h2>Programmierer</h2>
 		<p>Yannick F&#233;lix</p>
+		<p>Luis Sch&auml;fer</p>
+		<p>Kai </p>
+		<p>Kerem Ciftci</p>
+        <p>Aaron Stauder</p>
 	</paper-shadow>
 	<paper-shadow z="1" class="card2">
 		<script type="text/javascript" src="//rc.revolvermaps.com/0/0/6.js?i=2pgjgy5sa1m&amp;m=7&amp;s=220&amp;c=e63100&amp;cr1=ffffff&amp;f=arial&amp;l=0&amp;bv=90&amp;lx=-420&amp;ly=420&amp;hi=20&amp;he=7&amp;hc=a8ddff&amp;rs=80" async="async"></script>

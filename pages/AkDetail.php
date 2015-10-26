@@ -9,7 +9,7 @@
 	<link rel="import" href="../bower_components/polymer/polymer.html" />
 	<link rel="manifest" href="../manifest.json" />
 	<meta name="mobile-web-app-capable" content="yes" />
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic|Ubuntu:400,700' rel='stylesheet' type='text/css'>
 	<script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	<link rel="import" href="../bower_components/core-scaffold/core-scaffold-back.html">
 	<link rel="import" href="../bower_components/core-item/core-item.html">
