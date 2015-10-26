@@ -55,7 +55,7 @@
 		<h2>Programmierer</h2>
 		<p>Yannick F&#233;lix</p>
 		<p>Luis Sch&auml;fer</p>
-		<p>Kai </p>
+		<p>Kai Hecker</p>
 		<p>Kerem Ciftci</p>
         <p>Aaron Stauder</p>
 	</paper-shadow>

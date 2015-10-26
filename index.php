@@ -26,7 +26,9 @@
 
             //Dwoo
             $pgData = [
-                "header" => "Home",
+                "header" => [
+                    "title" => "Home"
+                ],
                 "page" => [
                     "evDate"  => $evDate,
                     "evTitle" => $evTitle,
@@ -36,14 +38,16 @@
             ];
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
-            else echo "You're a PC!";
+            else $dwoo->output("tpl/mobile/home.tpl", $pgData);
 
             break;
         case 1: //Kalender
             require_once 'php/main.php';
             $db = DBConnect();
             $pgData = [
-                "header" => "Kalender",
+                "header" => [
+                    "title" => "Kalender"
+                ],
                 "page" => [
                     "items"  => []
                 ]
@@ -62,5 +66,18 @@
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
             else $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
+            break;
+        case 2: //News
+            $pgData = [
+                "header" => [
+                    "title" => "News"
+                ],
+                "page" => [
+                    "items"  => []
+                ]
+            ];
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/news.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/news.tpl", $pgData);
             break;
     }

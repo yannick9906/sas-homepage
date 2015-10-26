@@ -6,7 +6,7 @@
     <core-menu selected="{$args}">
         <core-item icon="home" label="Home"><a href="index.php?p=0" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="event" label="Kalender"><a href="index.php?p=1" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
-        <core-item icon="av:news" label="News"><a href="pages/news.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="av:news" label="News"><a href="index.php?p=2" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="social:group" label="Arbeitskreise"><a href="pages/AKs.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="social:people-outline" label="Parteien"><a href="pages/parties.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="announcement" label="Fragen"><a href="pages/bugs.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
