@@ -1,6 +1,6 @@
 <html>
     {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved onload="countdown()">
+    <body fullbleed unresolved>
         <core-scaffold>
 
             {include(file="drawer_panel.tpl", args=1)}
