@@ -1,0 +1,17 @@
+<!-- Drawer Panel -->
+<core-header-panel navigation flex>
+    <core-toolbar style="background-color: #7986CB;">
+        Schlopolis 2.0
+    </core-toolbar>
+    <core-menu selected="{$args}">
+        <core-item icon="home" label="Home"><a href="index.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="event" label="Kalender"><a href="pages/Calendar.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="av:news" label="News"><a href="pages/news.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="social:group" label="Arbeitskreise"><a href="pages/AKs.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="social:people-outline" label="Parteien"><a href="pages/parties.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="announcement" label="Fragen"><a href="pages/bugs.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="payment" label="SchlopoPay"><a href="bank/newbill.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="more-horiz" label="Impressum"><a href="pages/about.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="account-circle" label="Login"><a href="user/login.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+    </core-menu>
+</core-header-panel>
