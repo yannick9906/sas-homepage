@@ -5,10 +5,8 @@
 
             {include(file="drawer_panel.tpl", args=1)}
 
-            <div tool icon="menu">Schlopolis 2.0</div>
-
             <!-- Main Content -->
-            <div tool>Kalender</div>
+            <div tool icon="menu">Kalender</div>
 
             {foreach $page.items item}
                 <paper-shadow z="1" class="card">

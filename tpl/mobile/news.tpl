@@ -5,10 +5,8 @@
 
             {include(file="drawer_panel.tpl", args=2)}
 
-            <div tool icon="menu">Schlopolis 2.0</div>
-
             <!-- Main Content -->
-            <div tool>News</div>
+            <div tool icon="menu">News</div>
 
                 <paper-shadow z="1" class="card">
                     <h2>Seite noch nicht verfügbar</h2>
