@@ -119,6 +119,9 @@ paper-button[raised] {
     top: -40px;
     background: #EEEEEE;
     font-family: 'Open Sans', sans-serif;
+    margin: 10px;
+    padding: 5px;
+    font-size: 18px;
 }
 
 .detailcard h2 {

@@ -52,33 +52,6 @@
 
 	<div tool>Fragen & Anregungen</div>
 
-
-	<?php
-		require_once '../php/main.php';
-
-		$link = DBConnect();
-
-		/*if(is_numeric($id)) {
-			$res = $link->query("SELECT * FROM parties WHERE ID = $id");
-			$row = mysqli_fetch_object($res);
-			echo <<<END
-	<img src="party.png" style="width: 100%; height: auto;"/>
-    <paper-shadow z="1" class="card">
-        <h2>$row->Name</h2>
-        <p>$row->textlong</p>
-    </paper-shadow>
-END;
-		} else {
-			echo <<<END
-    <paper-shadow z="4" class="card">
-        <core-icon style="height: 64px; width: 64px;"icon="warning"></core-icon>
-        <h2>Fehler</h2>
-        <p>:/</p>
-    </paper-shadow>
-END;
-
-		}*/
-	?>
 	<paper-tabs selected="0">
 		<paper-tab>Häufige Fragen (FAQ)</paper-tab>
 		<paper-tab>Neue Frage</paper-tab>

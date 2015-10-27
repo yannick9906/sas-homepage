@@ -105,36 +105,111 @@
             if($detect->isMobile()) $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
             else $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
             break;
-        case 4: //Aks Detail TODO
-            //Naechster Termin
-            $res = $pdo->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
-            $timestamp = strtotime($res->Date);
-            $evDate  = date("d.m.Y", $timestamp);
-            $evTitle = $res->title;
+        case 4: //Aks Detail
+            require_once 'php/main.php';
+            $db = DBConnect();
+            $id = $_GET['id'];
+            if(is_numeric($id)) {
+                $res = $pdo->query("SELECT * FROM AKs WHERE ID = :id", [":id" => $id]);
+                $pgData = [
+                    "header" => [
+                        "title" => $res->Name
+                    ],
+                    "page" => [
+                        "title" => $res->Name,
+                        "text" => $res->textlong,
+                        "img" => $res->img
+                    ]
+                ];
 
-            //Spruch der Woche
-            $res = $pdo->query("SELECT * FROM spruchderwoche WHERE Week = :w", [":w" => date('W')]);
-            $spWeek = $res->Week;
-            $spText = $res->Spruch;
+                if ($detect->isMobile()) $dwoo->output("tpl/mobile/AkDetail.tpl", $pgData);
+                else $dwoo->output("tpl/mobile/AkDetail.tpl", $pgData);
+            }
 
-            //Dwoo
+            break;
+        case 5: //Parteien List
+            require_once 'php/main.php';
+            $db = DBConnect();
             $pgData = [
                 "header" => [
-                    "title" => "Home"
+                    "title" => "Parteien"
                 ],
                 "page" => [
-                    "evDate"  => $evDate,
-                    "evTitle" => $evTitle,
-                    "spWeek"  => $spWeek,
-                    "evText"  => $spText
+                    "items"  => []
                 ]
             ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/home.tpl", $pgData);
+            $i = 0;
+            $res = $db->query("SELECT * FROM parties");
+            while($row = $res->fetch_object()) {
+                $pgData["page"]["items"][$i]["id"] = $row->ID;
+                $pgData["page"]["items"][$i]["info"]  = $row->textshort;
+                $pgData["page"]["items"][$i]["name"]  = $row->Name;
+                $pgData["page"]["items"][$i]["icon"]  = $row->Icon;
+                $i++;
+            }
 
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
             break;
-        case 5: //Parteien
+        case 6: //Parteien Detail
+            require_once 'php/main.php';
+            $db = DBConnect();
+            $id = $_GET['id'];
+            if(is_numeric($id)) {
+                $res = $pdo->query("SELECT * FROM parties WHERE ID = :id", [":id" => $id]);
+                $pgData = [
+                    "header" => [
+                        "title" => $res->Name
+                    ],
+                    "page" => [
+                        "title" => $res->Name,
+                        "text" => $res->textlong,
+                        "img" => $res->img
+                    ]
+                ];
 
+                if ($detect->isMobile()) $dwoo->output("tpl/mobile/PartyDetail.tpl", $pgData);
+                else $dwoo->output("tpl/mobile/PartyDetail.tpl", $pgData);
+            }
+            break;
+        case 7:
+            $pgData = [
+                "header" => [
+                    "title" => "Häufige Fragen"
+                ],
+                "page" => [
+                    "items"  => []
+                ]
+            ];
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            break;
+        case 8:
+            $pgData = [
+                "header" => [
+                    "title" => "Häufige Fragen"
+                ],
+                "page" => [
+                    "items"  => []
+                ]
+            ];
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            break;
+        case 9: // Impressum
+            $pgData = [
+                "header" => [
+                    "title" => "Impressum"
+                ],
+                "page" => [
+                    "items"  => []
+                ]
+            ];
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/about.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/about.tpl", $pgData);
             break;
     }
