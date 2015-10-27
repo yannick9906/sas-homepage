@@ -58,7 +58,7 @@ function countdown() {
         (minuten!=1)?minuten=minuten+":":minuten=minuten+":";
         (sekunden!=1)?sekunden=sekunden+"":sekunden=sekunden+"";
 
-        document.getElementById('countdown').innerHTML ="noch "+jahre+monate+tage+stunden+minuten+sekunden + " bis Schlopolis 2.0";
+        document.getElementById('countdown').innerHTML ="noch "+monate+tage+stunden+minuten+sekunden + " bis Schlopolis 2.0";
 
         setTimeout('countdown()',200);
     }
