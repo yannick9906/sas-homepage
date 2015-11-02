@@ -175,20 +175,32 @@
                 else $dwoo->output("tpl/mobile/PartyDetail.tpl", $pgData);
             }
             break;
-        case 7:
+        case 7: //FAQ
+            require_once 'php/main.php';
+            $db = DBConnect();
             $pgData = [
                 "header" => [
-                    "title" => "Häufige Fragen"
+                    "title" => "Häufige Fragen (FAQ)"
                 ],
                 "page" => [
-                    "items"  => []
+                    "items"  => [],
+                    "i" => $_GET["i"]
                 ]
             ];
+
+            $i = 0;
+            $res = $db->query("SELECT * FROM faq");
+            while($row = $res->fetch_object()) {
+                $pgData["page"]["items"][$i]["ques"] = $row->question;
+                $pgData["page"]["items"][$i]["answ"]  = $row->answer;
+                $i++;
+            }
+
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
             else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
             break;
-        case 8:
+        case 8: //Unuesed
             $pgData = [
                 "header" => [
                     "title" => "Häufige Fragen"

@@ -6,7 +6,7 @@
             {include(file="drawer_panel.tpl", args=1)}
 
             <!-- Main Content -->
-            <div tool icon="menu">Kalender</div>
+            <div tool icon="menu">Timeline</div>
 
             <section id="cd-timeline" class="cd-container">
                     {foreach $page.items item}

@@ -3,7 +3,7 @@
     <body fullbleed unresolved>
         <core-scaffold>
 
-            {include(file="drawer_panel.tpl", args=3)}
+            {include(file="drawer_panel.tpl", args=5)}
 
             <!-- Main Content -->
             <div tool >Vorstellung der Arbeitskreise</div>

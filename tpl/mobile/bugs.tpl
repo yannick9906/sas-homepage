@@ -1,9 +1,9 @@
 <html>
     {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved>
+    <body fullbleed unresolved {if $page.i == 1}onload="show();" {/if}>
         <core-scaffold>
 
-            {include(file="drawer_panel.tpl", args=5)}
+            {include(file="drawer_panel.tpl", args=7)}
 
             <div tool icon="menu">Fragen</div>
 
@@ -13,14 +13,15 @@
 	</paper-tabs>
 	<core-pages selected="0">
 		<div>
-			<paper-shadow z="4" class="card">
-				<core-icon style="height: 64px; width: 64px;" icon="warning"></core-icon>
-				<h2 style="font-size: 20px;">Diese Seite ist noch in Arbeit</h2>
-				<p>:/ Versuche es später erneut</p>
-			</paper-shadow>
+			{foreach $page.items item}
+				<paper-shadow z="1" class="card">
+					<h2 style="font-size: 20px;">{$item.ques}</h2>
+					<p>{$item.answ}</p>
+				</paper-shadow>
+			{/foreach}
 		</div>
 		<div>
-			<form action="" method="post">
+			<form action="action.php?p=1" method="post">
 				<paper-shadow class="card" z="1">
 						<paper-input-decorator floatingLabel flex label="Emailadresse" error="Muss eine Emailadresse sein" autoValidate><input type="email" name="email"/></paper-input-decorator>
 						<paper-input-decorator floatingLabel flex label="Betreff"><input type="text" name="subject" /></paper-input-decorator>
@@ -31,6 +32,7 @@
 			</form>
 		</div>
 	</core-pages>
+    <paper-toast id="toast" text="Frage eingesendet"></paper-toast>
 	<script>
 		var tabs = document.querySelector('paper-tabs');
         var pages = document.querySelector('core-pages');
@@ -38,6 +40,11 @@
         tabs.addEventListener('core-select',function(){
             pages.selected = tabs.selected;
         });
+
+        function show() {
+            var toast = document.querySelector('#toast');
+            toast.show();
+        }
 	</script>
 
         </core-scaffold>

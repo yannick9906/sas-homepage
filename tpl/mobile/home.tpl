@@ -8,12 +8,17 @@
             <div tool icon="menu">Schlopolis</div>
 
             <!-- Main Content -->
-            <paper-shadow>
-                <video width="100%" controls autoplay>
-                    <source src="mp4/trailer.mp4" type="movie/mp4">
-                    <source src="mp4/trailer-hd.mp4" type="movie/mp4">
-                </video>
+            <paper-shadow style="width:100%; height:0; padding-bottom: 51%" class="video">
+                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ccRyW5vUJ10?autoplay=1&showinfo=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
             </paper-shadow>
+            <style>
+                .video iframe {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0; top: 0;
+                }
+            </style>
             <paper-shadow z="2" id="countdown" class="card"></paper-shadow>
 
             <paper-shadow z="1" class="card">

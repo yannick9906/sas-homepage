@@ -3,12 +3,12 @@
     <body fullbleed unresolved>
         <core-scaffold>
 
-            {include(file="drawer_panel.tpl", args=4)}
+            {include(file="drawer_panel.tpl", args=6)}
 
             <!-- Main Content -->
-            <div tool>Vorstellung der Parteien</div>
+            <div tool icon="menu">Vorstellung der Parteien</div>
 
-            <img src="party1.svg" style="width: 100%; height: auto;"/>
+            <img src="group_people_icon.jpg" style="width: 100%; height: auto;"/>
             <paper-shadow z="1" class="detailcard">
                 <h2>{$page.title}</h2>
                 <p>{$page.text}</p>
