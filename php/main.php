@@ -7,9 +7,58 @@
  */
 
 	/**
+     * Connects to a Mysql DB
+     *
+     * @deprecated
 	 * @return mysqli
 	 */
 	function DBConnect() {
 		return new mysqli('mysql.lima-city.de', 'USER302476', 'ubW0yhSI', 'db_302476_1');
 	}
-?>
+
+
+    /**
+     * Returns the class String for a Cal type
+     *
+     * @param $type int From Database
+     * @return string String For use in tpl
+     */
+    function getHtmlClassForCalType($type) {
+		switch($type) {
+			case 1:
+				return "cd-picture";
+				break;
+            case 2:
+                return "cd-movie";
+                break;
+            case 3:
+                return "cd-location";
+                break;
+            default:
+                return "cd-picture";
+                break;
+		}
+	}
+
+    /**
+     * Returns the img Path for a Cal type
+     *
+     * @param $type int From Database
+     * @return string String For use in tpl
+     */
+    function getImgPathForCalType($type) {
+        switch($type) {
+            case 1:
+                return "cd-icon-voting.svg";
+                break;
+            case 2:
+                return "cd-icon-down.svg";
+                break;
+            case 3:
+                return "cd-icon-up.svg";
+                break;
+            default:
+                return "cd-icon-picture.svg";
+                break;
+        }
+    }

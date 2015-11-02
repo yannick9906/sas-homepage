@@ -58,7 +58,24 @@ h2, .card2 h2{
 
 a {
     text-decoration: none;
+    color: #2196F3;
 }
+
+a:hover {
+    text-decoration: underline;
+    color: #2196F3;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #2196F3;
+}
+
+a:visited:hover {
+    text-decoration: underline;
+    color: #2196F3;
+}
+
 
 p, .card2 p  {
     color: #555555;

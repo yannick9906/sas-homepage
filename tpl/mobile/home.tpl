@@ -5,14 +5,20 @@
 
             {include(file="drawer_panel.tpl", args=0)}
 
-            <div tool icon="menu">Schlopolis 2.0</div>
+            <div tool icon="menu">Schlopolis</div>
 
             <!-- Main Content -->
+            <paper-shadow>
+                <video width="100%" controls autoplay>
+                    <source src="mp4/trailer.mp4" type="movie/mp4">
+                    <source src="mp4/trailer-hd.mp4" type="movie/mp4">
+                </video>
+            </paper-shadow>
             <paper-shadow z="2" id="countdown" class="card"></paper-shadow>
 
             <paper-shadow z="1" class="card">
                 <a href="index.php?p=1"><h2>Nächster Termin</h2></a>
-                <p>{$page.evDate} - {$page.evTitle}</p>
+                <p>{$page.evTitle}<br/>{$page.evDate}</p>
             </paper-shadow>
 
             <paper-shadow z="1" class="card">

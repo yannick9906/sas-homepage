@@ -1,6 +1,6 @@
 <head lang="de">
     <meta charset="UTF-8">
-    <title>{$args.title} - Schlopolis 2.0</title>
+    <title>{$args.title} - Schlopolis</title>
     <meta name="theme-color" content="#3F51B5" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black_translucent">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
@@ -24,5 +24,6 @@
     <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
     <link rel="import" href="../bower_components/paper-input/paper-autogrow-textarea.html">
     <link rel="import" href="../bower_components/paper-input/paper-char-counter.html">
+    <script src="vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
     <link rel="stylesheet" href="style/pages_main.css" type="text/css" />
 </head>

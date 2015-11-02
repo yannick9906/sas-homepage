@@ -16,7 +16,7 @@
             //Naechster Termin
             $res = $pdo->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
             $timestamp = strtotime($res->Date);
-            $evDate  = date("d.m.Y", $timestamp);
+            $evDate  = date("d. M Y", $timestamp);
             $evTitle = $res->title;
 
             //Spruch der Woche
@@ -33,7 +33,7 @@
                     "evDate"  => $evDate,
                     "evTitle" => $evTitle,
                     "spWeek"  => $spWeek,
-                    "evText"  => $spText
+                    "spText"  => $spText
                 ]
             ];
 
@@ -57,10 +57,12 @@
             $res = $db->query("SELECT * FROM calendar  WHERE `Date` > CURDATE() ORDER BY `Date` ASC");
             while($row = $res->fetch_object()) {
                 $timestamp = strtotime($row->Date);
-                $evDate = date("d.m.Y", $timestamp);
-                $pgData["page"]["items"][$i]["title"] = $row->title;
-                $pgData["page"]["items"][$i]["text"]  = $row->info;
-                $pgData["page"]["items"][$i]["date"]  = $evDate;
+                $evDate = date("d. M Y", $timestamp);
+                $pgData["page"]["items"][$i]["title"]     = $row->title;
+                $pgData["page"]["items"][$i]["text"]      = $row->info;
+                $pgData["page"]["items"][$i]["date"]      = $evDate;
+                $pgData["page"]["items"][$i]["htmlclass"] = getHtmlClassForCalType($row->type);
+                $pgData["page"]["items"][$i]["imgpath"]   = getImgPathForCalType($row->type);
                 $i++;
             }
 
