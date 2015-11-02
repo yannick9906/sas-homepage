@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html class="no-js">
     {include(file="header.tpl", args=$header)}
     <body fullbleed unresolved>

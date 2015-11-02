@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     {include(file="header.tpl", args=$header)}
     <body fullbleed unresolved onload="countdown()">

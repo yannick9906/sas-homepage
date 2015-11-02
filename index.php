@@ -41,12 +41,12 @@
             else $dwoo->output("tpl/mobile/home.tpl", $pgData);
 
             break;
-        case 1: //Kalender
+        case 1: //Timeline
             require_once 'php/main.php';
             $db = DBConnect();
             $pgData = [
                 "header" => [
-                    "title" => "Kalender"
+                    "title" => "Timeline"
                 ],
                 "page" => [
                     "items"  => []
@@ -200,7 +200,7 @@
             if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
             else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
             break;
-        case 8: //Unuesed
+        case 8: //Unused
             $pgData = [
                 "header" => [
                     "title" => "Häufige Fragen"
@@ -225,5 +225,62 @@
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/about.tpl", $pgData);
             else $dwoo->output("tpl/mobile/about.tpl", $pgData);
+            break;
+        case 10: // Protokolle
+            require_once 'php/main.php';
+            $db = DBConnect();
+            $pgData = [
+                "header" => [
+                    "title" => "Protokolle"
+                ],
+                "page" => [
+                    "items"  => [],
+                ]
+            ];
+
+            $i = 0;
+            $res = $db->query("SELECT * FROM protokols");
+            while($row = $res->fetch_object()) {
+                $timestamp = strtotime($row->date);
+                $date = date("d. M Y", $timestamp);
+                $pgData["page"]["items"][$i]["dl"] = $row->dl;
+                $pgData["page"]["items"][$i]["name"]  = $row->title;
+                $pgData["page"]["items"][$i]["info"]  = $date;
+                $i++;
+            }
+
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
+            break;
+        case 11: // Pages
+            $id = $_GET['id'];
+            if(!is_numeric($id)) {
+                if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+                else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+                exit;
+            }
+
+            //Spruch der Woche
+            $res = $pdo->query("SELECT * FROM pages WHERE pID = :p", [":p" => $id]);
+
+            //Dwoo
+            $pgData = [
+                "header" => [
+                    "title" => $res->title
+                ],
+                "page" => [
+                    "highlight" => $res->highlight,
+                    "text"  => $res->text
+                ]
+            ];
+
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
+            else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+
+            break;
+        default:
+            if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+            else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
             break;
     }
