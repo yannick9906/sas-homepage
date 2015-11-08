@@ -3,12 +3,12 @@
 <head>
     <title>ICMS - {$args.title}</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../content/styles/Editor-icms.css" type="text/css" />
+    <link rel="stylesheet" href="style/Editor-icms.css" type="text/css" />
     <script src="http://use.edgefonts.net/overlock:i7,i9,n7,i4,n4,n9:all.js"></script>
 </head>
 <body>
 <div class="sidebar">
-    <img src="../content/assets/icms-logo.png" class="sidebar-ICMSLogo"  alt="ICMS" />
+    <img src="style/icms-logo.png" class="sidebar-ICMSLogo"  alt="ICMS" />
     <div class="sidebar-menu">
         <div class="sidebar-menu-item"><a href="index.php" class="sidebar-menu-item">Home</a></div>
         <div class="sidebar-menu-item"><a href="list.php" class="sidebar-menu-item">Seiten</a></div>
