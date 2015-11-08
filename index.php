@@ -170,6 +170,7 @@
                 $pgData["page"]["items"][$i]["info"]  = $row->textshort;
                 $pgData["page"]["items"][$i]["name"]  = $row->Name;
                 $pgData["page"]["items"][$i]["icon"]  = $row->Icon;
+                if(mktime(date("d M Y")) >= mktime(0,0,0,11,9,2015)) $pgData["page"]["ok"] = 1;
                 $i++;
             }
 

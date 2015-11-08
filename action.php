@@ -16,15 +16,15 @@ $detect = new Mobile_Detect;
 
 switch($pg) {
     case 1: //FAQ Email
-            $emailadrr = "Yannick Felix <yannick.felix1999@gmail.com>";
-            $emailfrom = $_POST["email"];
-            $betreff   = $_POST["subject"];
-            $text      = $_POST["text"];
-            $header = "From: $emailfrom" . "\r\n" .
-                "Reply-To: $emailfrom" . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
+        $emailadrr = "Yannick Felix <yannick.felix1999@gmail.com>";
+        $emailfrom = $_POST["email"];
+        $betreff   = $_POST["subject"];
+        $text      = $_POST["text"];
+        $header = "From: $emailfrom" . "\r\n" .
+            "Reply-To: $emailfrom" . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
 
-            $message = <<<EMAIL
+        $message = <<<EMAIL
 Neue Nachricht von $emailfrom.
 
 Nachricht:
@@ -35,8 +35,8 @@ $text
 EMAIL;
 
 
-            mail($emailadrr, "SAS FAQ Neue Frage: ".$betreff, $message, $header);
-            echo "<html><head><meta http-equiv='refresh' content='0, url=index.php?p=7&i=1'/></head></html>";
-        break;
+        mail($emailadrr, "SAS FAQ Neue Frage: ".$betreff, $message, $header);
+        echo "<html><head><meta http-equiv='refresh' content='0, url=index.php?p=7&i=1'/></head></html>";
+    break;
 
 }

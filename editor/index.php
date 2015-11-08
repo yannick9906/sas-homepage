@@ -14,4 +14,4 @@ $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
 
-$dwoo->output("tpl/index.tpl");
+$dwoo->output("../editor/tpl/index.tpl");

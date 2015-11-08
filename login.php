@@ -37,6 +37,7 @@
 			$_SESSION['uID'] = $row->uID;
 			$_SESSION['Kontonr'] = $row->Kontonr;
 			echo "Login successful!";
+            echo "<html><head><meta http-equiv='refresh' content='0; url=editor/index.php' /></head></html>";
 			//Weiterleitung
 		} else {
 			echo "Wrong Password/Username!";

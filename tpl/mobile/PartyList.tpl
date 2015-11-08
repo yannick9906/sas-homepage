@@ -16,7 +16,20 @@
                     <a href="index.php?p=6&id={$item.id}"><p>{$item.info}</p></a>
                 </paper-shadow>
             {/foreach}
-
+            {if $page.ok == 1}
+                <paper-shadow z="1" class="listcard">
+                    Du m&ouml;chtest eine Partei gr&uuml;nden?<br/>
+                    <a href="pdf/Parteigründung.pdf">Hier ist das Formular</a>
+                </paper-shadow>
+                <paper-shadow z="2" class="listcard">
+                    Hier kannst du als Direktmandat kandidieren.<br/>
+                    <a href="pdf/Direktmandat.pdf">Formular</a>
+                </paper-shadow>
+                <paper-shadow z="3" class="listcard">
+                    Oder willst du gleich als Monarch kandidieren?<br/>
+                    <a href="pdf/Monarch.pdf">Dann ist hier das Formular</a>
+                </paper-shadow>
+            {/if}
 
             {include("counter.tpl")}
 
