@@ -16,7 +16,10 @@
             //Naechster Termin
             $res = $pdo->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
             $timestamp = strtotime($res->Date);
-            $evDate  = date("d. M Y", $timestamp);
+            if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
+                $evDate = date("d. M Y", $timestamp);
+            else
+                $evDate = date("d. M Y - H:i", $timestamp);
             $evTitle = $res->title;
 
             //Spruch der Woche
@@ -57,7 +60,10 @@
             $res = $db->query("SELECT * FROM calendar  WHERE `Date` > CURDATE() ORDER BY `Date` ASC");
             while($row = $res->fetch_object()) {
                 $timestamp = strtotime($row->Date);
-                $evDate = date("d. M Y", $timestamp);
+                if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
+                    $evDate = date("d. M Y", $timestamp);
+                else
+                    $evDate = date("d. M Y - H:i", $timestamp);
                 $pgData["page"]["items"][$i]["title"]     = $row->title;
                 $pgData["page"]["items"][$i]["text"]      = $row->info;
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
@@ -70,6 +76,8 @@
             else $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
             break;
         case 2: //News
+            require_once 'php/main.php';
+            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "News"
@@ -79,6 +87,20 @@
                 ]
             ];
 
+            $i = 0;
+            $res = $db->query("SELECT * FROM news ORDER BY ID DESC LIMIT 20");
+            while($row = $res->fetch_object()) {
+                $timestamp = strtotime($row->date);
+                if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
+                    $evDate = date("d. M Y", $timestamp);
+                else
+                    $evDate = date("d. M Y - H:i", $timestamp);
+                $pgData["page"]["items"][$i]["title"] = $row->title;
+                $pgData["page"]["items"][$i]["text"]  = $row->text;
+                $pgData["page"]["items"][$i]["date"]  = $evDate;
+                $pgData["page"]["items"][$i]["link"]  = $row->link;
+                $i++;
+            }
             if($detect->isMobile()) $dwoo->output("tpl/mobile/news.tpl", $pgData);
             else $dwoo->output("tpl/mobile/news.tpl", $pgData);
             break;

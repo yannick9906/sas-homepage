@@ -7,7 +7,7 @@
             {include(file="drawer_panel.tpl", args=6)}
 
             <!-- Main Content -->
-            <div tool icon="menu">Vorstellung der Parteien</div>
+            <div tool icon="menu">Wahlen</div>
 
             {foreach $page.items item}
                 <paper-shadow z="1" class="listcard" style="min-height: 40px; height: 50%">

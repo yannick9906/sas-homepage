@@ -252,6 +252,15 @@ img {
     color: white;
     border-radius: 0.25em;
 }
+
+.cd-timeline-content .cd-read-more:hover {
+    float: right;
+    padding: .8em 1em;
+    background: #acb7c0;
+    color: white;
+    border-radius: 0.25em;
+    text-decoration: none;
+}
 .no-touch .cd-timeline-content .cd-read-more:hover {
     background-color: #bac4cb;
 }

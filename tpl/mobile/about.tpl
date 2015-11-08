@@ -4,7 +4,7 @@
     <body fullbleed unresolved onload="countdown()">
         <core-scaffold>
 
-            {include(file="drawer_panel.tpl", args=9)}
+            {include(file="drawer_panel.tpl", args=8)}
 
             <div tool icon="menu">Impressum</div>
 

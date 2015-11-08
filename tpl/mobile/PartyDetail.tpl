@@ -6,7 +6,7 @@
             {include(file="drawer_panel.tpl", args=6)}
 
             <!-- Main Content -->
-            <div tool icon="menu">Vorstellung der Parteien</div>
+            <div tool icon="menu">Wahlen</div>
 
             <img src="group_people_icon.jpg" style="width: 100%; height: auto;"/>
             <paper-shadow z="1" class="detailcard">
