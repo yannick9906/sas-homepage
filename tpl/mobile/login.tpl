@@ -11,7 +11,7 @@
 
             <form action="?action=1" method="post">
                 <paper-shadow z="2" class="card">
-                    Dieser Login ist f&uuml;r der Administrator, Aks und Parteien.<br/>
+                    Dieser Login ist f&uuml;r den Administrator, Aks und Parteien.<br/>
                     {$page.err}
                     <paper-input-decorator floatingLabel flex label="Benutzername"><input type="text" name="usrname" title="username"/></paper-input-decorator>
                     <paper-input-decorator floatingLabel flex label="Passwort"><input type="password" name="passwd" title="password"/></paper-input-decorator>
