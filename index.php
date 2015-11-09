@@ -1,7 +1,6 @@
 <?php
     $pg = $_GET['p']; // ID der Seite
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
-
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
     require_once 'php/Mobile_Detect.php'; // Mobile Detect
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
@@ -9,6 +8,14 @@
     $detect = new Mobile_Detect;
     Dwoo\Autoloader::register();
     $dwoo = new Dwoo\Core();
+
+if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
+
+    if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
+    else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
+    exit;
+}
+print $_SERVER["REMOTE_ADDR"];
 
 
     switch($pg) {

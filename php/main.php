@@ -13,7 +13,7 @@
 	 * @return mysqli
 	 */
 	function DBConnect() {
-		return new mysqli('mysql.lima-city.de', 'USER302476', 'ubW0yhSI', 'db_302476_1');
+		return new mysqli('rdbms.strato.de', 'U2344370', 'bA2ZeRp0', 'DB2344370');
 	}
 
 
