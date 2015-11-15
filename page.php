@@ -1,5 +1,5 @@
 <?php
-    $pg = $_GET['p']; // ID der Seite
+    $pg = $_POST['p']; // ID der Seite
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
     require_once 'php/Mobile_Detect.php'; // Mobile Detect
@@ -11,8 +11,8 @@
 
 if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
-    if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
-    else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
+    if($detect->isMobile()) $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 403],"code" => 403]);
+    else $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 403],"code" => 403]);
     exit;
 }
 
@@ -45,8 +45,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/home.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/home.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/home.tpl", $pgData);
 
             break;
         case 1: //Timeline
@@ -77,8 +77,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $i++;
             }
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/calendar.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/calendar.tpl", $pgData);
             break;
         case 2: //News
             require_once 'php/main.php';
@@ -106,8 +106,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $pgData["page"]["items"][$i]["link"]  = $row->link;
                 $i++;
             }
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/news.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/news.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/news.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/news.tpl", $pgData);
             break;
         case 3: //Aks Liste
             require_once 'php/main.php';
@@ -131,8 +131,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $i++;
             }
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/AksList.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/AksList.tpl", $pgData);
             break;
         case 4: //Aks Detail
             require_once 'php/main.php';
@@ -151,8 +151,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                     ]
                 ];
 
-                if ($detect->isMobile()) $dwoo->output("tpl/mobile/AkDetail.tpl", $pgData);
-                else $dwoo->output("tpl/mobile/AkDetail.tpl", $pgData);
+                if ($detect->isMobile()) $dwoo->output("tpl/mobilet/AkDetail.tpl", $pgData);
+                else $dwoo->output("tpl/mobilet/AkDetail.tpl", $pgData);
             }
 
             break;
@@ -179,8 +179,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $i++;
             }
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/PartyList.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/PartyList.tpl", $pgData);
             break;
         case 6: //Parteien Detail
             require_once 'php/main.php';
@@ -199,8 +199,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                     ]
                 ];
 
-                if ($detect->isMobile()) $dwoo->output("tpl/mobile/PartyDetail.tpl", $pgData);
-                else $dwoo->output("tpl/mobile/PartyDetail.tpl", $pgData);
+                if ($detect->isMobile()) $dwoo->output("tpl/mobilet/PartyDetail.tpl", $pgData);
+                else $dwoo->output("tpl/mobilet/PartyDetail.tpl", $pgData);
             }
             break;
         case 7: //FAQ
@@ -225,8 +225,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             }
 
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/bugs.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/bugs.tpl", $pgData);
             break;
         case 8: //Unused
             $pgData = [
@@ -238,8 +238,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/bugs.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/bugs.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/bugs.tpl", $pgData);
             break;
         case 9: // Impressum
             $pgData = [
@@ -251,8 +251,8 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/about.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/about.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/about.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/about.tpl", $pgData);
             break;
         case 10: // Protokolle
             require_once 'php/main.php';
@@ -278,14 +278,14 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             }
 
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/protokollList.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/protokollList.tpl", $pgData);
             break;
         case 11: // Pages
-            $id = $_GET['id'];
+            $id = $_POST['id'];
             if(!is_numeric($id)) {
-                if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
-                else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+                if($detect->isMobile()) $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+                else $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 404],"code" => 404]);
                 exit;
             }
 
@@ -303,12 +303,12 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/page.tpl", $pgData);
+            else $dwoo->output("tpl/mobilet/page.tpl", $pgData);
 
             break;
         default:
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
-            else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+            if($detect->isMobile()) $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+            else $dwoo->output("tpl/mobilet/error.tpl", ["header" => ["title" => 404],"code" => 404]);
             break;
     }
