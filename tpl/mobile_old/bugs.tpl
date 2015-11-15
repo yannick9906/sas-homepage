@@ -1,4 +1,11 @@
-7            <div tool icon="menu">Fragen</div>
+<html>
+    {include(file="header.tpl", args=$header)}
+    <body fullbleed unresolved {if $page.i == 1}onload="show();" {/if}>
+        <core-scaffold>
+
+            {include(file="drawer_panel.tpl", args=7)}
+
+            <div tool icon="menu">Fragen</div>
 
             <paper-tabs selected="0">
 		<paper-tab>Häufige Fragen (FAQ)</paper-tab>
@@ -39,3 +46,7 @@
             toast.show();
         }
 	</script>
+
+        </core-scaffold>
+    </body>
+</html>

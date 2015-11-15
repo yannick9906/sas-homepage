@@ -1,4 +1,12 @@
-6            <!-- Main Content -->
+<!DOCTYPE html>
+<html>
+    {include(file="header.tpl", args=$header)}
+    <body fullbleed unresolved>
+        <core-scaffold>
+
+            {include(file="drawer_panel.tpl", args=6)}
+
+            <!-- Main Content -->
             <div tool icon="menu">Wahlen</div>
 
             {foreach $page.items item}
@@ -24,3 +32,7 @@
             {/if}
 
             {include("counter.tpl")}
+
+        </core-scaffold>
+    </body>
+</html>

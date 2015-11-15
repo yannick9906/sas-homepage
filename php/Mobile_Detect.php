@@ -3,10 +3,10 @@
  * Mobile Detect Library
  * =====================
  *
- * Motto: "Every business should have a mobile detection script to detect mobile readers"
+ * Motto: "Every business should have a mobile_old detection script to detect mobile_old readers"
  *
- * Mobile_Detect is a lightweight PHP class for detecting mobile devices (including tablets).
- * It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.
+ * Mobile_Detect is a lightweight PHP class for detecting mobile_old devices (including tablets).
+ * It uses the User-Agent string combined with specific HTTP headers to detect the mobile_old environment.
  *
  * @author      Current authors: Serban Ghita <serbanghita@gmail.com>
  *                               Nick Ilyin <nick.ilyin@gmail.com>
@@ -18,7 +18,7 @@
  *
  * @link        Homepage:     http://mobiledetect.net
  *              GitHub Repo:  https://github.com/serbanghita/Mobile-Detect
- *              Google Code:  http://code.google.com/p/php-mobile-detect/
+ *              Google Code:  http://code.google.com/p/php-mobile_old-detect/
  *              README:       https://github.com/serbanghita/Mobile-Detect/blob/master/README.md
  *              HOWTO:        https://github.com/serbanghita/Mobile-Detect/wiki/Code-examples
  *
@@ -31,7 +31,7 @@ class Mobile_Detect
      *
      * @deprecated since version 2.6.9
      */
-    const DETECTION_TYPE_MOBILE     = 'mobile';
+    const DETECTION_TYPE_MOBILE     = 'mobile_old';
     /**
      * Extended detection type.
      *
@@ -143,7 +143,7 @@ class Mobile_Detect
         'HTTP_UA_CPU'                  => array('matches' => array('ARM')),
     );
     /**
-     * List of mobile devices (phones).
+     * List of mobile_old devices (phones).
      *
      * @var array
      */
@@ -172,8 +172,8 @@ class Mobile_Detect
         'Fly'           => 'IQ230|IQ444|IQ450|IQ440|IQ442|IQ441|IQ245|IQ256|IQ236|IQ255|IQ235|IQ245|IQ275|IQ240|IQ285|IQ280|IQ270|IQ260|IQ250',
         // http://fr.wikomobile.com
         'Wiko'          => 'KITE 4G|HIGHWAY|GETAWAY|STAIRWAY|DARKSIDE|DARKFULL|DARKNIGHT|DARKMOON|SLIDE|WAX 4G|RAINBOW|BLOOM|SUNSET|GOA|LENNY|BARRY|IGGY|OZZY|CINK FIVE|CINK PEAX|CINK PEAX 2|CINK SLIM|CINK SLIM 2|CINK +|CINK KING|CINK PEAX|CINK SLIM|SUBLIM',
-        'iMobile'        => 'i-mobile (IQ|i-STYLE|idea|ZAA|Hitz)',
-        // Added simvalley mobile just for fun. They have some interesting devices.
+        'iMobile'        => 'i-mobile_old (IQ|i-STYLE|idea|ZAA|Hitz)',
+        // Added simvalley mobile_old just for fun. They have some interesting devices.
         // http://www.simvalley.fr/telephonie---gps-_22_telephonie-mobile_telephones_.html
         'SimValley'     => '\b(SP-80|XT-930|SX-340|XT-930|SX-310|SP-360|SP60|SPT-800|SP-120|SPT-800|SP-140|SPX-5|SPX-8|SP-100|SPX-8|SPX-12)\b',
         // Wolfgang - a brand that is sold by Aldi supermarkets.
@@ -185,7 +185,7 @@ class Mobile_Detect
         'Amoi'          => 'Amoi',
         // http://en.wikipedia.org/wiki/INQ
         'INQ'           => 'INQ',
-        // @Tapatalk is a mobile app; http://support.tapatalk.com/threads/smf-2-0-2-os-and-browser-detection-plugin-and-tapatalk.15565/#post-79039
+        // @Tapatalk is a mobile_old app; http://support.tapatalk.com/threads/smf-2-0-2-os-and-browser-detection-plugin-and-tapatalk.15565/#post-79039
         'GenericPhone'  => 'Tapatalk|PDA;|SAGEM|\bmmp\b|pocket|\bpsp\b|symbian|Smartphone|smartfon|treo|up.browser|up.link|vodafone|\bwap\b|nokia|Series40|Series60|S60|SonyEricsson|N900|MAUI.*WAP.*Browser',
     );
     /**
@@ -194,7 +194,7 @@ class Mobile_Detect
      * @var array
      */
     protected static $tabletDevices = array(
-        // @todo: check for mobile friendly emails topic.
+        // @todo: check for mobile_old friendly emails topic.
         'iPad'              => 'iPad|iPad.*Mobile',
         // Removed |^.*Android.*Nexus(?!(?:Mobile).)*$
         // @see #442
@@ -202,7 +202,7 @@ class Mobile_Detect
         'SamsungTablet'     => 'SAMSUNG.*Tablet|Galaxy.*Tab|SC-01C|GT-P1000|GT-P1003|GT-P1010|GT-P3105|GT-P6210|GT-P6800|GT-P6810|GT-P7100|GT-P7300|GT-P7310|GT-P7500|GT-P7510|SCH-I800|SCH-I815|SCH-I905|SGH-I957|SGH-I987|SGH-T849|SGH-T859|SGH-T869|SPH-P100|GT-P3100|GT-P3108|GT-P3110|GT-P5100|GT-P5110|GT-P6200|GT-P7320|GT-P7511|GT-N8000|GT-P8510|SGH-I497|SPH-P500|SGH-T779|SCH-I705|SCH-I915|GT-N8013|GT-P3113|GT-P5113|GT-P8110|GT-N8010|GT-N8005|GT-N8020|GT-P1013|GT-P6201|GT-P7501|GT-N5100|GT-N5105|GT-N5110|SHV-E140K|SHV-E140L|SHV-E140S|SHV-E150S|SHV-E230K|SHV-E230L|SHV-E230S|SHW-M180K|SHW-M180L|SHW-M180S|SHW-M180W|SHW-M300W|SHW-M305W|SHW-M380K|SHW-M380S|SHW-M380W|SHW-M430W|SHW-M480K|SHW-M480S|SHW-M480W|SHW-M485W|SHW-M486W|SHW-M500W|GT-I9228|SCH-P739|SCH-I925|GT-I9200|GT-P5200|GT-P5210|GT-P5210X|SM-T311|SM-T310|SM-T310X|SM-T210|SM-T210R|SM-T211|SM-P600|SM-P601|SM-P605|SM-P900|SM-P901|SM-T217|SM-T217A|SM-T217S|SM-P6000|SM-T3100|SGH-I467|XE500|SM-T110|GT-P5220|GT-I9200X|GT-N5110X|GT-N5120|SM-P905|SM-T111|SM-T2105|SM-T315|SM-T320|SM-T320X|SM-T321|SM-T520|SM-T525|SM-T530NU|SM-T230NU|SM-T330NU|SM-T900|XE500T1C|SM-P605V|SM-P905V|SM-T337V|SM-T537V|SM-T707V|SM-T807V|SM-P600X|SM-P900X|SM-T210X|SM-T230|SM-T230X|SM-T325|GT-P7503|SM-T531|SM-T330|SM-T530|SM-T705|SM-T705C|SM-T535|SM-T331|SM-T800|SM-T700|SM-T537|SM-T807|SM-P907A|SM-T337A|SM-T537A|SM-T707A|SM-T807A|SM-T237|SM-T807P|SM-P607T|SM-T217T|SM-T337T|SM-T807T|SM-T116NQ|SM-P550|SM-T350|SM-T550|SM-T9000|SM-P9000|SM-T705Y|SM-T805|GT-P3113|SM-T710|SM-T810|SM-T360|SM-T533', // SCH-P709|SCH-P729|SM-T2558|GT-I9205 - Samsung Mega - treat them like a regular phone.
         // http://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
         'Kindle'            => 'Kindle|Silk.*Accelerated|Android.*\b(KFOT|KFTT|KFJWI|KFJWA|KFOTE|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|WFJWAE|KFSAWA|KFSAWI|KFASWI)\b',
-        // Only the Surface tablets with Windows RT are considered mobile.
+        // Only the Surface tablets with Windows RT are considered mobile_old.
         // http://msdn.microsoft.com/en-us/library/ie/hh920767(v=vs.85).aspx
         'SurfaceTablet'     => 'Windows NT [0-9.]+; ARM;.*(Tablet|ARMBJS)',
         // http://shopping1.hp.com/is-bin/INTERSHOP.enfinity/WFS/WW-USSMBPublicStore-Site/en_US/-/USD/ViewStandardCatalog-Browse?CatalogCategoryID=JfIQ7EN5lqMAAAEyDcJUDwMT
@@ -302,7 +302,7 @@ class Mobile_Detect
         'DanewTablet'       => 'DSlide.*\b(700|701R|702|703R|704|802|970|971|972|973|974|1010|1012)\b',
         // Texet Tablets and Readers http://www.texet.ru/tablet/
         'TexetTablet'       => 'NaviPad|TB-772A|TM-7045|TM-7055|TM-9750|TM-7016|TM-7024|TM-7026|TM-7041|TM-7043|TM-7047|TM-8041|TM-9741|TM-9747|TM-9748|TM-9751|TM-7022|TM-7021|TM-7020|TM-7011|TM-7010|TM-7023|TM-7025|TM-7037W|TM-7038W|TM-7027W|TM-9720|TM-9725|TM-9737W|TM-1020|TM-9738W|TM-9740|TM-9743W|TB-807A|TB-771A|TB-727A|TB-725A|TB-719A|TB-823A|TB-805A|TB-723A|TB-715A|TB-707A|TB-705A|TB-709A|TB-711A|TB-890HD|TB-880HD|TB-790HD|TB-780HD|TB-770HD|TB-721HD|TB-710HD|TB-434HD|TB-860HD|TB-840HD|TB-760HD|TB-750HD|TB-740HD|TB-730HD|TB-722HD|TB-720HD|TB-700HD|TB-500HD|TB-470HD|TB-431HD|TB-430HD|TB-506|TB-504|TB-446|TB-436|TB-416|TB-146SE|TB-126SE',
-        // Avoid detecting 'PLAYSTATION 3' as mobile.
+        // Avoid detecting 'PLAYSTATION 3' as mobile_old.
         'PlaystationTablet' => 'Playstation.*(Portable|Vita)',
         // http://www.trekstor.de/surftabs.html
         'TrekstorTablet'    => 'ST10416-1|VT10416-1|ST70408-1|ST702xx-1|ST702xx-2|ST80208|ST97216|ST70104-2|VT10416-2|ST10216-2A|SurfTab',
@@ -369,8 +369,8 @@ class Mobile_Detect
         'EssentielBTablet' => 'Smart[ \']?TAB[ ]+?[0-9]+|Family[ \']?TAB2',
         // Ross & Moor - http://ross-moor.ru/
         'RossMoorTablet' => 'RM-790|RM-997|RMD-878G|RMD-974R|RMT-705A|RMT-701|RME-601|RMT-501|RMT-711',
-        // i-mobile http://product.i-mobilephone.com/Mobile_Device
-        'iMobileTablet'        => 'i-mobile i-note',
+        // i-mobile_old http://product.i-mobilephone.com/Mobile_Device
+        'iMobileTablet'        => 'i-mobile_old i-note',
         // http://www.tolino.de/de/vergleichen/
         'TolinoTablet'  => 'tolino tab [0-9.]+|tolino shine',
         // AudioSonic - a Kmart brand
@@ -439,7 +439,7 @@ class Mobile_Detect
         'GenericTablet'     => 'Android.*\b97D\b|Tablet(?!.*PC)|BNTV250A|MID-WCDMA|LogicPD Zoom2|\bA7EB\b|CatNova8|A1_07|CT704|CT1002|\bM721\b|rk30sdk|\bEVOTAB\b|M758A|ET904|ALUMIUM10|Smartfren Tab|Endeavour 1010|Tablet-PC-4|Tagi Tab|\bM6pro\b|CT1020W|arc 10HD|\bJolla\b|\bTP750\b'
     );
     /**
-     * List of mobile Operating Systems.
+     * List of mobile_old Operating Systems.
      *
      * @var array
      */
@@ -468,7 +468,7 @@ class Mobile_Detect
         'BREWOS'            => 'BREW',
     );
     /**
-     * List of mobile User Agents.
+     * List of mobile_old User Agents.
      *
      * @var array
      */
@@ -511,7 +511,7 @@ class Mobile_Detect
      * @var array
      */
     protected static $utilities = array(
-        // Experimental. When a mobile device wants to switch to 'Desktop Mode'.
+        // Experimental. When a mobile_old device wants to switch to 'Desktop Mode'.
         // http://scottcate.com/technology/windows-phone-8-ie10-desktop-or-mobile/
         // https://github.com/serbanghita/Mobile-Detect/issues/57#issuecomment-15024011
         // https://developers.facebook.com/docs/sharing/best-practices
@@ -628,7 +628,7 @@ class Mobile_Detect
      * Get the current script version.
      * This is useful for the demo.php file,
      * so people can check on what version they are testing
-     * for mobile devices.
+     * for mobile_old devices.
      *
      * @return string The version number in semantic version format.
      */
@@ -857,7 +857,7 @@ class Mobile_Detect
         return self::$utilities;
     }
     /**
-     * Method gets the mobile detection rules. This method is used for the magic methods $detect->is*().
+     * Method gets the mobile_old detection rules. This method is used for the magic methods $detect->is*().
      *
      * @deprecated since version 2.6.9
      *
@@ -877,9 +877,9 @@ class Mobile_Detect
         return $rules;
     }
     /**
-     * Method gets the mobile detection rules + utilities.
+     * Method gets the mobile_old detection rules + utilities.
      * The reason this is separate is because utilities rules
-     * don't necessary imply mobile. This method is used inside
+     * don't necessary imply mobile_old. This method is used inside
      * the new $detect->is('stuff') method.
      *
      * @deprecated since version 2.6.9
@@ -917,17 +917,17 @@ class Mobile_Detect
         }
     }
     /**
-     * Retrieve the list of mobile operating systems.
+     * Retrieve the list of mobile_old operating systems.
      *
-     * @return array The list of mobile operating systems.
+     * @return array The list of mobile_old operating systems.
      */
     public static function getOperatingSystems()
     {
         return self::$operatingSystems;
     }
     /**
-     * Check the HTTP headers for signs of mobile.
-     * This is the fastest mobile check possible; it's used
+     * Check the HTTP headers for signs of mobile_old.
+     * This is the fastest mobile_old check possible; it's used
      * inside isMobile() method.
      *
      * @return bool
@@ -1014,8 +1014,8 @@ class Mobile_Detect
         return $this->cache[$key];
     }
     /**
-     * Check if the device is mobile.
-     * Returns true if any type of mobile device detected, including special ones
+     * Check if the device is mobile_old.
+     * Returns true if any type of mobile_old device detected, including special ones
      * @param  null $userAgent   deprecated
      * @param  null $httpHeaders deprecated
      * @return bool
@@ -1182,7 +1182,7 @@ class Mobile_Detect
         return false;
     }
     /**
-     * Retrieve the mobile grading, using self::MOBILE_GRADE_* constants.
+     * Retrieve the mobile_old grading, using self::MOBILE_GRADE_* constants.
      *
      * @return string One of the self::MOBILE_GRADE_* constants.
      */
@@ -1190,7 +1190,7 @@ class Mobile_Detect
     {
         $isMobile = $this->isMobile();
         if (
-            // Apple iOS 4-7.0 – Tested on the original iPad (4.3 / 5.0), iPad 2 (4.3 / 5.1 / 6.1), iPad 3 (5.1 / 6.0), iPad Mini (6.1), iPad Retina (7.0), iPhone 3GS (4.3), iPhone 4 (4.3 / 5.1), iPhone 4S (5.1 / 6.0), iPhone 5 (6.0), and iPhone 5S (7.0)
+            // Apple iOS 4-7.0 ï¿½ Tested on the original iPad (4.3 / 5.0), iPad 2 (4.3 / 5.1 / 6.1), iPad 3 (5.1 / 6.0), iPad Mini (6.1), iPad Retina (7.0), iPhone 3GS (4.3), iPhone 4 (4.3 / 5.1), iPhone 4S (5.1 / 6.0), iPhone 5 (6.0), and iPhone 5S (7.0)
             $this->is('iOS') && $this->version('iPad', self::VERSION_TYPE_FLOAT) >= 4.3 ||
             $this->is('iOS') && $this->version('iPhone', self::VERSION_TYPE_FLOAT) >= 4.3 ||
             $this->is('iOS') && $this->version('iPod', self::VERSION_TYPE_FLOAT) >= 4.3 ||
@@ -1201,7 +1201,7 @@ class Mobile_Detect
             ( $this->version('Android', self::VERSION_TYPE_FLOAT)>2.1 && $this->is('Webkit') ) ||
             // Windows Phone 7.5-8 - Tested on the HTC Surround (7.5), HTC Trophy (7.5), LG-E900 (7.5), Nokia 800 (7.8), HTC Mazaa (7.8), Nokia Lumia 520 (8), Nokia Lumia 920 (8), HTC 8x (8)
             $this->version('Windows Phone OS', self::VERSION_TYPE_FLOAT) >= 7.5 ||
-            // Tested on the Torch 9800 (6) and Style 9670 (6), BlackBerry® Torch 9810 (7), BlackBerry Z10 (10)
+            // Tested on the Torch 9800 (6) and Style 9670 (6), BlackBerryï¿½ Torch 9810 (7), BlackBerry Z10 (10)
             $this->is('BlackBerry') && $this->version('BlackBerry', self::VERSION_TYPE_FLOAT) >= 6.0 ||
             // Blackberry Playbook (1.0-2.0) - Tested on PlayBook
             $this->match('Playbook.*Tablet') ||

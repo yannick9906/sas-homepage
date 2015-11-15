@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved>
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=5)}
-
-            <!-- Main Content -->
-            <div tool icon="menu">Vorstellung der Arbeitskreise</div>
+5            <div tool icon="menu">Vorstellung der Arbeitskreise</div>
 
             {foreach $page.items item}
                 <paper-shadow z="1" class="listcard">
@@ -19,7 +10,3 @@
 
 
             {include("counter.tpl")}
-
-        </core-scaffold>
-    </body>
-</html>

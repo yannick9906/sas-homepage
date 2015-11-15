@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved>
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=3)}
-
-            <!-- Main Content -->
+3            <!-- Main Content -->
             <div tool icon="menu">Protokolle</div>
 
             {foreach $page.items item}
@@ -19,7 +11,3 @@
 
 
             {include("counter.tpl")}
-
-        </core-scaffold>
-    </body>
-</html>

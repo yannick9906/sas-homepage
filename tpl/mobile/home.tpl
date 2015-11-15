@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved onload="countdown()">
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=0)}
-
-            <div tool icon="menu">Schlopolis</div>
+0<div tool icon="menu">Schlopolis</div>
 
             <!-- Main Content -->
             <paper-shadow style="width:100%; height:0; padding-bottom: 51%" class="video">
@@ -38,8 +30,3 @@
                     <paper-input floatingLabel flex label='Type message...' id='input' value='{{input}}'></paper-input>
                     <paper-fab icon='send' id='sendButton' on-tap='{{sendMyMessage}}'></paper-fab>
                 </div>-->"}
-        </core-scaffold>
-
-        <script src="javascript/main.js"></script>
-    </body>
-</html>

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved onload="countdown()">
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=9)}
-
-            <!-- Main Content -->
+9           <!-- Main Content -->
             <div tool icon="menu">Login</div>
 
             <form action="?action=1" method="post">
@@ -21,6 +13,3 @@
             </form>
 
             {include("counter.tpl")}
-        </core-scaffold>
-    </body>
-</html>

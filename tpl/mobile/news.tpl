@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved onload="countdown()">
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=2)}
-
-            <!-- Main Content -->
+2            <!-- Main Content -->
             <div tool icon="menu">News</div>
 
             <section id="cd-timeline" class="cd-container">
@@ -32,6 +24,3 @@
             <script src="vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
             <link rel="stylesheet" href="vertical-timeline/css/reset.css"> <!-- CSS reset -->
             <link rel="stylesheet" href="style/vert-timeline.css" type="text/css"/>
-        </core-scaffold>
-    </body>
-</html>

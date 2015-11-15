@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {include(file="header.tpl", args=$header)}
-    <body fullbleed unresolved onload="countdown()">
-        <core-scaffold>
-
-            {include(file="drawer_panel.tpl", args=$page.highlight)}
-
-            <div tool icon="menu">Fehler {$code}</div>
+{$page.highlight}            <div tool icon="menu">Fehler {$code}</div>
 
             <div class="top404">
                 <div class="text404">{$code}</div>
@@ -22,6 +14,3 @@
                     Na toll :/
                 {/if}
             </div>
-        </core-scaffold>
-    </body>
-</html>

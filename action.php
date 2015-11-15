@@ -36,7 +36,7 @@ EMAIL;
 
 
         mail($emailadrr, "SAS FAQ Neue Frage: ".$betreff, $message, $header);
-        echo "<html><head><meta http-equiv='refresh' content='0, url=index.php?p=7&i=1'/></head></html>";
+        echo "<html><head><meta http-equiv='refresh' content='0, url=index.html#p=7&i=1'/></head></html>";
     break;
 
 }

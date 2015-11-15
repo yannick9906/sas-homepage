@@ -49,7 +49,7 @@
 		if($_GET['err']) {
 			$pgData["page"]["err"] = "<span class='error'>Entweder der Benutzername oder das Kennwort ist falsch</span>";
 		}
-        if($detect->isMobile()) $dwoo->output("tpl/mobile/l0ogin.tpl", $pgData);
-        else $dwoo->output("tpl/mobile/login.tpl", $pgData);
+        if($detect->isMobile()) $dwoo->output("tpl/mobile_old/l0ogin.tpl", $pgData);
+        else $dwoo->output("tpl/mobile_old/login.tpl", $pgData);
 	}
 ?>
