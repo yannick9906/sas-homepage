@@ -49,6 +49,34 @@ paper-ripple {
 }
 
 
+@-moz-keyframes getVisible {
+    0% {
+        -moz-transform: scale(0);
+    }
+    100% {
+        -moz-transform: scale(100);
+    }
+}
+@-webkit-keyframes getVisible {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    100% {
+        width: auto;
+        height: auto;
+    }
+}
+@keyframes getVisible {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 h2, .card2 h2{
     padding: 0;
     margin: 0;
@@ -232,4 +260,124 @@ paper-button[raised] {
         display: inline-block;
         vertical-align: middle;
     }
+}
+
+.spinner {
+    -webkit-animation: rotator 1.4s linear infinite;
+    animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+
+@keyframes rotator {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+    0% {
+        stroke: #4285F4;
+    }
+    25% {
+        stroke: #DE3E35;
+    }
+    50% {
+        stroke: #F7C223;
+    }
+    75% {
+        stroke: #1B9A59;
+    }
+    100% {
+        stroke: #4285F4;
+    }
+}
+
+@keyframes colors {
+    0% {
+        stroke: #4285F4;
+    }
+    25% {
+        stroke: #DE3E35;
+    }
+    50% {
+        stroke: #F7C223;
+    }
+    75% {
+        stroke: #1B9A59;
+    }
+    100% {
+        stroke: #4285F4;
+    }
+}
+@-webkit-keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+    50% {
+        stroke-dashoffset: 46.75;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+    50% {
+        stroke-dashoffset: 46.75;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+
+.loa .spinner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32.5px;
+    margin-left: -32.5px;
+}
+
+.loa {
+    height:100%;
+    width:100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

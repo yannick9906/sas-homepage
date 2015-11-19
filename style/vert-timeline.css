@@ -291,6 +291,7 @@ img {
     .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
         font-size: 14px;
         font-size: 0.875rem;
+        text-decoration: none;
     }
 }
 @media only screen and (min-width: 1170px) {
@@ -306,7 +307,12 @@ img {
         border-left-color: white;
     }
     .cd-timeline-content .cd-read-more {
-        float: left;
+        text-decoration: none;
+        float: right;
+    }
+
+    .cd-timeline-content .cd-read-more:hover {
+        float: right;
     }
     .cd-timeline-content .cd-date {
         position: absolute;
@@ -329,6 +335,11 @@ img {
     .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
         float: right;
     }
+
+    .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more:hover {
+        float: right;
+    }
+
     .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-date {
         left: auto;
         right: 122%;

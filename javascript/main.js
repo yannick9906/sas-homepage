@@ -3,7 +3,7 @@
  */
 
 // Ziel-Datum in MEZ
-var jahr=2016, monat=7, tag=4, stunde=8, minute=00, sekunde=00;
+var jahr=2016, monat=7, tag=11, stunde=8, minute=00, sekunde=00;
 var zielDatum=new Date(jahr,monat-1,tag,stunde,minute,sekunde);
 
 function countdown() {

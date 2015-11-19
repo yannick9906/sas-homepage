@@ -1,4 +1,4 @@
-6            <!-- Main Content -->
+7            <!-- Main Content -->
             <div tool icon="menu">Wahlen</div>
 
             <img src="group_people_icon.jpg" style="width: 100%; height: auto;"/>

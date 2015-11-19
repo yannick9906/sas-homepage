@@ -24,7 +24,7 @@
                             </div> <!-- cd-timeline-content -->
                         </div> <!-- cd-timeline-block -->
                     {/foreach}
-            </section> <
+            </section>
 
 
             {include("counter.tpl")}

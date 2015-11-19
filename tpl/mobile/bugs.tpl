@@ -1,4 +1,4 @@
-7            <div tool icon="menu">Fragen</div>
+8            <div tool icon="menu">Fragen</div>
 
             <paper-tabs selected="0">
 		<paper-tab>Häufige Fragen (FAQ)</paper-tab>

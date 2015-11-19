@@ -320,7 +320,7 @@ header h1 {
     border-left-color: white;
   }
   .cd-timeline-content .cd-read-more {
-    float: left;
+    float: right;
   }
   .cd-timeline-content .cd-date {
     position: absolute;

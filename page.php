@@ -41,9 +41,28 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                     "evDate"  => $evDate,
                     "evTitle" => $evTitle,
                     "spWeek"  => $spWeek,
-                    "spText"  => $spText
+                    "spText"  => $spText,
+                    "items"   => []
                 ]
             ];
+
+            require_once 'php/main.php';
+            $db = DBConnect();
+
+            $i = 0;
+            $res = $db->query("SELECT * FROM news ORDER BY ID DESC LIMIT 5");
+            while($row = $res->fetch_object()) {
+                $timestamp = strtotime($row->date);
+                if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
+                    $evDate = date("d. M Y", $timestamp);
+                else
+                    $evDate = date("d. M Y - H:i", $timestamp);
+                $pgData["page"]["items"][$i]["title"] = $row->title;
+                $pgData["page"]["items"][$i]["text"]  = $row->text;
+                $pgData["page"]["items"][$i]["date"]  = $evDate;
+                $pgData["page"]["items"][$i]["link"]  = $row->link;
+                $i++;
+            }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
             else $dwoo->output("tpl/mobile/home.tpl", $pgData);
@@ -137,7 +156,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
         case 4: //Aks Detail
             require_once 'php/main.php';
             $db = DBConnect();
-            $id = $_GET['id'];
+            $id = $_POST['id'];
             if(is_numeric($id)) {
                 $res = $pdo->query("SELECT * FROM AKs WHERE ID = :id", [":id" => $id]);
                 $pgData = [
