@@ -6,13 +6,30 @@
   "version": "0.1",
   "icons": [
     {
-      "src": "Schlopolis.png",
+      "src": "img/splashicon/Schlopolis.png",
       "sizes": "132x132",
       "type": "image/png",
       "density": "1.0"
     }
   ],
+  "splash_screens": [{
+    "src": "img/splashicon/lowres.png",
+    "type": "image/png",
+    "sizes": "240x320"
+  }, {
+    "src": "img/splashicon/hdready.png",
+    "type": "image/png",
+    "sizes": "750x1334"
+  }, {
+    "src": "img/splashicon/fullhd.png",
+    "type": "image/png",
+    "sizes": "1080x1920",
+    "density": 3
+  }],
   "start_url": "index.php#p=0",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "lang": "de",
+  "theme_color": "#3F51B5",
+  "background_color": "#3F51B5"
 }

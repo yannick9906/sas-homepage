@@ -9,6 +9,7 @@ html, body {
     background-color: #e5e5e5;
     font-family: 'Open Sans', sans-serif;
     -webkit-tap-highlight-color: rgba(0,0,0,0); /*Entfernen des Blauen Overlays auf Touchgeräten beim tippen*/
+    transition: all 500ms ease-in;
 }
 
 core-scaffold::shadow core-toolbar { /* Toolbar */
@@ -38,6 +39,11 @@ paper-ripple {
     margin: 10px;
     padding: 5px;
     font-size: 18px;
+    -webkit-transition: opacity 2s ease-in;
+    -moz-transition: opacity 2s ease-in;
+    -ms-transition: opacity 2s ease-in;
+    -o-transition: opacity 2s ease-in;
+    transition: opacity 2s ease-in;
 }
 
 .card2 {
@@ -46,6 +52,15 @@ paper-ripple {
     padding: 5px;
     font-size: 18px;
     background: #EEEEEE;
+    -webkit-transition: opacity 2s ease-in;
+    -moz-transition: opacity 2s ease-in;
+    -ms-transition: opacity 2s ease-in;
+    -o-transition: opacity 2s ease-in;
+    transition: opacity 2s ease-in;
+}
+
+.load {
+    opacity: 1;
 }
 
 

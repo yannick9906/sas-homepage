@@ -13,5 +13,3 @@ $pdo = new PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
-
-$dwoo->output("../editor/tpl/index.tpl");

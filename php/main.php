@@ -62,3 +62,70 @@
                 break;
         }
     }
+
+    /**
+     * @return bool|\ICMS\User
+     */
+    function checkSession() {
+        session_start();
+        if(!isset($_SESSION["uID"])) {
+            return false;
+        } else {
+            return \ICMS\User::fromUID($_SESSION["uID"]);
+        }
+    }
+
+    /**
+     * @param $title String
+     * @param $user \ICMS\User
+     * @return array
+     */
+    function getEditorPageDataStub($title, $user) {
+        return [
+            "header" => [
+                "title" => $title,
+                "usrname" => $user->getUName(),
+                "usrchar" => substr($user->getUName(), 0, 1),
+                "uID" => $user->getUID()
+            ]
+        ];
+    }
+
+    /**
+     * truncate a string only at a whitespace (by nogdog)
+     *
+     * @param $text String
+     * @param $length int
+     * @return String
+     */
+    function truncate($text, $length) {
+        $length = abs((int)$length);
+        if(strlen($text) > $length) {
+            $text = preg_replace("/^(.{1,$length})(\s.*|$)/s", '\\1...', $text);
+        }
+        return($text);
+    }
+
+
+    /**
+     * Returns the timestamp as an readable production ready text (w/ Time)
+     *
+     * @param $date datetime input datetime
+     * @return string
+     */
+    function dbDateToReadableWithTime($date) {
+        $timestamp = strtotime($date);
+        return date("d. M Y - H:i", $timestamp);
+    }
+
+    /**
+     * Returns the timestamp as an readable production ready text (w/o time, only date)
+     *
+     * @param $date datetime input datetime
+     * @return string
+     */
+    function dbDateToReadableWithOutTime($date) {
+        $timestamp = strtotime($date);
+        return date("d. M Y", $timestamp);
+    }
+

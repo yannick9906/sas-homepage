@@ -122,23 +122,22 @@
             function loadPage(url)	//the function that loads pages via AJAX
             {
                 url = url.replace('#', '');	//strip the #page part of the hash and leave only the page number
-                document.getElementById("pageContent").closeDrawer();
+
+                if(window.chrome) document.getElementById("pageContent").closeDrawer();
+
                 $('.spinner').css('visibility', 'visible');	//show the rotating gif animation
 
                 $('#pageContent').html('<div class="loa"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>');
 
                 $.ajax({	//create an ajax request to load_page.php
                     type: "POST",
+                    async: true,
                     url: "page.php",
                     data: url,	//with the page number as a parameter
                     dataType: "html",	//expect html to be returned
-                    beforeSend: function (event, files, index, xhr, handler, callBack) {
-                        $.ajax({
-                            async: false,
-                            url: 'close.php' // add path
-                        });
+                    error: function () {
+                        alert("Mmh irgendwas ist hier falsch :/")
                     },
-                    error:function(){ alert("Mmh irgendwas ist hier falsch :/") },
                     success: function (msg) {
 
                         if (parseInt(msg) != -1)	//if no errors
@@ -169,11 +168,11 @@
                             if (sel == 0) {
                                 countdown();
                             }
+
                         }
                     }
 
                 });
-
             }
         </script>
     </body>

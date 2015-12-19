@@ -1,0 +1,316 @@
+/* line 32, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #3F51B5;
+    box-shadow: 0px 3px 3px 3px #303F9F;
+    height: 60px; }
+/* line 41, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .logo {
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 50px;
+    margin-left: 10px; }
+/* line 48, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search {
+    background-color: #303F9F;
+    color: white;
+    border: none;
+    box-shadow: 0px 1px 2px 1px #303F9F;
+    position: fixed;
+    top: 15px;
+    left: 200px;
+    width: 400px;
+    padding: 5px 20px 5px 20px;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
+    transition: all 200ms ease-in;
+    z-index: 10; }
+/* line 63, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:hover {
+    box-shadow: 0px 2px 3px 1px #303F9F; }
+/* line 66, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:focus {
+    background-color: white;
+    color: black;
+    box-shadow: 0px 1px 3px 1px #303F9F;
+    width: 60%; }
+/* line 18, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:focus::-webkit-input-placeholder {
+    color: #666; }
+/* line 21, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:focus:-moz-placeholder {
+    color: #666; }
+/* line 24, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:focus::-moz-placeholder {
+    color: #666; }
+/* line 27, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:focus:-ms-input-placeholder {
+    color: #666; }
+/* line 18, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search::-webkit-input-placeholder {
+    color: #9FA8DA; }
+/* line 21, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:-moz-placeholder {
+    color: #9FA8DA; }
+/* line 24, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search::-moz-placeholder {
+    color: #9FA8DA; }
+/* line 27, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .search:-ms-input-placeholder {
+    color: #9FA8DA; }
+/* line 76, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .title {
+    position: fixed;
+    right: 40%;
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    top: 15px;
+    font-size: 26px; }
+/* line 86, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-logo {
+    position: fixed;
+    right: 20px;
+    top: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+    text-align: center;
+    font-size: 35px;
+    line-height: 40px; }
+/* line 99, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-logo:hover {
+    cursor: pointer; }
+/* line 104, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail {
+    position: fixed;
+    background-color: #4CAF50;
+    top: 0;
+    right: 0;
+    margin-top: 65px;
+    margin-right: 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 10;
+    box-shadow: 0px 0px 20px -5px black; }
+/* line 115, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail:after {
+    bottom: 100%;
+    right: 9.5px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #4CAF50;
+    border-width: 10px;
+    margin-left: -10px; }
+/* line 129, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail ul {
+    list-style: none;
+    padding: 3px 0px 2px 0px;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 17px; }
+/* line 134, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail ul li {
+    padding: 5px 3px 0px 15px;
+    color: white;
+    font-weight: bold; }
+/* line 138, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail ul li:hover {
+    cursor: pointer; }
+/* line 139, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail ul li a {
+    text-transform: none;
+    text-decoration: none;
+    color: white;
+    font-weight: normal; }
+/* line 146, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.header .account-detail ul hr {
+    padding: 0 0;
+    margin: 5px 0 0 0;
+    border: none;
+    height: 1px;
+    background-color: white; }
+
+/* line 157, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding-top: 60px;
+    width: 165px;
+    box-shadow: -3px 0px 10px 2px black;
+    z-index: -1; }
+/* line 166, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside ul {
+    list-style: none;
+    padding: 3px 0px 2px 0px;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 17px; }
+/* line 171, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside ul li {
+    padding: 5px 3px 5px 15px;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: bold; }
+/* line 176, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside ul li:hover {
+    cursor: pointer; }
+/* line 177, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside ul li a {
+    text-transform: none;
+    text-decoration: none;
+    color: black;
+    font-weight: normal; }
+/* line 184, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.aside ul hr {
+    padding: 0 0 0 0;
+    border: none;
+    height: 1px;
+    background-color: #9FA8DA; }
+
+/* line 193, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+.content {
+    position: absolute;
+    padding: 10px 10px;
+    left: 165px;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto; }
+
+/* line 203, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages {
+    margin: 10px 10px 10px 10px;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    width: 90%;
+    border-collapse: collapse; }
+/* line 211, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages thead tr th, table.pages thead table.edit tbody tr td, table.edit tbody table.pages thead tr td {
+    font-family: "Ubuntu", sans-serif;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    padding: 7px 0; }
+/* line 219, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages thead tr th.new, table.pages thead table.edit tbody tr td.new, table.edit tbody table.pages thead tr td.new {
+    text-align: right;
+    background-color: transparent; }
+/* line 222, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages thead tr th.new a, table.pages thead table.edit tbody tr td.new a, table.edit tbody table.pages thead tr td.new a {
+    text-decoration: none;
+    color: #2196F3; }
+/* line 228, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td {
+    font-family: "Ubuntu", sans-serif;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    padding: 7px 0; }
+/* line 233, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td.live {
+    color: #4CAF50;
+    font-weight: bold; }
+/* line 237, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td.test {
+    color: #FFC107;
+    font-weight: bold; }
+/* line 241, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td.invalid {
+    color: #f44336;
+    font-weight: bold; }
+/* line 245, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a {
+    text-decoration: none; }
+/* line 247, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a.edit {
+    color: #4CAF50;
+    font-weight: bold; }
+/* line 251, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a.version {
+    color: #FFC107;
+    font-weight: bold; }
+/* line 255, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a.meta {
+    color: #FFC107;
+    font-weight: bold; }
+/* line 259, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a.delete {
+    color: #f44336;
+    font-weight: bold; }
+/* line 263, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.pages tbody tr td a.disabled {
+    color: #bbb;
+    font-weight: bold; }
+
+/* line 271, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit {
+    margin: 10px 10px 10px 10px;
+    position: absolute;
+    left: 30%;
+    right: 30%;
+    top: 40px;
+    width: 40%;
+    border-collapse: collapse; }
+/* line 280, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit thead tr th, table.edit thead tbody tr td, table.edit tbody thead tr td {
+    font-family: "Ubuntu", sans-serif;
+    vertical-align: top;
+    text-align: center;
+    font-size: 25px;
+    background-color: #eee;
+    padding: 7px 0;
+    padding-left: 10px;
+    vertical-align: middle; }
+/* line 291, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit tbody tr th, table.edit tbody tr td {
+    font-family: "Ubuntu", sans-serif;
+    vertical-align: top;
+    text-align: left;
+    background-color: #eee;
+    padding: 7px 0;
+    padding-left: 10px;
+    vertical-align: middle; }
+/* line 301, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit tbody tr td {
+    word-spacing: 10px; }
+/* line 306, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input {
+    border: none;
+    padding: 5px; }
+/* line 18, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input::-webkit-input-placeholder {
+    color: #f44336; }
+/* line 21, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input:-moz-placeholder {
+    color: #f44336; }
+/* line 24, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input::-moz-placeholder {
+    color: #f44336; }
+/* line 27, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input:-ms-input-placeholder {
+    color: #f44336; }
+/* line 312, C:/Users/yanni/Documents/Websites/ICMS/editor.scss */
+table.edit input[type=submit] {
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Ubuntu", sans-serif;
+    color: #2196F3;
+    background-color: transparent;
+    font-size: 15px;
+    cursor: pointer; }
+
+/*# sourceMappingURL=editor.css.map */
