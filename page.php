@@ -4,6 +4,7 @@
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
     require_once 'php/Mobile_Detect.php'; // Mobile Detect
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
+    require_once 'editor/classes/TimelineEntry.php';
     $pdo = new PDO_MYSQL();
     $detect = new Mobile_Detect;
     Dwoo\Autoloader::register();
@@ -80,20 +81,20 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $i = 0;
-            $res = $db->query("SELECT * FROM calendar  WHERE `Date` > CURDATE() ORDER BY `Date` ASC");
-            while($row = $res->fetch_object()) {
-                $timestamp = strtotime($row->Date);
+            //$res = $db->query("SELECT * FROM calendar  WHERE `Date` > CURDATE() ORDER BY `Date` ASC");
+            $entries = \ICMS\TimelineEntry::getAllPublicEntries();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = date("d. M Y", $timestamp);
+                    $evDate = dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = date("d. M Y - H:i", $timestamp);
-                $pgData["page"]["items"][$i]["title"]     = $row->title;
-                $pgData["page"]["items"][$i]["text"]      = $row->info;
+                    $evDate = dbDateToReadableWithTime($timestamp);
+                $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
+                $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getInfo();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
-                $pgData["page"]["items"][$i]["htmlclass"] = getHtmlClassForCalType($row->type);
-                $pgData["page"]["items"][$i]["imgpath"]   = getImgPathForCalType($row->type);
-                $i++;
+                $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
+                $pgData["page"]["items"][$i]["htmlclass"] = getHtmlClassForCalType($entries[$i]->getType());
+                $pgData["page"]["items"][$i]["imgpath"]   = getImgPathForCalType($entries[$i]->getType());
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/calendar.tpl", $pgData);

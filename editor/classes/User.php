@@ -29,13 +29,14 @@ class User {
      * @param $uEmail string Users Email
      * @param $uPassHash string Users md5-hash
      */
-    private function __construct($uID, $uName, $uFirstName, $uLastName, $uEmail, $uPassHash) {
+    private function __construct($uID, $uName, $uFirstName, $uLastName, $uEmail, $uPassHash, $level) {
         $this->uID = $uID;
         $this->uName = $uName;
         $this->uFirstName = $uFirstName;
         $this->uLastName = $uLastName;
         $this->uEmail = $uEmail;
         $this->uPassHash = $uPassHash;
+        $this->uPrefix = $level;
     } // 0- User | 1- Mod | 2-Admin
 
 
@@ -48,7 +49,7 @@ class User {
     public static function fromUID($uID) {
         $pdo = new \PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM Schlopolis_User WHERE uID = :uid", [":uid" => $uID]);
-        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd);
+        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd, $res->level);
     }
 
     /**
@@ -60,7 +61,7 @@ class User {
     public static function fromUName($uName) {
         $pdo = new \PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM Schlopolis_User WHERE Username = :uname", [":uname" => $uName]);
-        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd);
+        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd, $res->level);
     }
 
     /**
@@ -102,14 +103,14 @@ class User {
      * @param string $uPassHash
      */
     public function setUPassHash($uPassHash) {
-        $this->uPassHash = $uPassHash;
+        $this->uPassHash = md5($uPassHash);
     }
 
     /**
      * @param int $uPrefix
      */
     public function setUPrefix($uPrefix) {
-        $this->uPrefix = md5($uPrefix);
+        $this->uPrefix = $uPrefix;
     }
 
 
@@ -118,6 +119,14 @@ class User {
      */
     public function getUID() {
         return $this->uID;
+    }
+
+
+    /**
+     * @return int User Level
+     */
+    public function getUPrefix() {
+        return $this->uPrefix;
     }
 
     /**
@@ -171,7 +180,31 @@ class User {
      * @return bool
      */
     public function isActionAllowed($actionKey) {
-        return true;
+        if($this->uPrefix != 2) {
+            $pdo = new \PDO_MYSQL();
+            $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+            if ($res->active == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    public function isActionInDB($actionKey) {
+        $pdo = new \PDO_MYSQL();
+        $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+        return isset($res->active);
+    }
+
+    public function setPermission($actionKey, $state) {
+        $pdo = new \PDO_MYSQL();
+        if($this->isActionInDB($actionKey))
+            $pdo->query("UPDATE user_rights SET active = :state WHERE uID = :uid and right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
+        else
+            $pdo->query("INSERT INTO user_rights(active, uID, right_tag) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
     }
 
     /**
@@ -200,6 +233,16 @@ class User {
             "email" => $this->uEmail,
             "prefix" => $this->getPrefixAsHtml()
         ];
+    }
+
+    public function getPermAsArray() {
+        $array = [];
+        $pdo = new \PDO_MYSQL();
+        $stmt = $pdo->queryMulti("SELECT * FROM user_rights WHERE uID = :uid", [":uid" => $this->uID]);
+        while($row = $stmt->fetchObject()) {
+            $array[str_replace(".", "_", $row->right_tag)] = (int) $row->active;
+        }
+        return $array;
     }
 
     /**

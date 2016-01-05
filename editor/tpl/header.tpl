@@ -16,6 +16,7 @@
         </div>
         <div class="aside">
             <ul>
+                {if $args.level >= 0}
                 <li>User</li>
                 <li><a href="">Dashboard</a></li>
                 <li><a href="">Änderungen</a></li>
@@ -24,18 +25,24 @@
                 <li><a href="">Download</a></li>
                 <li><a href="">Bilder</a></li>
                 <li><a href="timeline.php">Timeline</a></li>
+                {/if}
+                {if $args.level >= 1}
                 <hr/>
                 <li>Moderation</li>
                 <li><a href="">Ausst. Änderungen</a></li>
                 <li><a href="">Ausst. Anfragen</a></li>
                 <li><a href="">Fragen</a></li>
                 <li><a href="users.php">Benutzerkonten</a></li>
+                {/if}
+                {if $args.level >= 2}
                 <hr/>
                 <li>Admin</li>
                 <li><a href="">Ausst. Änderungen</a></li>
                 <li><a href="">Ausst. Anfragen</a></li>
                 <li><a href="users.php">Benutzerkonten</a></li>
                 <li><a href="">Emailverteilung</a></li>
+                <li><a href="adminer-4.2.3-mysql.php">Adminer (DB)</a></li>
+                {/if}
                 <hr/>
                 <li>{exectime 3}ms</li>
             </ul>

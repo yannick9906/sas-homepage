@@ -39,6 +39,7 @@ if($action == "new") {
         $userToEdit = \ICMS\User::fromUID($uID);
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $pgdata["edit"] = $userToEdit->asArray();
+        $pgdata["perm"] = $userToEdit->getPermAsArray();
         $dwoo->output("tpl/usersEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -48,6 +49,8 @@ if($action == "new") {
 } elseif($action == "postNew") {
     if ($user->isActionAllowed(PERM_USER_CREATE)) {
         $userToEdit = \ICMS\User::createUser($_POST['usrname'], $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['passwd']);
+        forwardTo("users.php");
+        exit;
     } else {
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
@@ -76,8 +79,8 @@ if($action == "new") {
         $userToEdit->saveChanges();
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $pgdata["edit"] = $userToEdit->asArray();
-        $dwoo->output("tpl/usersEdit.tpl", $pgdata);
-        exit; //To not show the list
+        forwardTo("users.php");
+        exit;
     } else {
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
@@ -86,6 +89,20 @@ if($action == "new") {
     if($user->isActionAllowed(PERM_USER_DELETE)) {
         $userToDelete = \ICMS\User::fromUID($uID);
         $userToDelete->delete();
+        forwardTo("users.php");
+        exit;
+    } else {
+        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+    }
+} elseif($action == "updatePerms" and is_numeric($uID)) {
+    if($user->isActionAllowed(PERM_USER_EDIT_PERMISSIONS)) {
+        $userToEdit = \ICMS\User::fromUID($uID);
+        foreach($_POST as $key => $value) {
+            $userToEdit->setPermission(str_replace("_", ".", $key), $value);
+        }
+        forwardTo("users.php");
+        exit;
     } else {
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);

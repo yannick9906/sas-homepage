@@ -33,23 +33,37 @@ class TimelineEntry {
     public function __construct($vID, $tID, $date, $title, $info, $link, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state) {
         $this->vID = $vID;
         $this->tID = $tID;
-        $this->date = $date;
+        $this->date = strtotime($date);
         $this->title = $title;
         $this->info = $info;
         $this->link = $link;
         $this->type = $type;
         $this->authorID = $authorID;
         $this->lastAuthorID = $lastAuthorID;
-        $this->lastEditDate = $lastEditDate;
+        $this->lastEditDate = strtotime($lastEditDate);
         $this->version = $version;
         $this->state = $state;
     }
 
+    /**
+     * @param $vID
+     * @return TimelineEntry
+     */
     public static function fromVID($vID) {
         $pdo = new \PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM timeline WHERE vID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
         return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
+    }
 
+
+    /**
+     * @param $tID
+     * @return TimelineEntry
+     */
+    public static function fromTID($tID) {
+        $pdo = new \PDO_MYSQL();
+        $res = $pdo->query("SELECT * FROM timeline WHERE tID = :tid ORDER BY version DESC LIMIT 1", [":tid" => $tID]);
+        return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
     /**
@@ -83,7 +97,7 @@ class TimelineEntry {
      * Set a new Date for this Event
      * ** Note: after you changed something, please commit with saveChanges()
      *
-     * @param date $date
+     * @param timestamp $date
      */
     public function setDate($date) {
         $this->date = $date;
@@ -304,6 +318,7 @@ class TimelineEntry {
     }
 
     public function asArray() {
+        //if($this->link != "") $lnk = "Extern"; else $lnk = "";
         return [
             "id" => $this->tID,
             "vId" => $this->vID,
@@ -312,9 +327,9 @@ class TimelineEntry {
             "text" => truncate($this->info, 40),
             "type" => $this->type,
             "linkTo" => $this->link,
-            "author" => User::fromUID($this->authorID)->getUName(),
+            "author" =>  User::fromUID($this->authorID)->getPrefixAsHtml()." ".User::fromUID($this->authorID)->getUName(),
             "lastEdit" => dbDateToReadableWithTime($this->lastEditDate),
-            "lastEditAuthor" => User::fromUID($this->lastAuthorID)->getUName(),
+            "lastEditAuthor" => User::fromUID($this->lastAuthorID)->getPrefixAsHtml()." ".User::fromUID($this->lastAuthorID)->getUName(),
             "state" => $this->state,
             "stateCSS" => self::stateAsCSS($this->state),
             "stateText" => self::stateAsHtml($this->state),
@@ -348,17 +363,64 @@ class TimelineEntry {
     }
 
     /**
+     * @param $user User
+     * @param $date string
+     * @param $title string
+     * @param $info string
+     * @param $link string
+     * @param $type int
+     * @return TimelineEntry
+     */
+    public static function createEntry($user, $date, $title, $info, $link, $type) {
+        $date = date("Y-m-d H:i:s", strtotime($date));
+        $pdo = new \PDO_MYSQL();
+        $authorID = $user->getUID();
+        $lastEditID = $user->getUID();
+        $lastEditDate = date("Y-m-d H:i:s");
+        $res = $pdo->query("SELECT MAX(tID) as tID FROM timeline");
+        var_dump($res);
+        $tID = $res->tID + 1;
+        $pdo->query("INSERT INTO timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
+                    ."VALUES (:tid, :date, :title, :info, :link, :type, :authorID, :lastEditID, :lastEditDate, 1, 1)",
+                    [":tid" => $tID, ":date" => $date, ":title" => $title, ":info" => $info, ":link" => $link,":type" => $type, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate]);
+        return self::fromTID($tID);
+    }
+
+    /**
      * Saves changes in fields (title, infotext, date, link, type) and creates a new Entry
      * ** Note, this will become the state "For Approval"
      *
+     * @param $user User
      * @return bool
      */
-    public function saveChangesAsNewVersion() {
-        //TODO
+    public function saveAsNewVersion($user) {
+        $date = date("Y-m-d H:i:s", $this->date);
+        $pdo = new \PDO_MYSQL();
+        $authorID = $this->authorID;
+        $lastEditID = $user->getUID();
+        $lastEditDate = date("Y-m-d H:i:s");
+        $res = $pdo->query("SELECT MAX(version) as version FROM timeline WHERE tID = :tID", [":tID" => $this->tID]);
+        var_dump($res);
+        $tID = $this->tID;
+        $version = $res->version + 1;
+        $title = $this->title;
+        $info = $this->info;
+        $link = $this->link;
+        $type = $this->type;
+        $pdo->query("INSERT INTO timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
+            ."VALUES (:tid, :date, :title, :info, :link, :type, :authorID, :lastEditID, :lastEditDate, :version, 1)",
+            [":tid" => $tID, ":date" => $date, ":title" => $title, ":info" => $info, ":link" => $link,":type" => $type, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate, ":version" => $version]);
+
     }
 
+    /**
+     * @return TimelineEntry[]
+     */
     public static function getAllPublicEntries() {
-        // TODO
+        $pdo = new \PDO_MYSQL();
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc");
+        return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
+
     }
 
     /**
@@ -366,7 +428,17 @@ class TimelineEntry {
      */
     public static function getAllEntries() {
         $pdo = new \PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline ORDER BY tID, version desc) x GROUP BY tID");
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID");
+        return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
+    }
+
+    /**
+     * @param $tID int
+     * @return TimelineEntry[]
+     */
+    public static function getAllVersions($tID) {
+        $pdo = new \PDO_MYSQL();
+        $stmt = $pdo->queryMulti("SELECT vID FROM timeline WHERE tID = :tid ORDER BY version desc", [":tid" => $tID]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
 }

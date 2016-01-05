@@ -10,7 +10,7 @@
 
                             <div class="cd-timeline-content">
                                 <h2>{$item.title}</h2>
-                                <p>{$item.text}</p>
+                                <p>{$item.text}{if $item.link != null}<a href="{$item.link}" class="cd-read-more">Mehr ...</a>{/if}</p>
                                 <span class="cd-date">{$item.date}</span>
                             </div> <!-- cd-timeline-content -->
                         </div> <!-- cd-timeline-block -->

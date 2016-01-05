@@ -19,6 +19,7 @@ $dwoo = new Dwoo\Core();
 $usrname  = $_POST['usrname'];
 $password = $_POST['password'];
 $logout   = $_GET['logout'];
+$ses = $_GET['badsession'];
 
 if(isset($usrname)) {
     if(\ICMS\User::doesUserNameExist($usrname)) {
@@ -36,8 +37,9 @@ if(isset($usrname)) {
         $dwoo->output("tpl/logon.tpl", ["err" => "1", "usrname" => $usrname]);
     }
 } elseif($logout == 1) {
+    session_start();
     session_destroy();
     $dwoo->output("tpl/logon.tpl");
 } else {
-    $dwoo->output("tpl/logon.tpl");
+    $dwoo->output("tpl/logon.tpl", ["ses" => $ses]);
 }

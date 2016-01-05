@@ -69,10 +69,15 @@
     function checkSession() {
         session_start();
         if(!isset($_SESSION["uID"])) {
-            return false;
+            forwardTo("logon.php?badsession=1");
+            exit;
         } else {
             return \ICMS\User::fromUID($_SESSION["uID"]);
         }
+    }
+
+    function forwardTo($url) {
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=$url\" />";
     }
 
     /**
@@ -86,8 +91,10 @@
                 "title" => $title,
                 "usrname" => $user->getUName(),
                 "usrchar" => substr($user->getUName(), 0, 1),
-                "uID" => $user->getUID()
-            ]
+                "uID" => $user->getUID(),
+                "level" => $user->getUPrefix()
+            ],
+            "perm" => $user->getPermAsArray()
         ];
     }
 
@@ -110,22 +117,20 @@
     /**
      * Returns the timestamp as an readable production ready text (w/ Time)
      *
-     * @param $date datetime input datetime
+     * @param $timestamp int input datetime
      * @return string
      */
-    function dbDateToReadableWithTime($date) {
-        $timestamp = strtotime($date);
+    function dbDateToReadableWithTime($timestamp) {
         return date("d. M Y - H:i", $timestamp);
     }
 
     /**
      * Returns the timestamp as an readable production ready text (w/o time, only date)
      *
-     * @param $date datetime input datetime
+     * @param $timestamp int input datetime
      * @return string
      */
-    function dbDateToReadableWithOutTime($date) {
-        $timestamp = strtotime($date);
+    function dbDateToReadableWithOutTime($timestamp) {
         return date("d. M Y", $timestamp);
     }
 

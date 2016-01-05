@@ -12,6 +12,10 @@ $accountcolor:       #4CAF50;
 $stateLiveColor:     #4CAF50;
 $stateTestColor:     #FFC107;
 $stateInvalidColor:  #f44336;
+$linkColor:          #2196F3;
+$uPreUsrColor:       black;
+$uPreModColor:       #FFC107;
+$uPreAdmColor:       #f44336;
 
 @mixin input-placeholder($color) {
   &::-webkit-input-placeholder {
@@ -27,6 +31,7 @@ $stateInvalidColor:  #f44336;
     color: $color;
   }
 }
+
 
 .header {
   position: fixed;
@@ -109,6 +114,7 @@ $stateInvalidColor:  #f44336;
     margin-right: 20px;
     border-radius: 5px;
     display: none;
+
     box-shadow: 0px 0px 20px -5px black;
     &:after {
       bottom: 100%;
@@ -212,13 +218,21 @@ table.pages {
     border-bottom: 1px solid #ccc;
     background-color: #eee;
     padding: 7px 0;
+    &.new {
+      text-align: right;
+      background: transparent;
+      a {
+        text-decoration: none;
+        color: $linkColor;
+      }
+    }
   }
 
   tbody tr td {
     font-family: $fonts;
     vertical-align: top;
     border-bottom: 1px solid #ccc;
-    padding: 7px 0;
+    padding: 7px 5px;
     &.live {
       color: $stateLiveColor;
       font-weight: bold;
@@ -229,6 +243,10 @@ table.pages {
     }
     &.invalid {
       color: $stateInvalidColor;
+      font-weight: bold;
+    }
+    &.disabled {
+      color: #bbb;
       font-weight: bold;
     }
     a {
@@ -255,4 +273,58 @@ table.pages {
       }
     }
   }
+}
+
+table.edit {
+  margin: 10px 10px 10px 10px;
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 40px;
+  width: 40%;
+  border-collapse: collapse;
+  thead tr th {
+    font-family: "Ubuntu", sans-serif;
+    text-align: center;
+    font-size: 25px;
+    background-color: #eee;
+    padding: 7px 0 7px 10px;
+    vertical-align: middle;
+  }
+
+  tbody tr td, tbody tr th  {
+    font-family: "Ubuntu", sans-serif;
+    text-align: left;
+    background-color: #eee;
+    padding: 7px 0 7px 10px;
+    vertical-align: middle;
+  }
+
+  input {
+    border: none;
+    padding: 5px;
+    @include input-placeholder($stateInvalidColor);
+    &[type=submit] {
+      border: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-family: "Ubuntu", sans-serif;
+      color: #2196F3;
+      background-color: transparent;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+}
+
+.uPreUsr {
+  color: $uPreUsrColor;
+}
+
+.uPreAdm {
+  color: $uPreAdmColor;
+}
+
+.uPreMod {
+  color: $uPreModColor;
 }

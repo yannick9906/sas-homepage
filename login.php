@@ -37,11 +37,11 @@
 			$_SESSION['uID'] = $row->uID;
 			$_SESSION['Kontonr'] = $row->Kontonr;
 			echo "Login successful!";
-            echo "<html><head><meta http-equiv='refresh' content='0; url=editor/index.php' /></head></html>";
+            //echo "<html><head><meta http-equiv='refresh' content='0; url=editor/index.php' /></head></html>";
 			//Weiterleitung
 		} else {
 			echo "Wrong Password/Username!";
-			echo "<html><head><meta http-equiv='refresh' content='0; url=login.php?err=1' /></head></html>";
+			//echo "<html><head><meta http-equiv='refresh' content='0; url=login.php?err=1' /></head></html>";
 		}
 
 		exit;
