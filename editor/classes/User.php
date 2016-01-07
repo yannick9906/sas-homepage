@@ -183,7 +183,7 @@ class User {
     public function isActionAllowed($actionKey) {
         if($this->uPrefix != 2) {
             $pdo = new PDO_MYSQL();
-            $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+            $res = $pdo->query("SELECT * FROM actionkey WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
             if ($res->active == 1) {
                 return true;
             } else {
@@ -194,18 +194,31 @@ class User {
         }
     }
 
+
+    /**
+     * Tests if a permission action key is already present in the DB
+     *
+     * @param $actionKey string
+     * @return bool
+     */
     public function isActionInDB($actionKey) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+        $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND actionkey = :key", [":uid" => $this->uID, ":key" => $actionKey]);
         return isset($res->active);
     }
 
+    /**
+     * Updates a value for a specific action key or creates a new entry in the DB
+     *
+     * @param $actionKey string
+     * @param $state int
+     */
     public function setPermission($actionKey, $state) {
         $pdo = new PDO_MYSQL();
         if($this->isActionInDB($actionKey))
-            $pdo->query("UPDATE user_rights SET active = :state WHERE uID = :uid and right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
+            $pdo->query("UPDATE user_rights SET active = :state WHERE uID = :uid and actionkey = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
         else
-            $pdo->query("INSERT INTO user_rights(active, uID, right_tag) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
+            $pdo->query("INSERT INTO user_rights(active, uID, actionkey) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
     }
 
     /**
@@ -236,6 +249,11 @@ class User {
         ];
     }
 
+    /**
+     * Returns all permission for this user as an use-ready array
+     *
+     * @return array
+     */
     public function getPermAsArray() {
         $array = [];
         $pdo = new PDO_MYSQL();
@@ -283,12 +301,25 @@ class User {
         return $pdo->query("DELETE FROM Schlopolis_User WHERE uID = :uid", [":uid" => $this->uID]);
     }
 
+    /**
+     * Saves the Changes made to this object to the db
+     */
     public function saveChanges() {
         $pdo = new PDO_MYSQL();
-        return $pdo->query("UPDATE Schlopolis_User SET Email = :Email, Firstname = :Firstname, Lastname = :Lastname, Passwd = :Passwd, Username = :Username WHERE uID = :uID LIMIT 1",
+        $pdo->query("UPDATE Schlopolis_User SET Email = :Email, Firstname = :Firstname, Lastname = :Lastname, Passwd = :Passwd, Username = :Username WHERE uID = :uID LIMIT 1",
             [":Email" => $this->uEmail, ":Firstname" => $this->uFirstName, ":Lastname" => $this->uLastName, ":Passwd" => $this->uPassHash, ":Username" => $this->uName, ":uID" => $this->uID]);
     }
 
+    /**
+     * Creates a new user from the give attribs
+     *
+     * @param $username string Username
+     * @param $firstname string Firstname
+     * @param $lastname string Lastname
+     * @param $email string Email Adress
+     * @param $passwdhash string md5 Hash of Password
+     * @return User The new User as an Object
+     */
     public static function createUser($username, $firstname, $lastname, $email, $passwdhash) {
         $pdo = new PDO_MYSQL();
         $pdo->query("INSERT INTO Schlopolis_User(Username, Firstname, Lastname, Email, Passwd) VALUES (:Username, :Firstname, :Lastname, :Email, :Passwd)",

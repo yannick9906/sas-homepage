@@ -318,6 +318,12 @@ class TimelineEntry {
         }
     }
 
+
+    /**
+     * Returns the TimelineEntry as an use-ready Array
+     *
+     * @return array
+     */
     public function asArray() {
         //if($this->link != "") $lnk = "Extern"; else $lnk = "";
         return [
