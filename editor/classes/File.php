@@ -9,6 +9,9 @@
 namespace ICMS;
 
 
+use PDO;
+use PDO_MYSQL;
+
 class File {
 
     private $fileID;
@@ -17,7 +20,7 @@ class File {
     private $ownerID;
 
     function __construct($fileID) {
-        //construct from FileID
+
     }
 
     public function getFileID() {

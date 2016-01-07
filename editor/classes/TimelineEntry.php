@@ -10,6 +10,7 @@ namespace ICMS;
 
 
 use PDO;
+use PDO_MYSQL;
 
 class TimelineEntry {
     private $vID, $tID, $date, $title, $info, $link, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
@@ -50,7 +51,7 @@ class TimelineEntry {
      * @return TimelineEntry
      */
     public static function fromVID($vID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM timeline WHERE vID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
         return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
@@ -61,7 +62,7 @@ class TimelineEntry {
      * @return TimelineEntry
      */
     public static function fromTID($tID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM timeline WHERE tID = :tid ORDER BY version DESC LIMIT 1", [":tid" => $tID]);
         return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
@@ -342,7 +343,7 @@ class TimelineEntry {
      * Deletes the whole Entry, including it's versions
      */
     public function delete() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("DELETE FROM timeline WHERE tID = :tid", [":tid" => $this->tID]);
     }
 
@@ -358,7 +359,7 @@ class TimelineEntry {
      * Denies this version
      */
     public function deny() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("UPDATE timeline SET state = 2 WHERE vID = :vid", [":vid" => $this->vID]);
     }
 
@@ -373,7 +374,7 @@ class TimelineEntry {
      */
     public static function createEntry($user, $date, $title, $info, $link, $type) {
         $date = date("Y-m-d H:i:s", strtotime($date));
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $authorID = $user->getUID();
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
@@ -395,7 +396,7 @@ class TimelineEntry {
      */
     public function saveAsNewVersion($user) {
         $date = date("Y-m-d H:i:s", $this->date);
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $authorID = $this->authorID;
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
@@ -417,7 +418,7 @@ class TimelineEntry {
      * @return TimelineEntry[]
      */
     public static function getAllPublicEntries() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
 
@@ -427,7 +428,7 @@ class TimelineEntry {
      * @return TimelineEntry[]
      */
     public static function getAllEntries() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
@@ -437,7 +438,7 @@ class TimelineEntry {
      * @return TimelineEntry[]
      */
     public static function getAllVersions($tID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT vID FROM timeline WHERE tID = :tid ORDER BY version desc", [":tid" => $tID]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
