@@ -1,0 +1,102 @@
+schlopolis_user
+
+uID int(10) auto_increment,
+username varchar(256) default '',
+firstname varchar(256) default '',
+lastname varchar(256) default '',
+mail varchar(256) defautl '',
+passwd varchar(256) default '',
+level tinyint(1) not null default '0',
+
+constraint pk_user_user primary key (uID,lastname),
+constraint uq_user_user unique (username)
+
+=============================================
+=============================================
+
+schlopolis_user_rights
+
+permID int(10) auto_increment,
+uID int(10) not null default '0',
+permission varchar(256) default '',
+active tinyint(1) not null default '0',
+
+constraint pk_userRights primary key (permID,uID),
+constraint fk_userRigths foreign key (uID) referneces schlopolis_user(pk_user_user) on delete set null on update cascade
+
+=============================================
+=============================================
+
+schlopolis_user_session
+
+sesID char(40) default '',
+uID int(10) not null default '0',
+ipV4 varchar(15) default '',
+ipV6 varchar(39) default '',
+lastActivityTime int(10) not null default '0',
+requestURI varchar(255) default '',
+requestMethode varchar(7) default '',
+userAgent varchar(256) default '',
+sesUserVariables mediumtext default '',
+
+constraint pk_session primary key (sesID,uID),
+constraint uq_session_user unique (uID),
+constraint fk_session_user foreign key (uID) references schlopolis_user(pk_user_user) on delete cascade
+
+=============================================
+=============================================
+
+schloplois_timeline
+
+vID int(10) auto_increment,
+tID in(10) not null default '0',
+date datetime not null default '0000-00-00 00:00:00',
+title longtext default '',
+info longtext default '',
+link longtext default '',
+type tinyint(1) not null default '0',
+authorID int(10) not null default '0',
+lastEditID int(10) not null default '0',
+lastEditDate datetime not null default '0000-00-00 00:00:00',
+version int(10) not null default '0',
+stat tinyint(1) not null default '0',
+
+constraint pk_tline_user primary key (vID,tID,authorID),
+constraint fk_tline_user foreign key (authorID) referneces schlopolis_user(pk_user_user) on delete cascade
+
+=============================================
+=============================================
+
+schlopolis_sow
+
+id int(10) auto_increment,
+week int(10) not null default '',
+text mediumtext default '',
+
+constraint pk_sow primary key (id)
+
+=============================================
+=============================================
+
+schlopolis_sites
+
+ID int(10) auto_increment,
+pID int(10) not null default '0',
+type tinyint(1) not null default '0',
+title varchar (256) default '',
+content longtext default '',
+version int(10) not null default '0',
+authorID int(10) not null default '0',
+icon varchar(256) default '',
+img longtext default '',
+
+constraint pk_sites_user primary key (id,pID,authorID),
+constraint uk_sites_sites unique (pID)
+constraint fk_sites_sites foreing key (authorID) references schlopolis_user(pk_user_user) on delete cascade
+
+=============================================
+=============================================
+
+schlopolis_???
+
+

@@ -70,8 +70,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
             break;
         case 1: //Timeline
-            require_once 'php/main.php';
-            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "Timeline"
