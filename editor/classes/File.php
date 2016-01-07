@@ -13,6 +13,7 @@ class File {
 
     private $fileID;
     private $fileName;
+    private $filePath;
     private $ownerID;
 
     function __construct($fileID) {
@@ -28,7 +29,7 @@ class File {
     }
 
     public function getOwner() {
-        return new User($this->ownerID);
+        return User::fromUID($this->ownerID);
     }
 
     public function isUserActionAllowed($actionkey, $uID) {
@@ -36,10 +37,6 @@ class File {
     }
 
     public function getLastVersion() {
-
-    }
-
-    public function getVersion($versionNo) {
 
     }
 }
