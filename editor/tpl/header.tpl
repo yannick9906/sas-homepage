@@ -20,7 +20,7 @@
                 <li>User</li>
                 <li><a href="">Dashboard</a></li>
                 <li><a href="">Änderungen</a></li>
-                <li><a href="">Seiten</a></li>
+                <li><a href="sites.php">Seiten</a></li>
                 <li><a href="">News</a></li>
                 <li><a href="">Download</a></li>
                 <li><a href="">Bilder</a></li>
