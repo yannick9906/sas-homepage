@@ -357,7 +357,7 @@ class TimelineEntry {
      * Approves this version
      */
     public function approve() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("UPDATE timeline SET state = 0 WHERE vID = :vid", [":vid" => $this->vID]);
     }
 
