@@ -148,6 +148,6 @@ if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
 
     $dwoo->output("tpl/timelineList.tpl", $pgdata);
 } else {
-    $pgdata = getEditorPageDataStub("Benutzer", $user);
+    $pgdata = getEditorPageDataStub("Timeline", $user);
     $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
 }

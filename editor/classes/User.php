@@ -258,7 +258,7 @@ class User {
         $pdo = new \PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT * FROM user_rights WHERE uID = :uid", [":uid" => $this->uID]);
         while($row = $stmt->fetchObject()) {
-            $array[str_replace(".", "_", $row->right_tag)] = (int) $row->active;
+            $array[str_replace(".", "_", $row->actionkey)] = (int) $this->isActionAllowed($row->actionkey);
         }
         return $array;
     }

@@ -47,6 +47,14 @@
                                     <tr><td>Timeline akzetieren</td>    <td><input {if $perm.timeline_approve    == 1}checked{/if} type="radio" value="1" name="timeline.approve"/>     ON <input {if $perm.timeline_approve    == 0}checked{/if} type="radio" value="0" name="timeline.approve"/>       OFF</td></tr>
                                     <tr><td>Timeline löschen</td>       <td><input {if $perm.admin_timeline_del  == 1}checked{/if} type="radio" value="1" name="admin.timeline.del"/>   ON <input {if $perm.admin_timeline_del  == 0}checked{/if} type="radio" value="0" name="admin.timeline.del"/>     OFF</td></tr>
                                     <tr><td>Timeline bearbeiten</td>    <td><input {if $perm.admin_timeline_edit == 1}checked{/if} type="radio" value="1" name="admin.timeline.edit"/>  ON <input {if $perm.admin_timeline_edit == 0}checked{/if} type="radio" value="0" name="admin.timeline.edit"/>    OFF</td></tr>
+
+                                    <tr><td>Seite ansehen</td>       <td><input {if $perm.site_view       == 1}checked{/if} type="radio" value="1" name="site.view"/>        ON <input {if $perm.site_view       == 0}checked{/if} type="radio" value="0" name="site.view"/>          OFF</td></tr>
+                                    <tr><td>Seite erstellen</td>     <td><input {if $perm.site_create     == 1}checked{/if} type="radio" value="1" name="site.create"/>      ON <input {if $perm.site_create     == 0}checked{/if} type="radio" value="0" name="site.create"/>        OFF</td></tr>
+                                    <tr><td>Seite neue Version</td>  <td><input {if $perm.site_newVersion == 1}checked{/if} type="radio" value="1" name="site.newVersion"/>  ON <input {if $perm.site_newVersion == 0}checked{/if} type="radio" value="0" name="site.newVersion"/>    OFF</td></tr>
+                                    <tr><td>Seite akzetieren</td>    <td><input {if $perm.site_approve    == 1}checked{/if} type="radio" value="1" name="site.approve"/>     ON <input {if $perm.site_approve    == 0}checked{/if} type="radio" value="0" name="site.approve"/>       OFF</td></tr>
+                                    <tr><td>Seite löschen</td>       <td><input {if $perm.admin_site_del  == 1}checked{/if} type="radio" value="1" name="admin.site.del"/>   ON <input {if $perm.admin_site_del  == 0}checked{/if} type="radio" value="0" name="admin.site.del"/>     OFF</td></tr>
+                                    <tr><td>Seite bearbeiten</td>    <td><input {if $perm.admin_site_edit == 1}checked{/if} type="radio" value="1" name="admin.site.edit"/>  ON <input {if $perm.admin_site_edit == 0}checked{/if} type="radio" value="0" name="admin.site.edit"/>    OFF</td></tr>
+
                                 </table>
                             </form>
                         </td>

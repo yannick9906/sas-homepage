@@ -304,7 +304,7 @@ class TimelineEntry {
      * @return string
      */
     public static function stateAsCSS($state) {
-        switch($state) {
+        switch ($state) {
             case 0:
                 return "live";
                 break;

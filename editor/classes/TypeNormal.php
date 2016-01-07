@@ -9,7 +9,7 @@
 namespace ICMS;
 
 
-class TypeNormal extends File {
+class TypeNormal extends Site {
 
     private $header, $text, $title;
 }
