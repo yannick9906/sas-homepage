@@ -121,7 +121,7 @@ if($action == "new") {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
             $pgdata["page"]["items"][$i]["permDel"] = +$user->isActionAllowed(PERM_TIMELINE_OP_DELETE);
             $pgdata["page"]["items"][$i]["permApprove"] = +$user->isActionAllowed(PERM_TIMELINE_APPROVE);
-            if($i != 0) {
+            if($i != 0 && $entries[$i - 1]->getState() == 0) {
                 $pgdata["page"]["items"][$i]["stateCSS"] = "disabled";
                 $pgdata["page"]["items"][$i]["stateText"] = "alt";
             }

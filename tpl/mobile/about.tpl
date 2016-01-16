@@ -19,17 +19,20 @@
             <paper-shadow z="2" class="card" id="i3">
                 <h2>Verantwortlich für die Homepage:</h2>
                 <p>
-                    Yannick F&#233;lix(technischer Support, 11En1) <a href="mailto:yannick.felix@schloss-online.eu">yannick.felix@schloss-online.eu</a><br/>
+                    Technischer Support: Yannick F&#233;lix(11En1) <a href="mailto:yannick.felix@schloss-online.eu">yannick.felix@schloss-online.eu</a><br/>
                     Design(Desktop): Luis Sch&auml;fer(8b), Kerem Ciftci(8b)
                     <hr/>
+                    Verantwortlich f&uuml;r den Inhalt:<br/>
+                    <br/>
                     StR' Lisa Lehmann<br/>
                     Gymnasium am Kurf&uuml;rstlichen Schloss<br/>
                     Leo-Trepp-Platz 1<br/>
                     55116 Mainz<br/>
                 </p>
             </paper-shadow>
-            <paper-shadow z="3" class="card2" id="i4">
+            <paper-shadow z="3" class="card" id="i4">
                 <h2>Haftungsausschluss</h2>
+                <br/>
                 <paper-shadow z="1" class="card2" id="i5">
                     <h2>1. Inhalt des Onlineangebotes</h2>
                     <p>
@@ -87,17 +90,17 @@
                     this software without specific prior written permission.<br/>
                     </ul>
                     <br/>
-                    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-                    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-                    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-                    A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-                    OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-                    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-                    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-                    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-                    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-                    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-                    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                    This software is provided by the copyright holders and contributors
+                    "as is" and any express or implied warranties, including, but not
+                    limited to, the implied warranties of merchantability and fitness for
+                    a particular purpose are disclaimed. In no event shall the copyright
+                    owner or contributors be liable for any direct, indirect, incidental,
+                    special, exemplary, or consequential damages (including, but not
+                    limited to, procurement of substitute goods or services; loss of use,
+                    Data, or profits; or business interruption) however caused and on any
+                    theory of liability, whether in contract, strict liability, or tort
+                    (including negligence or otherwise) arising in any way out of the use
+                    of this software, even if advised of the possibility of such damage.
                 </p>
             </paper-shadow>
             <paper-shadow z="1" class="card2" id="i9">

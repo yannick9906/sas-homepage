@@ -52,7 +52,7 @@ class TimelineEntry {
      */
     public static function fromVID($vID) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM timeline WHERE vID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
+        $res = $pdo->query("SELECT * FROM schlopolis_timeline WHERE vID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
         return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
@@ -63,7 +63,7 @@ class TimelineEntry {
      */
     public static function fromTID($tID) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM timeline WHERE tID = :tid ORDER BY version DESC LIMIT 1", [":tid" => $tID]);
+        $res = $pdo->query("SELECT * FROM schlopolis_timeline WHERE tID = :tid ORDER BY version DESC LIMIT 1", [":tid" => $tID]);
         return new TimelineEntry($res->vID, $res->tID, $res->date, $res->title, $res->info, $res->link, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
@@ -350,7 +350,7 @@ class TimelineEntry {
      */
     public function delete() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("DELETE FROM timeline WHERE tID = :tid", [":tid" => $this->tID]);
+        $pdo->query("DELETE FROM schlopolis_timeline WHERE tID = :tid", [":tid" => $this->tID]);
     }
 
     /**
@@ -358,7 +358,7 @@ class TimelineEntry {
      */
     public function approve() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE timeline SET state = 0 WHERE vID = :vid", [":vid" => $this->vID]);
+        $pdo->query("UPDATE schlopolis_timeline SET state = 0 WHERE vID = :vid", [":vid" => $this->vID]);
     }
 
     /**
@@ -366,7 +366,7 @@ class TimelineEntry {
      */
     public function deny() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE timeline SET state = 2 WHERE vID = :vid", [":vid" => $this->vID]);
+        $pdo->query("UPDATE schlopolis_timeline SET state = 2 WHERE vID = :vid", [":vid" => $this->vID]);
     }
 
     /**
@@ -384,10 +384,10 @@ class TimelineEntry {
         $authorID = $user->getUID();
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
-        $res = $pdo->query("SELECT MAX(tID) as tID FROM timeline");
+        $res = $pdo->query("SELECT MAX(tID) as tID FROM schlopolis_timeline");
         var_dump($res);
         $tID = $res->tID + 1;
-        $pdo->query("INSERT INTO timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
+        $pdo->query("INSERT INTO schlopolis_timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
                     ."VALUES (:tid, :date, :title, :info, :link, :type, :authorID, :lastEditID, :lastEditDate, 1, 1)",
                     [":tid" => $tID, ":date" => $date, ":title" => $title, ":info" => $info, ":link" => $link,":type" => $type, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate]);
         return self::fromTID($tID);
@@ -406,7 +406,7 @@ class TimelineEntry {
         $authorID = $this->authorID;
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
-        $res = $pdo->query("SELECT MAX(version) as version FROM timeline WHERE tID = :tID", [":tID" => $this->tID]);
+        $res = $pdo->query("SELECT MAX(version) as version FROM schlopolis_timeline WHERE tID = :tID", [":tID" => $this->tID]);
         var_dump($res);
         $tID = $this->tID;
         $version = $res->version + 1;
@@ -414,7 +414,7 @@ class TimelineEntry {
         $info = $this->info;
         $link = $this->link;
         $type = $this->type;
-        $pdo->query("INSERT INTO timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
+        $pdo->query("INSERT INTO schlopolis_timeline(tID, date, title, info, link, type, authorID, lastEditID, lastEditDate, version, state)"
             ."VALUES (:tid, :date, :title, :info, :link, :type, :authorID, :lastEditID, :lastEditDate, :version, 1)",
             [":tid" => $tID, ":date" => $date, ":title" => $title, ":info" => $info, ":link" => $link,":type" => $type, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate, ":version" => $version]);
 
@@ -425,7 +425,7 @@ class TimelineEntry {
      */
     public static function getAllPublicEntries() {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc");
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
 
     }
@@ -435,7 +435,7 @@ class TimelineEntry {
      */
     public static function getAllEntries() {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID");
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
 
@@ -445,7 +445,7 @@ class TimelineEntry {
      */
     public static function getAllVersions($tID) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM timeline WHERE tID = :tid ORDER BY version desc", [":tid" => $tID]);
+        $stmt = $pdo->queryMulti("SELECT vID FROM schlopolis_timeline WHERE tID = :tid ORDER BY version desc", [":tid" => $tID]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
 }

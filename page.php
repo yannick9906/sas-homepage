@@ -5,6 +5,7 @@
     require_once 'php/Mobile_Detect.php'; // Mobile Detect
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
     require_once 'editor/classes/TimelineEntry.php';
+    require_once 'php/main.php';
     $pdo = new PDO_MYSQL();
     $detect = new Mobile_Detect;
     Dwoo\Autoloader::register();
@@ -20,13 +21,13 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
     switch($pg) {
         case 0: //Home
             //Naechster Termin
-            $res = $pdo->query("SELECT * FROM calendar WHERE `Date` > CURDATE() ORDER BY `Date` ASC LIMIT 1");
-            $timestamp = strtotime($res->Date);
+            $entries = \ICMS\TimelineEntry::getAllPublicEntries();
+            $timestamp = $entries[0]->getDate();
             if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                $evDate = date("d. M Y", $timestamp);
+                $evDate = dbDateToReadableWithOutTime($timestamp);
             else
-                $evDate = date("d. M Y - H:i", $timestamp);
-            $evTitle = $res->title;
+                $evDate = dbDateToReadableWithTime($timestamp);
+            $evTitle    = $entries[0]->getTitle();
 
             //Spruch der Woche
             $res = $pdo->query("SELECT * FROM spruchderwoche WHERE Week = :w", [":w" => date('W')]);
@@ -47,7 +48,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            require_once 'php/main.php';
             $db = DBConnect();
 
             $i = 0;

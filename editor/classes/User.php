@@ -49,8 +49,8 @@ class User {
      */
     public static function fromUID($uID) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM Schlopolis_User WHERE uID = :uid", [":uid" => $uID]);
-        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd, $res->level);
+        $res = $pdo->query("SELECT * FROM schlopolis_user WHERE uID = :uid", [":uid" => $uID]);
+        return new User($res->uID, $res->username, $res->firstname, $res->lastname, $res->mail, $res->passwd, $res->level);
     }
 
     /**
@@ -61,8 +61,8 @@ class User {
      */
     public static function fromUName($uName) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM Schlopolis_User WHERE Username = :uname", [":uname" => $uName]);
-        return new User($res->uID, $res->Username, $res->Firstname, $res->Lastname, $res->Email, $res->Passwd, $res->level);
+        $res = $pdo->query("SELECT * FROM schlopolis_user WHERE username = :uname", [":uname" => $uName]);
+        return new User($res->uID, $res->username, $res->firstname, $res->lastname, $res->mail, $res->passwd, $res->level);
     }
 
     /**
@@ -177,13 +177,13 @@ class User {
     /**
      * Checks if the user is permitted to do sth.
      *
-     * @param $actionKey String for Permission
+     * @param $permission String for Permission
      * @return bool
      */
-    public function isActionAllowed($actionKey) {
+    public function isActionAllowed($permission) {
         if($this->uPrefix != 2) {
             $pdo = new PDO_MYSQL();
-            $res = $pdo->query("SELECT * FROM actionkey WHERE uID = :uid AND right_tag = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+            $res = $pdo->query("SELECT * FROM schlopolis_user_rights WHERE uID = :uid AND permission = :key", [":uid" => $this->uID, ":key" => $permission]);
             if ($res->active == 1) {
                 return true;
             } else {
@@ -198,12 +198,12 @@ class User {
     /**
      * Tests if a permission action key is already present in the DB
      *
-     * @param $actionKey string
+     * @param $permission string
      * @return bool
      */
-    public function isActionInDB($actionKey) {
+    public function isActionInDB($permission) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM user_rights WHERE uID = :uid AND actionkey = :key", [":uid" => $this->uID, ":key" => $actionKey]);
+        $res = $pdo->query("SELECT * FROM schlopolis_user_rights WHERE uID = :uid AND permission = :key", [":uid" => $this->uID, ":key" => $permission]);
         return isset($res->active);
     }
 
@@ -216,9 +216,9 @@ class User {
     public function setPermission($actionKey, $state) {
         $pdo = new PDO_MYSQL();
         if($this->isActionInDB($actionKey))
-            $pdo->query("UPDATE user_rights SET active = :state WHERE uID = :uid and actionkey = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
+            $pdo->query("UPDATE schlopolis_user_rights SET active = :state WHERE uID = :uid and permission = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
         else
-            $pdo->query("INSERT INTO user_rights(active, uID, actionkey) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
+            $pdo->query("INSERT INTO schlopolis_user_rights(active, uID, permission) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
     }
 
     /**
@@ -257,9 +257,9 @@ class User {
     public function getPermAsArray() {
         $array = [];
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT * FROM user_rights WHERE uID = :uid", [":uid" => $this->uID]);
+        $stmt = $pdo->queryMulti("SELECT * FROM schlopolis_user_rights WHERE uID = :uid", [":uid" => $this->uID]);
         while($row = $stmt->fetchObject()) {
-            $array[str_replace(".", "_", $row->actionkey)] = (int) $this->isActionAllowed($row->actionkey);
+            $array[str_replace(".", "_", $row->permission)] = (int) $this->isActionAllowed($row->permission);
         }
         return $array;
     }
@@ -272,7 +272,7 @@ class User {
      */
     public static function doesUserNameExist($uName) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM Schlopolis_User WHERE Username = :uname", [":uname" => $uName]);
+        $res = $pdo->query("SELECT * FROM schlopolis_user WHERE username = :uname", [":uname" => $uName]);
         if(isset($res->uID)) {
             return true;
         } else {
@@ -287,7 +287,7 @@ class User {
      */
     public static function getAllUsers() {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT uID FROM Schlopolis_User");
+        $stmt = $pdo->queryMulti("SELECT uID FROM schlopolis_user ORDER BY uID");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\User::fromUID");
     }
 
@@ -298,7 +298,7 @@ class User {
      */
     public function delete() {
         $pdo = new PDO_MYSQL();
-        return $pdo->query("DELETE FROM Schlopolis_User WHERE uID = :uid", [":uid" => $this->uID]);
+        return $pdo->query("DELETE FROM schlopolis_user WHERE uID = :uid", [":uid" => $this->uID]);
     }
 
     /**
@@ -306,7 +306,7 @@ class User {
      */
     public function saveChanges() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE Schlopolis_User SET Email = :Email, Firstname = :Firstname, Lastname = :Lastname, Passwd = :Passwd, Username = :Username WHERE uID = :uID LIMIT 1",
+        $pdo->query("UPDATE schlopolis_user SET mail = :Email, firstname = :Firstname, lastname = :Lastname, passwd = :Passwd, username = :Username WHERE uID = :uID LIMIT 1",
             [":Email" => $this->uEmail, ":Firstname" => $this->uFirstName, ":Lastname" => $this->uLastName, ":Passwd" => $this->uPassHash, ":Username" => $this->uName, ":uID" => $this->uID]);
     }
 
@@ -322,7 +322,7 @@ class User {
      */
     public static function createUser($username, $firstname, $lastname, $email, $passwdhash) {
         $pdo = new PDO_MYSQL();
-        $pdo->query("INSERT INTO Schlopolis_User(Username, Firstname, Lastname, Email, Passwd) VALUES (:Username, :Firstname, :Lastname, :Email, :Passwd)",
+        $pdo->query("INSERT INTO schlopolis_user(username, firstname, lastname, mail, passwd) VALUES (:Username, :Firstname, :Lastname, :Email, :Passwd)",
         [":Username" => $username, ":Firstname" => $firstname, ":Lastname" => $lastname, ":Email" => $email, ":Passwd" => md5($passwdhash)]);
         return self::fromUName($username);
     }
