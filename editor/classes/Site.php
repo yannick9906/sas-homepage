@@ -8,10 +8,8 @@
 
 namespace ICMS;
 
-
 use PDO;
 use PDO_MYSQL;
-use TypeNormal;
 
 class Site {
     private $vID, $pID, $name, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
@@ -53,6 +51,18 @@ class Site {
     }
 
     /**
+     * Create a new Site Object which is the latest live one
+     *
+     * @param $pID
+     * @return Site
+     */
+    public static function fromPIDLiveOnly($pID) {
+        $pdo = new PDO_MYSQL();
+        $res = $pdo->query("SELECT * FROM schlopolis_sites WHERE pID = :pid and state = 0 ORDER BY version DESC LIMIT 1", [":pid" => $pID]);
+        return new Site($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
+    }
+
+    /**
      * Create a new Site Object
      *
      * @param $vID
@@ -64,11 +74,15 @@ class Site {
         return new Site($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
+
     /**
-     *
+     * @return TypeNormal
      */
     public function toTypeObject() {
-
+        switch($this->type) {
+            case 0:
+                return TypeNormal::fromPID($this->pID);
+        }
     }
 
     /**
@@ -222,6 +236,15 @@ class Site {
     }
 
     /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+
+
+    /**
      * Denies this version
      */
     public function deny() {
@@ -273,7 +296,7 @@ class Site {
     public static function createNew($name, $type, $user) {
         switch($type) {
             case "normal":
-                return \ICMS\TypeNormal::createNew($name, $user);
+                return TypeNormal::createNew($name, $user);
                 break;
             case "party":
                 break;

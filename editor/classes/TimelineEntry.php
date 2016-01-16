@@ -269,16 +269,6 @@ class TimelineEntry {
 
 
     /**
-     * Saves all changes, done to this Entry
-     * ** Note, this will NOT create a new Entry
-     *
-     * @return bool
-     */
-    public function saveChanges() {
-        //TODO
-    }
-
-    /**
      * turns state int into a readable production ready HTML code
      *
      * @param $state int

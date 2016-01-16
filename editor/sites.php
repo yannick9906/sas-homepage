@@ -11,9 +11,11 @@ ini_set("diplay_errors", "on");
 
 require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
 require_once '../php/Mobile_Detect.php'; // Mobile Detect
+require_once '../php/Parsedown.php'; // Parsedown
 require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 require_once 'classes/User.php';
 require_once 'classes/Site.php';
+require_once 'classes/TypeNormal.php';
 require_once 'classes/Permissions.php';
 require_once '../php/main.php';
 
@@ -66,6 +68,16 @@ if($action == "approve" and is_numeric($vID)) {
         $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
+} elseif($action == "del" and is_numeric($vID)) {
+    if($user->isActionAllowed(PERM_SITE_OP_DELETE)) {
+        $entryToDelete = \ICMS\Site::fromvID($vID);
+        $entryToDelete->delete();
+        forwardTo("sites.php");
+        exit;
+    } else {
+        $pgdata = getEditorPageDataStub("Seite löschen", $user);
+        $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+    }
 } elseif($action == "new") {
     if ($user->isActionAllowed(PERM_SITE_CREATE)) {
         $pgdata = getEditorPageDataStub("Seite erstellen", $user);
@@ -78,8 +90,8 @@ if($action == "approve" and is_numeric($vID)) {
 } elseif($action == "postNew") {
     if ($user->isActionAllowed(PERM_SITE_CREATE)) {
 
-        var_dump($timelineCreated = \ICMS\Site::createNew($_POST['name'], $_POST['type'], $user));
-        //forwardTo("sites.php");
+        $timelineCreated = \ICMS\Site::createNew($_POST['name'], $_POST['type'], $user);
+        forwardTo("sites.php");
         exit;
     } else {
         $pgdata = getEditorPageDataStub("Seite erstellen", $user);
@@ -87,14 +99,12 @@ if($action == "approve" and is_numeric($vID)) {
     }
 } elseif($action == "edit" and is_numeric($pID)) {
     if ($user->isActionAllowed(PERM_SITE_NEW_VERSION)) {
-        $timelineToEdit = \ICMS\TimelineEntry::fromTID($pID);
+        $siteToEdit = \ICMS\Site::fromPID($pID)->toTypeObject();
         $pgdata = getEditorPageDataStub("Seite bearbeiten", $user);
-        $tml = $timelineToEdit->asArray();
-        $tml["text"] = $timelineToEdit->getInfo();
-        $tml["date"] = str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate()));
-        var_dump($tml);
-        $pgdata["edit"] = $tml;
-        $dwoo->output("tpl/timelineEdit.tpl", $pgdata);
+        $site = $siteToEdit->asArray();
+
+        $pgdata["edit"] = $site;
+        $dwoo->output($siteToEdit->getTplLink(), $pgdata);
         exit; //To not show the list
     } else {
         $pgdata = getEditorPageDataStub("Seite bearbeiten", $user);
@@ -103,20 +113,16 @@ if($action == "approve" and is_numeric($vID)) {
 } elseif($action == "postEdit" and is_numeric($pID)) {
     if ($user->isActionAllowed(PERM_SITE_NEW_VERSION)) {
         var_dump($_POST);
-        $timelineToEdit = \ICMS\TimelineEntry::fromTID($pID);
-        $timelineToEdit->setTitle($_POST["title"]);
-        $timelineToEdit->setInfo($_POST["text"]);
-        $timelineToEdit->setDate(strtotime($_POST["date"]));
-        if ($_POST["lnkType"] == "rdNo") $timelineToEdit->setLink("");
-        elseif ($_POST["lnkType"] == "rdExt") $timelineToEdit->setLink($_POST["lnkExtern"]);
-        elseif ($_POST["lnkType"] == "rdInt") $timelineToEdit->setLink(""); //TODO
-        $timelineToEdit->setType($_POST["type"]);
+        $siteToEdit = \ICMS\Site::fromPID($pID)->toTypeObject();
+        $siteToEdit->setTitle($_POST["title"]);
+        $siteToEdit->setName($_POST["name"]);
+        $siteToEdit->setText($_POST["text"]);
 
-        $timelineToEdit->saveAsNewVersion($user);
-        forwardTo("timeline.php");
+        $siteToEdit->saveAsNewVersion($user);
+        forwardTo("sites.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = getEditorPageDataStub("Seite bearbeiten", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }/**/
 }
@@ -125,7 +131,7 @@ if($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
     $pgdata = getEditorPageDataStub("Seiten", $user);
     $entries = \ICMS\Site::getAllSites();
-    var_dump($entries);
+    //var_dump($entries);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
         $pgdata["page"]["items"][$i] = $entries[$i]->asArray();

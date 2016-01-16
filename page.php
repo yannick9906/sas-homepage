@@ -3,8 +3,12 @@
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
     require_once 'php/Mobile_Detect.php'; // Mobile Detect
+    require_once 'php/Parsedown.php'; // Parsedown
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
     require_once 'editor/classes/TimelineEntry.php';
+    require_once 'editor/classes/Site.php';
+    require_once 'editor/classes/User.php';
+    require_once 'editor/classes/TypeNormal.php';
     require_once 'php/main.php';
     $pdo = new PDO_MYSQL();
     $detect = new Mobile_Detect;
@@ -307,17 +311,17 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 exit;
             }
 
-            //Spruch der Woche
-            $res = $pdo->query("SELECT * FROM pages WHERE pID = :p", [":p" => $id]);
+            $site = \ICMS\Site::fromPID($id)->toTypeObject();
 
             //Dwoo
             $pgData = [
                 "header" => [
-                    "title" => $res->title
+                    "title" => $site->getTitle()
                 ],
                 "page" => [
-                    "highlight" => $res->highlight,
-                    "text"  => $res->text
+                    "highlight" => '',
+                    "text"  => $site->asArray()["textHTML"],
+                    "header" => $site->getHeader()
                 ]
             ];
 

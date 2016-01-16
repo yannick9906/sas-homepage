@@ -12,7 +12,7 @@
                 <tbody>
                     <tr>
                         <th>Name</th>
-                        <td><input id="title" type="text" name="title" value="" required placeholder="Darf nicht leer sein"/></td>
+                        <td><input id="title" type="text" name="name" value="" required placeholder="Darf nicht leer sein"/></td>
                     </tr>
                     <tr>
                         <th>Typ</th>
