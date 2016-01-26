@@ -164,9 +164,18 @@ class User {
                 return '<span class="uPreUsr">[User]</span>';
                 break;
             case 1:
-                return '<span class="uPreMod">[Mod]</span>';
+                return '<span class="uPreMod">[Partei]</span>';
                 break;
             case 2:
+                return '<span class="uPreMod">[Ak]</span>';
+                break;
+            case 3:
+                return '<span class="uPreMod">[Orga]</span>';
+                break;
+            case 4:
+                return '<span class="uPreMod">[Lehrer]</span>';
+                break;
+            case 5:
                 return '<span class="uPreAdm">[Admin]</span>';
                 break;
             default:
@@ -181,7 +190,7 @@ class User {
      * @return bool
      */
     public function isActionAllowed($permission) {
-        if($this->uPrefix != 2) {
+        if($this->uPrefix != 6) {
             $pdo = new PDO_MYSQL();
             $res = $pdo->query("SELECT * FROM schlopolis_user_rights WHERE uID = :uid AND permission = :key", [":uid" => $this->uID, ":key" => $permission]);
             if ($res->active == 1) {
@@ -245,8 +254,27 @@ class User {
             "firstname" => $this->uFirstName,
             "lastname" => $this->uLastName,
             "email" => $this->uEmail,
+            "lvl" => $this->uPrefix,
             "prefix" => $this->getPrefixAsHtml()
         ];
+    }
+
+
+    /**
+     * Makes this class as an string to use for debug only
+     *
+     * @return string
+     */
+    public function toString() {
+        return
+            "id:        ".$this->uID."\n".
+            "usrname:   ".$this->uName."\n".
+            "usrchar:   ".$this->uName[0]."\n".
+            "firstname: ".$this->uFirstName."\n".
+            "lastname:  ".$this->uLastName."\n".
+            "email:     ".$this->uEmail."\n".
+            "lvl:       ".$this->uPrefix."\n".
+            "prefix:    ".$this->getPrefixAsHtml()."\n";
     }
 
     /**
@@ -306,8 +334,8 @@ class User {
      */
     public function saveChanges() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE schlopolis_user SET mail = :Email, firstname = :Firstname, lastname = :Lastname, passwd = :Passwd, username = :Username WHERE uID = :uID LIMIT 1",
-            [":Email" => $this->uEmail, ":Firstname" => $this->uFirstName, ":Lastname" => $this->uLastName, ":Passwd" => $this->uPassHash, ":Username" => $this->uName, ":uID" => $this->uID]);
+        $pdo->query("UPDATE schlopolis_user SET mail = :Email, firstname = :Firstname, lastname = :Lastname, passwd = :Passwd, username = :Username, level = :lvl WHERE uID = :uID LIMIT 1",
+            [":Email" => $this->uEmail, ":Firstname" => $this->uFirstName, ":Lastname" => $this->uLastName, ":Passwd" => $this->uPassHash, ":Username" => $this->uName, ":uID" => $this->uID, ":lvl" => $this->uPrefix]);
     }
 
     /**

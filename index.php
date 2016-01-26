@@ -12,7 +12,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black_translucent">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"/>
         <link rel="import" href="bower_components/polymer/polymer.html"/>
-        <link rel="manifest" href="manifest.json"/>
+        <link rel="manifest" href="manifest.webapp"/>
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic|Ubuntu:400,700'
@@ -85,7 +85,7 @@
                                 fit></paper-ripple></a></core-item>
                     <core-item icon="more-horiz" label="Impressum"><a href="#p=9" target="_self"><paper-ripple
                                 fit></paper-ripple></a></core-item>
-                    <core-item icon="account-circle" label="Login"><a href="login.php" target="_self"><paper-ripple
+                    <core-item icon="account-circle" label="Login"><a href="editor/logon.php" target="_self"><paper-ripple
                                 fit></paper-ripple></a></core-item>
                 </core-menu>
             </core-header-panel>
@@ -158,7 +158,7 @@
                                 '<core-item icon="receipt" label="Wahlen"><a href="#p=5" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
                                 '<core-item icon="announcement" label="Fragen"><a href="#p=7" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
                                 '<core-item icon="more-horiz" label="Impressum"><a href="#p=9" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="account-circle" label="Login"><a href="login.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
+                                '<core-item icon="account-circle" label="Login"><a href="editor/logon.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
                                 '</core-menu>' +
                                 "</core-header-panel>";
                             msg = drawer + msg;

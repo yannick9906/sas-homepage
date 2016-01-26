@@ -16,6 +16,8 @@ require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 require_once 'classes/User.php';
 require_once 'classes/Site.php';
 require_once 'classes/TypeNormal.php';
+require_once 'classes/TypeAK.php';
+require_once 'classes/TypeParty.php';
 require_once 'classes/Permissions.php';
 require_once '../php/main.php';
 
@@ -98,11 +100,10 @@ if($action == "approve" and is_numeric($vID)) {
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "edit" and is_numeric($pID)) {
-    if ($user->isActionAllowed(PERM_SITE_NEW_VERSION)) {
+    if ($user->isActionAllowed(PERM_SITE_NEW_VERSION_ALL) or ($user->isActionAllowed(PERM_SITE_NEW_VERSION_OWN) and \ICMS\Site::fromPID($pID)->getAuthor() == $user->getUID())) {
         $siteToEdit = \ICMS\Site::fromPID($pID)->toTypeObject();
         $pgdata = getEditorPageDataStub("Seite bearbeiten", $user);
         $site = $siteToEdit->asArray();
-
         $pgdata["edit"] = $site;
         $dwoo->output($siteToEdit->getTplLink(), $pgdata);
         exit; //To not show the list
@@ -111,12 +112,30 @@ if($action == "approve" and is_numeric($vID)) {
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($pID)) {
-    if ($user->isActionAllowed(PERM_SITE_NEW_VERSION)) {
+    if ($user->isActionAllowed(PERM_SITE_NEW_VERSION_ALL) or ($user->isActionAllowed(PERM_SITE_NEW_VERSION_OWN) and \ICMS\Site::fromPID($pID)->getAuthor() == $user->getUID())) {
         var_dump($_POST);
         $siteToEdit = \ICMS\Site::fromPID($pID)->toTypeObject();
-        $siteToEdit->setTitle($_POST["title"]);
-        $siteToEdit->setName($_POST["name"]);
-        $siteToEdit->setText($_POST["text"]);
+        switch($siteToEdit->getType()) {
+            case 0:
+                $siteToEdit->setTitle($_POST["title"]);
+                $siteToEdit->setName($_POST["name"]);
+                $siteToEdit->setText($_POST["text"]);
+                break;
+            case 1:
+                $siteToEdit->setName($_POST["name"]);
+                $siteToEdit->setImg($_POST["image"]);
+                $siteToEdit->setIcon($_POST["icon"]);
+                $siteToEdit->setShort($_POST["info"]);
+                $siteToEdit->setText($_POST["text"]);
+                break;
+            case 2:
+                $siteToEdit->setName($_POST["name"]);
+                $siteToEdit->setImg($_POST["image"]);
+                $siteToEdit->setIcon($_POST["icon"]);
+                $siteToEdit->setShort($_POST["info"]);
+                $siteToEdit->setText($_POST["text"]);
+                break;
+        }
 
         $siteToEdit->saveAsNewVersion($user);
         forwardTo("sites.php");
@@ -127,7 +146,6 @@ if($action == "approve" and is_numeric($vID)) {
     }/**/
 }
 
-
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
     $pgdata = getEditorPageDataStub("Seiten", $user);
     $entries = \ICMS\Site::getAllSites();
@@ -136,8 +154,6 @@ if($action == "approve" and is_numeric($vID)) {
         $pgdata["page"]["items"][$i]["index"] = $i;
         $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
     }
-
-    //var_dump($user->getPermAsArray());
 
     $dwoo->output("tpl/sitesList.tpl", $pgdata);
 } else {

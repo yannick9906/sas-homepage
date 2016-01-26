@@ -1,7 +1,7 @@
 7            <!-- Main Content -->
             <div tool icon="menu">Wahlen</div>
 
-            <img src="group_people_icon.jpg" style="width: 100%; height: auto;"/>
+            <img src="{$page.img}" style="width: 100%; height: auto;"/>
             <paper-shadow z="1" class="detailcard">
                 <h2>{$page.title}</h2>
                 <p>{$page.text}</p>

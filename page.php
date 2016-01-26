@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ERROR);
+ini_set("diplay_errors", "on");
+
     $pg = $_POST['p']; // ID der Seite
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
     require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
@@ -9,6 +13,8 @@
     require_once 'editor/classes/Site.php';
     require_once 'editor/classes/User.php';
     require_once 'editor/classes/TypeNormal.php';
+    require_once 'editor/classes/TypeAK.php';
+    require_once 'editor/classes/TypeParty.php';
     require_once 'php/main.php';
     $pdo = new PDO_MYSQL();
     $detect = new Mobile_Detect;
@@ -21,7 +27,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
     else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
     exit;
 }
-
     switch($pg) {
         case 0: //Home
             //Naechster Termin
@@ -34,9 +39,9 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             $evTitle    = $entries[0]->getTitle();
 
             //Spruch der Woche
-            $res = $pdo->query("SELECT * FROM spruchderwoche WHERE Week = :w", [":w" => date('W')]);
-            $spWeek = $res->Week;
-            $spText = $res->Spruch;
+            $res = $pdo->query("SELECT * FROM schlopolis_sow WHERE week = :w", [":w" => date('W')]);
+            $spWeek = $res->week;
+            $spText = $res->text;
 
             //Dwoo
             $pgData = [
@@ -132,8 +137,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             else $dwoo->output("tpl/mobile/news.tpl", $pgData);
             break;
         case 3: //Aks Liste
-            require_once 'php/main.php';
-            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "Arbeitskreise"
@@ -143,33 +146,29 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $i = 0;
-            $res = $db->query("SELECT * FROM AKs");
-            while($row = $res->fetch_object()) {
-                $pgData["page"]["items"][$i]["id"] = $row->ID;
-                $pgData["page"]["items"][$i]["info"]  = $row->textshort;
-                $pgData["page"]["items"][$i]["name"]  = $row->Name;
-                $pgData["page"]["items"][$i]["icon"]  = $row->Icon;
-                $i++;
+            $parties = \ICMS\TypeAK::listAKs();
+            for ($i = 0; $i < sizeof($parties); $i++) {
+                $pgData["page"]["items"][$i]["id"] = $parties[$i]->getPID();
+                $pgData["page"]["items"][$i]["info"]  = $parties[$i]->getShort();
+                $pgData["page"]["items"][$i]["name"]  = $parties[$i]->getName();
+                $pgData["page"]["items"][$i]["icon"]  = $parties[$i]->getIcon();
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
             else $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
             break;
         case 4: //Aks Detail
-            require_once 'php/main.php';
-            $db = DBConnect();
             $id = $_POST['id'];
             if(is_numeric($id)) {
-                $res = $pdo->query("SELECT * FROM AKs WHERE ID = :id", [":id" => $id]);
+                $site = \ICMS\Site::fromPID($id)->toTypeObject();
                 $pgData = [
                     "header" => [
-                        "title" => $res->Name
+                        "title" => $site->getName()
                     ],
                     "page" => [
-                        "title" => $res->Name,
-                        "text" => $res->textlong,
-                        "img" => $res->img
+                        "title" => $site->getName(),
+                        "text" => $site->asArray()["textHTML"],
+                        "img" => $site->getImg()
                     ]
                 ];
 
@@ -179,8 +178,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
             break;
         case 5: //Parteien List
-            require_once 'php/main.php';
-            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "Parteien"
@@ -190,34 +187,30 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $i = 0;
-            $res = $db->query("SELECT * FROM parties");
-            while($row = $res->fetch_object()) {
-                $pgData["page"]["items"][$i]["id"] = $row->ID;
-                $pgData["page"]["items"][$i]["info"]  = $row->textshort;
-                $pgData["page"]["items"][$i]["name"]  = $row->Name;
-                $pgData["page"]["items"][$i]["icon"]  = $row->Icon;
-                if(mktime(date("d M Y")) >= mktime(0,0,0,11,9,2015)) $pgData["page"]["ok"] = 1;
-                $i++;
+            $parties = \ICMS\TypeParty::listParties();
+            for ($i = 0; $i < sizeof($parties); $i++) {
+                $pgData["page"]["items"][$i]["id"] = $parties[$i]->getPID();
+                $pgData["page"]["items"][$i]["info"]  = $parties[$i]->getShort();
+                $pgData["page"]["items"][$i]["name"]  = $parties[$i]->getName();
+                $pgData["page"]["items"][$i]["icon"]  = $parties[$i]->getIcon();
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
             else $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
             break;
         case 6: //Parteien Detail
-            require_once 'php/main.php';
-            $db = DBConnect();
-            $id = $_GET['id'];
+            echo "7";
+            $id = $_POST['id'];
             if(is_numeric($id)) {
-                $res = $pdo->query("SELECT * FROM parties WHERE ID = :id", [":id" => $id]);
+                $site = \ICMS\Site::fromPID($id)->toTypeObject();
                 $pgData = [
                     "header" => [
-                        "title" => $res->Name
+                        "title" => $site->getName()
                     ],
                     "page" => [
-                        "title" => $res->Name,
-                        "text" => $res->textlong,
-                        "img" => $res->img
+                        "title" => $site->getName(),
+                        "text" => $site->asArray()["textHTML"],
+                        "img" => $site->getImg()
                     ]
                 ];
 
@@ -289,7 +282,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             ];
 
             $i = 0;
-            $res = $db->query("SELECT * FROM protokols");
+            $res = $db->query("SELECT * FROM protokols ORDER BY ID DESC");
             while($row = $res->fetch_object()) {
                 $timestamp = strtotime($row->date);
                 $date = date("d. M Y", $timestamp);
@@ -313,20 +306,55 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
             $site = \ICMS\Site::fromPID($id)->toTypeObject();
 
-            //Dwoo
-            $pgData = [
-                "header" => [
-                    "title" => $site->getTitle()
-                ],
-                "page" => [
-                    "highlight" => '',
-                    "text"  => $site->asArray()["textHTML"],
-                    "header" => $site->getHeader()
-                ]
-            ];
 
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
-            else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+            switch($site->getType()) {//Dwoo
+                case 0:
+                    $pgData = [
+                        "header" => [
+                            "title" => $site->getTitle()
+                        ],
+                        "page" => [
+                            "highlight" => '',
+                            "text"  => $site->asArray()["textHTML"],
+                            "header" => $site->getHeader()
+                        ]
+                    ];
+
+                    if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    break;
+                case 1: //todo
+                    $pgData = [
+                        "header" => [
+                            "title" => $site->getTitle()
+                        ],
+                        "page" => [
+                            "highlight" => '',
+                            "text"  => $site->asArray()["textHTML"],
+                            "header" => $site->getHeader()
+                        ]
+                    ];
+
+                    if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    break;
+                case 2://todo
+                    $pgData = [
+                        "header" => [
+                            "title" => $site->getTitle()
+                        ],
+                        "page" => [
+                            "highlight" => '',
+                            "text"  => $site->asArray()["textHTML"],
+                            "header" => $site->getHeader()
+                        ]
+                    ];
+
+                    if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    else $dwoo->output("tpl/mobile/page.tpl", $pgData);
+                    break;
+            }
+
 
             break;
         default:

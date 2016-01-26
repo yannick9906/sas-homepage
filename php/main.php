@@ -72,12 +72,51 @@
             forwardTo("logon.php?badsession=1");
             exit;
         } else {
-            return \ICMS\User::fromUID($_SESSION["uID"]);
+            $user = \ICMS\User::fromUID($_SESSION["uID"]);
+            if($_GET["m"] == "debug") {
+                echo "<pre style='display: block; position: absolute'>\n";
+                echo "[0] Perm Array Information:\n";
+                var_dump($user->getPermAsArray());
+                echo "\n[1] Permission Information:\n";
+                printPermission($user);
+                echo "\n[2] User Information:\n";
+                echo $user->toString();
+                echo "\n[3] Client Information:\n";
+                echo "    Arguments: ".$_SERVER["REQUEST_URI"]."\n";
+                echo "    Req Time : ".$_SERVER["REQUEST_TIME"]."ns\n";
+                echo "    Remote IP: ".$_SERVER["REMOTE_ADDR"]."\n";
+                echo "    Usr Agent: ".$_SERVER["HTTP_USER_AGENT"]."\n";
+                echo "</pre>\n";
+            }
+
+            return $user;
+        }
+    }
+
+    /**
+     * @param $user ICMS\User
+     */
+    function printPermission($user) {
+        $consts = returnConstants("PERM");
+        //var_dump($consts);
+        foreach ($consts as $const) {
+            echo "    ".$const.": ".(($user->isActionAllowed($const)) ? 'on' : 'off')."\n";
         }
     }
 
     function forwardTo($url) {
         echo "<meta http-equiv=\"refresh\" content=\"0; url=$url\" />";
+    }
+
+    /**
+     * @param $prefix
+     * @return array
+     */
+    function returnConstants ($prefix) {
+        foreach (get_defined_constants() as $key=>$value)
+            if (substr($key,0,strlen($prefix))==$prefix)  $dump[$key] = $value;
+        if(empty($dump)) { return "Error: No Constants found with prefix '".$prefix."'"; }
+        else { return $dump; }
     }
 
     /**
@@ -92,7 +131,8 @@
                 "usrname" => $user->getUName(),
                 "usrchar" => substr($user->getUName(), 0, 1),
                 "uID" => $user->getUID(),
-                "level" => $user->getUPrefix()
+                "level" => $user->getUPrefix(),
+                "perm" => $user->getPermAsArray()
             ],
             "perm" => $user->getPermAsArray()
         ];

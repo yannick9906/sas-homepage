@@ -74,14 +74,22 @@ class Site {
         return new Site($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
-
     /**
-     * @return TypeNormal
+     * @return TypeNormal | TypeAK | TypeParty
      */
     public function toTypeObject() {
         switch($this->type) {
             case 0:
+                echo "OK0";
                 return TypeNormal::fromPID($this->pID);
+                break;
+            case 1:
+                return TypeAK::fromPID($this->pID);
+                break;
+            case 2:
+                echo "OK2";
+                return TypeParty::fromPID($this->pID);
+                break;
         }
     }
 
@@ -297,11 +305,32 @@ class Site {
         switch($type) {
             case "normal":
                 return TypeNormal::createNew($name, $user);
-                break;
             case "party":
-                break;
+                return TypeParty::createNew($name, $user);
             case "ak":
-                break;
+                return TypeAK::createNew($name, $user);
         }
+    }
+
+
+    /**
+     * Returns all pending site changes for a specific User
+     *
+     * @param $user User
+     *
+     * @return Site[]
+     */
+    public static function getOwnPendingChanges($user) {
+
+    }
+
+
+    /**
+     * Returns all pending site changes
+     *
+     * @return Site[]
+     */
+    public static function getAllPendingChanges() {
+
     }
 }

@@ -28,7 +28,7 @@
     "sizes": "1080x1920",
     "density": 3
   }],
-  "start_url": "index.php#p=0",
+  "launch_path": "index.php#p=0",
   "display": "standalone",
   "orientation": "portrait",
   "default-locale": "de",

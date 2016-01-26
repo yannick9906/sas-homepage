@@ -396,3 +396,7 @@ paper-button[raised] {
     top: 0;
     bottom: 0;
 }
+
+img {
+    width: 100%;
+}

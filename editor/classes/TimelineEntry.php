@@ -438,4 +438,25 @@ class TimelineEntry {
         $stmt = $pdo->queryMulti("SELECT vID FROM schlopolis_timeline WHERE tID = :tid ORDER BY version desc", [":tid" => $tID]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
+
+    /**
+     * Returns all pending timeline changes for a specific User
+     *
+     * @param $user User
+     *
+     * @return Site[]
+     */
+    public static function getOwnPendingChanges($user) {
+
+    }
+
+
+    /**
+     * Returns all pending timeline changes
+     *
+     * @return Site[]
+     */
+    public static function getAllPendingChanges() {
+
+    }
 }

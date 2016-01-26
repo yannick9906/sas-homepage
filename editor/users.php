@@ -40,6 +40,7 @@ if($action == "new") {
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $pgdata["edit"] = $userToEdit->asArray();
         $pgdata["perm"] = $userToEdit->getPermAsArray();
+        $pgdata["permU"] = $user->getPermAsArray();
         $dwoo->output("tpl/usersEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -73,6 +74,9 @@ if($action == "new") {
                 break;
             case "email":
                 $userToEdit->setUEmail($_POST['email']);
+                break;
+            case "lvl":
+                $userToEdit->setUPrefix($_POST['lvl']);
                 break;
         }
 

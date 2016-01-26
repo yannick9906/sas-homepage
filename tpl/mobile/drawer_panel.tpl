@@ -13,6 +13,6 @@
         <core-item icon="receipt" label="Wahlen"><a href="#p=5" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="announcement" label="Fragen"><a href="#p=7" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
         <core-item icon="more-horiz" label="Impressum"><a href="#p=9" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
-        <core-item icon="account-circle" label="Login"><a href="login.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
+        <core-item icon="account-circle" label="Login"><a href="editor/logon.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
     </core-menu>
 </core-header-panel>
