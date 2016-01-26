@@ -14,7 +14,8 @@ use PDO_MYSQL;
 
 class TypeNormal extends Site {
 
-    private $tplLink = "tpl/siteNormalEdit.tpl";
+    private $tplLink  = "tpl/siteNormalEdit.tpl";
+    private $tplLinkV = "tpl/siteNormalVers.tpl";
     private $header, $text, $title;
 
     function __construct($vID, $pID, $name, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state, $content) {
@@ -34,6 +35,18 @@ class TypeNormal extends Site {
     public static function fromPID($pID) {
         $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_sites WHERE pID = :pid ORDER BY version DESC LIMIT 1", [":pid" => $pID]);
+        return new TypeNormal($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state, $res->content);
+    }
+
+    /**
+     * Create a new Site Object
+     *
+     * @param $vID
+     * @return Site
+     */
+    public static function fromVID($vID) {
+        $pdo = new PDO_MYSQL();
+        $res = $pdo->query("SELECT * FROM schlopolis_sites WHERE ID = :vid", [":vid" => $vID]);
         return new TypeNormal($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state, $res->content);
     }
 
@@ -84,6 +97,13 @@ class TypeNormal extends Site {
      */
     public function getTplLink() {
         return $this->tplLink;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTplLinkV() {
+        return $this->tplLinkV;
     }
 
     public function asArray() {
@@ -162,4 +182,15 @@ class TypeNormal extends Site {
         var_dump($res->errorInfo());
     }
 
+    /**
+     * Generates Difference between this and another version
+     * @param $new TypeNormal New Version
+     */
+    public function makeDiff($new) {
+        $diff["name"]  = htmlDiff($this->getName(), $new->getName());
+        $diff["title"]  = htmlDiff($this->getTitle(), $new->getTitle());
+        $diff["header"] = htmlDiff($this->getHeader(), $new->getHeader());
+        $diff["text"]  = htmlDiff($this->getText(), $new->getText());
+        return $diff;
+    }
 }

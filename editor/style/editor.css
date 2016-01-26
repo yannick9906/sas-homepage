@@ -264,4 +264,12 @@ table.edit {
 .uPreMod {
   color: #FFC107; }
 
+ins {
+  text-decoration: none;
+  background-color: #4CAF50; }
+
+del {
+  text-decoration: none;
+  background-color: #f44336; }
+
 /*# sourceMappingURL=editor.css.map */

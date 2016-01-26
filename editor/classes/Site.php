@@ -80,15 +80,13 @@ class Site {
     public function toTypeObject() {
         switch($this->type) {
             case 0:
-                echo "OK0";
-                return TypeNormal::fromPID($this->pID);
+                return TypeNormal::fromVID($this->vID);
                 break;
             case 1:
-                return TypeAK::fromPID($this->pID);
+                return TypeAK::fromVID($this->vID);
                 break;
             case 2:
-                echo "OK2";
-                return TypeParty::fromPID($this->pID);
+                return TypeParty::fromVID($this->vID);
                 break;
         }
     }
@@ -287,8 +285,9 @@ class Site {
      */
     public static function getAllVersions($pID) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT pID FROM schlopolis_sites WHERE pID = :pid ORDER BY version desc", [":pid" => $pID]);
-        return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Site::fromPID");
+        $stmt = $pdo->queryMulti("SELECT ID FROM schlopolis_sites WHERE pID = :pid ORDER BY version desc", [":pid" => $pID]);
+        $array = $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Site::fromVID");
+        return $array;
     }
 
 
@@ -332,5 +331,15 @@ class Site {
      */
     public static function getAllPendingChanges() {
 
+    }
+
+    public static function getSiteVersionBefore($vID) {
+        $pdo = new PDO_MYSQL();
+
+        $curr = self::fromVID($vID);
+        $vers = ((int) $curr->getVersion()) - 1;
+        $pID  = $curr->pID;
+        $res  = $pdo->query("SELECT ID from schlopolis_sites WHERE version = :vers and pID = :pid", [":vers" => $vers, ":pid" => $pID]);
+        return self::fromVID($res->ID);
     }
 }

@@ -328,3 +328,13 @@ table.edit {
 .uPreMod {
   color: $uPreModColor;
 }
+
+ins {
+  text-decoration: none;
+  background-color: $stateLiveColor;
+}
+
+del {
+  text-decoration: none;
+  background-color: $uPreAdmColor;
+}

@@ -14,7 +14,8 @@ use PDO_MYSQL;
 
 class TypeAK extends Site {
 
-    private $tplLink = "tpl/siteAKEdit.tpl";
+    private $tplLink  = "tpl/siteAKEdit.tpl";
+    private $tplLinkV = "tpl/siteAKVers.tpl";
     private $text, $img, $icon, $short;
 
     function __construct($vID, $pID, $name, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state, $content) {
@@ -35,6 +36,18 @@ class TypeAK extends Site {
     public static function fromPID($pID) {
         $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_sites WHERE pID = :pid ORDER BY version DESC LIMIT 1", [":pid" => $pID]);
+        return new TypeAK($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state, $res->content);
+    }
+
+    /**
+     * Create a new Site Object
+     *
+     * @param $vID
+     * @return Site
+     */
+    public static function fromVID($vID) {
+        $pdo = new PDO_MYSQL();
+        $res = $pdo->query("SELECT * FROM schlopolis_sites WHERE ID = :vid", [":vid" => $vID]);
         return new TypeAK($res->ID, $res->pID, $res->title, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state, $res->content);
     }
 
@@ -100,6 +113,13 @@ class TypeAK extends Site {
      */
     public function getTplLink() {
         return $this->tplLink;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTplLinkV() {
+        return $this->tplLinkV;
     }
 
     public function asArray() {
@@ -188,5 +208,18 @@ class TypeAK extends Site {
         $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT pID FROM (SELECT * FROM schlopolis_sites WHERE state = 0 and type = 1 ORDER BY pID, version desc) x GROUP BY pID");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TypeAK::fromPID");
+    }
+
+    /**
+     * Generates Difference between this and another version
+     * @param $new TypeAK New Version
+     */
+    public function makeDiff($new) {
+        $diff["name"]  = htmlDiff($this->getName(), $new->getName());
+        $diff["icon"]  = htmlDiff($this->getIcon(), $new->getIcon());
+        $diff["image"] = htmlDiff($this->getImg(), $new->getImg());
+        $diff["short"] = htmlDiff($this->getShort(), $new->getShort());
+        $diff["text"]  = htmlDiff($this->getText(), $new->getText());
+        return $diff;
     }
 }

@@ -20,6 +20,7 @@ require_once 'classes/TypeAK.php';
 require_once 'classes/TypeParty.php';
 require_once 'classes/Permissions.php';
 require_once '../php/main.php';
+require_once '../php/simplediff.php';
 
 $user = checkSession();
 $pdo = new PDO_MYSQL();
@@ -28,7 +29,7 @@ Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
 
 $action = $_GET['action'];
-$vID = $_GET['vID'];
+echo $vID = $_GET['vID'];
 $pID = $_GET['pID'];
 
 if($action == "approve" and is_numeric($vID)) {
@@ -55,9 +56,14 @@ if($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
         $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
         $entries = \ICMS\Site::getAllVersions($pID);
+        $hadlive = 0;
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
-            if($i != 0 && $entries[$i - 1]->getState() == 0) {
+            $pgdata["page"]["items"][$i]["index"] = $i;
+            $pgdata["page"]["items"][$i]["negIndex"] = sizeof($entries)-1 - $i;
+            if(($i == 0 or $entries[$i - 1]->getState() != 0) && $hadlive == 0) {
+                if($entries[$i]->getState() == 0) $hadlive = 1;
+            } else {
                 $pgdata["page"]["items"][$i]["stateCSS"] = "disabled";
                 $pgdata["page"]["items"][$i]["stateText"] = "alt";
             }
@@ -65,6 +71,23 @@ if($action == "approve" and is_numeric($vID)) {
         //$pgdata["perm"] = $user->getPermAsArray();
 
         $dwoo->output("tpl/sitesVersions.tpl", $pgdata);
+        exit;
+    } else {
+        $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
+        $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+    }
+} elseif($action == "versDetail" and is_numeric($vID)) {
+    if($user->isActionAllowed(PERM_SITE_VIEW)) {
+        $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
+        $page1 = \ICMS\Site::fromVID($vID)->toTypeObject();
+        $page2 = \ICMS\Site::getSiteVersionBefore($vID)->toTypeObject();
+
+        $pgdata["diff"] = $page2->makeDiff($page1);
+
+        $pgdata["diff"]["v1"] = $page1->getVersion();
+        $pgdata["diff"]["v2"] = $page2->getVersion();
+
+        $dwoo->output($page1->getTplLinkV(), $pgdata);
         exit;
     } else {
         $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
