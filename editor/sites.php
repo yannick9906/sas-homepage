@@ -63,9 +63,10 @@ if($action == "approve" and is_numeric($vID)) {
             $pgdata["page"]["items"][$i]["negIndex"] = sizeof($entries)-1 - $i;
             if(($i == 0 or $entries[$i - 1]->getState() != 0) && $hadlive == 0) {
                 if($entries[$i]->getState() == 0) $hadlive = 1;
+                $pgdata["page"]["items"][$i]["index"] = 0;
             } else {
                 $pgdata["page"]["items"][$i]["stateCSS"] = "disabled";
-                $pgdata["page"]["items"][$i]["stateText"] = "alt";
+                $pgdata["page"]["items"][$i]["stateText"] = "backup-restore";
             }
         }
         //$pgdata["perm"] = $user->getPermAsArray();

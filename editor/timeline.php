@@ -55,7 +55,7 @@ if($action == "new") {
         $pgdata = getEditorPageDataStub("Timeline", $user);
         $tml = $timelineToEdit->asArray();
         $tml["text"] = $timelineToEdit->getInfo();
-        $tml["date"] = str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate()));
+        $tml["date"] = str_replace("+02:00","",str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate())));
         var_dump($tml);
         $pgdata["edit"] = $tml;
         $dwoo->output("tpl/timelineEdit.tpl", $pgdata);

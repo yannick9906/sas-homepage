@@ -169,13 +169,13 @@ class Site {
     public static function stateAsHtml($state) {
         switch ($state) {
             case 0:
-                return "LIVE";
+                return "check";
                 break;
             case 1:
-                return "Zu überprüfen";
+                return "account-alert";
                 break;
             case 2:
-                return "Abgelehnt";
+                return "close";
                 break;
         }
     }

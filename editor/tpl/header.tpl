@@ -41,9 +41,15 @@
                 {if 0 == 1}<li><a href="">Ausst. Anfragen</a></li>{/if}
                 {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
                 {if 0 == 1}<li><a href="">Emailverteilung</a></li>{/if}
-                {if $args.perm.admin_database == 1}<li><a href="adminer-4.2.3-mysql.php">Adminer (DB)</a></li>{/if}
+                {if $args.perm.admin_database == 1}<li><a href="adminer-4.2.4-mysql.php">Adminer (DB)</a></li>{/if}
                 {/if}
                 <hr/>
                 <li>{exectime 3}ms</li>
             </ul>
         </div>
+        <!-- Before body closing tag -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/velocity/velocity.js"></script>
+        <script src="bower_components/moment/min/moment-with-locales.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/lumx/dist/lumx.js"></script>

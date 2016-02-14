@@ -2,21 +2,16 @@
 <div class="content">
             <table class="pages">
                 <thead>
-                    <tr><th class="new"><a href="timeline.php"><-</a></th><th class="new" colspan="7"></th></tr>
+                    <tr><th class="new"><a href="timeline.php"><-</a></th><th class="new" colspan="2"></th></tr>
                     <tr>
-                        <th>#</th>
-                        <th>Anzeigedatum</th>
-                        <th>Titel</th>
-                        <th>Link</th>
-                        <th>Author</th>
-                        <th>Geändert</th>
-                        <th>Status</th>
-                        <th></th>
+                        <th style="width: 30px; max-width: 30px;">#</th>
+                        <th style="width: 90% !IMPORTANT; max-width: 90%;"></th>
+                        <th style="width: 110px; max-width: 110px; text-align: right;"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {loop $page.items}
-                        <tr>
+                        <!--<tr>
                             <td>{$version}</td>
                             <td>{$date}</td>
                             <td>{$title}</td>
@@ -25,6 +20,16 @@
                             <td>{$lastEdit}</td>
                             <td class="{$stateCSS}">{$stateText}</td>
                             <td><a {if $index == 0}class="disabled"{else}href="timeline.php?action=jumpTo&vID={$vId}" class="version"{/if}>ZURÜCKSPRINGEN</a></td>
+                        </tr>-->
+                        <tr>
+                            <td>{$version}</td>
+                            <td>
+                                <div class="list-name">{$date} - {$title}</div>
+                                <div class="list-type">von {$lastEditAuthor}, {$lastEdit} <span class="{$stateCSS}"><i class="mdi mdi-{$stateText}"></i></span></div>
+                            </td>
+                            <td style="">
+                                <a {if $index == 0}class="disabled"{else}href="timeline.php?action=jumpTo&vID={$vId}" class="normal"{/if}><i class="mdi mdi-backup-restore"></i></a></td>
+                        </td>
                         </tr>
                     {/loop}
             </table>

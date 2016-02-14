@@ -1,3 +1,6 @@
+body {
+  background-color: #E8EAF6; }
+
 .header {
   position: fixed;
   top: 0;
@@ -10,7 +13,9 @@
     color: white;
     font-family: "Ubuntu", sans-serif;
     font-size: 50px;
-    margin-left: 10px; }
+    margin-left: 10px;
+    line-height: 60px;
+    height: 60px; }
   .header .search {
     background-color: #303F9F;
     color: white;
@@ -42,19 +47,19 @@
       .header .search:focus:-ms-input-placeholder {
         color: #666; }
     .header .search::-webkit-input-placeholder {
-      color: #9FA8DA; }
+      color: #E8EAF6; }
     .header .search:-moz-placeholder {
-      color: #9FA8DA; }
+      color: #E8EAF6; }
     .header .search::-moz-placeholder {
-      color: #9FA8DA; }
+      color: #E8EAF6; }
     .header .search:-ms-input-placeholder {
-      color: #9FA8DA; }
+      color: #E8EAF6; }
   .header .title {
     position: fixed;
     right: 40%;
     font-family: "Ubuntu", sans-serif;
     color: white;
-    top: 15px;
+    top: 10px;
     font-size: 26px; }
   .header .account-logo {
     position: fixed;
@@ -124,7 +129,8 @@
   bottom: 0;
   padding-top: 60px;
   width: 165px;
-  box-shadow: -3px 0px 10px 2px black;
+  box-shadow: -3px 0px 10px 2px #303F9F;
+  background-color: white;
   z-index: -1; }
   .aside ul {
     list-style: none;
@@ -147,7 +153,7 @@
       padding: 0 0 0 0;
       border: none;
       height: 1px;
-      background-color: #9FA8DA; }
+      background-color: #E8EAF6; }
 
 .content {
   position: absolute;
@@ -156,16 +162,19 @@
   top: 60px;
   right: 0;
   bottom: 0;
-  overflow-y: auto; }
+  overflow-y: auto;
+  background-color: #E8EAF6; }
 
 table.pages {
-  margin: 10px 10px 10px 10px;
+  box-shadow: 0 0 2px 0 #303F9F;
+  margin: 20px 10px 20px 10px;
   position: absolute;
-  left: 10px;
-  right: 10px;
+  left: 0;
+  right: 0;
   top: 10px;
-  width: 90%;
-  border-collapse: collapse; }
+  table-layout: fixed;
+  border-collapse: collapse;
+  padding: 0; }
   table.pages thead tr th {
     font-family: "Ubuntu", sans-serif;
     text-align: left;
@@ -177,36 +186,45 @@ table.pages {
       background: transparent; }
       table.pages thead tr th.new a {
         text-decoration: none;
-        color: #2196F3; }
+        color: #2196F3;
+        font-size: 36px; }
   table.pages tbody tr td {
+    background-color: white;
     font-family: "Ubuntu", sans-serif;
     vertical-align: top;
     border-bottom: 1px solid #ccc;
     padding: 7px 5px; }
-    table.pages tbody tr td.live {
+    table.pages tbody tr td div.list-name {
+      font-size: 20px;
+      font-weight: bold; }
+    table.pages tbody tr td div.list-type {
+      font-size: 14px;
+      font-weight: normal;
+      color: #888; }
+    table.pages tbody tr td .live {
       color: #4CAF50;
       font-weight: bold; }
-    table.pages tbody tr td.test {
+    table.pages tbody tr td .test {
       color: #FFC107;
-      font-weight: bold; }
-    table.pages tbody tr td.invalid {
+      font-weight: bold;
+      margin-top: -5px; }
+    table.pages tbody tr td .invalid {
       color: #f44336;
       font-weight: bold; }
-    table.pages tbody tr td.disabled {
+    table.pages tbody tr td .disabled {
       color: #bbb;
       font-weight: bold; }
     table.pages tbody tr td a {
-      text-decoration: none; }
-      table.pages tbody tr td a.edit {
+      text-decoration: none;
+      font-size: 32px;
+      margin-left: 10px; }
+      table.pages tbody tr td a.normal {
+        color: #888;
+        font-weight: bold; }
+      table.pages tbody tr td a.approve {
         color: #4CAF50;
         font-weight: bold; }
-      table.pages tbody tr td a.version {
-        color: #FFC107;
-        font-weight: bold; }
-      table.pages tbody tr td a.meta {
-        color: #FFC107;
-        font-weight: bold; }
-      table.pages tbody tr td a.delete {
+      table.pages tbody tr td a.deny {
         color: #f44336;
         font-weight: bold; }
       table.pages tbody tr td a.disabled {

@@ -1,6 +1,10 @@
 7            <!-- Main Content -->
             <div tool icon="menu">Wahlen</div>
 
+            <paper-shadow z="1" class="listcard">
+                Wahlergebnisse Parteien<br/>
+                <a href="#p=11&id=14">Hier sind die Ergebnisse</a>
+            </paper-shadow>
             {foreach $page.items item}
                 <paper-shadow z="1" class="listcard" style="min-height: 80px;">
                     <a href="#p=6&id={$item.id}"><img style="height: 64px; width: 64px; color: black;" src="{$item.icon}"/></a>

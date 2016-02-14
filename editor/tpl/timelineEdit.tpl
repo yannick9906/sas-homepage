@@ -12,7 +12,7 @@
                 <tbody>
                     <tr>
                         <th>Titel</th>
-                        <td><input id="title" value="{$edit.title}" type="text" name="title" value="" required placeholder="Darf nicht leer sein"/></td>
+                        <td><input id="title" value="{$edit.title}" type="text" name="title" required placeholder="Darf nicht leer sein"/></td>
                     </tr>
                     <tr>
                         <th>Text</th>
@@ -20,7 +20,7 @@
                     </tr>
                     <tr>
                         <th>Datum</th>
-                        <td><input id="date" value="{$edit.date}" type="datetime-local" name="date" value="" required placeholder="Darf nicht leer sein"/></td>
+                        <td><input id="date" value="{$edit.date}" type="datetime-local" name="date" required placeholder="Darf nicht leer sein"/></td>
                     </tr>
                     <tr>
                         <th>Link</th>
