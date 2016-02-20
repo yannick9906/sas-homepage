@@ -50,8 +50,8 @@ class NewsEntry {
      */
     public static function fromVID($vID) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM schlopolis_news WHERE vID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
-        return new NewsEntry($res->vID, $res->nID, $res->date, $res->title, $res->text, $res->link, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
+        $res = $pdo->query("SELECT * FROM schlopolis_news WHERE ID = :vid ORDER BY version DESC LIMIT 1", [":vid" => $vID]);
+        return new NewsEntry($res->ID, $res->nID, $res->date, $res->title, $res->text, $res->link, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
 
@@ -62,7 +62,7 @@ class NewsEntry {
     public static function fromNID($nID) {
         $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_news WHERE nID = :nid ORDER BY version DESC LIMIT 1", [":nid" => $nID]);
-        return new NewsEntry($res->vID, $res->nID, $res->date, $res->title, $res->text, $res->link, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
+        return new NewsEntry($res->ID, $res->nID, $res->date, $res->title, $res->text, $res->link, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
 
     /**
@@ -345,7 +345,7 @@ class NewsEntry {
      */
     public function approve() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE schlopolis_news SET state = 0 WHERE vID = :vid", [":vid" => $this->vID]);
+        $pdo->query("UPDATE schlopolis_news SET state = 0 WHERE ID = :vid", [":vid" => $this->vID]);
     }
 
     /**
@@ -353,7 +353,7 @@ class NewsEntry {
      */
     public function deny() {
         $pdo = new PDO_MYSQL();
-        $pdo->query("UPDATE schlopolis_news SET state = 2 WHERE vID = :vid", [":vid" => $this->vID]);
+        $pdo->query("UPDATE schlopolis_news SET state = 2 WHERE ID = :vid", [":vid" => $this->vID]);
     }
 
     /**
@@ -365,14 +365,13 @@ class NewsEntry {
      * @return NewsEntry
      */
     public static function createEntry($user, $date, $title, $text, $link) {
-        $date = date("Y-m-d H:i:s", strtotime($date));
         $pdo = new PDO_MYSQL();
         $authorID = $user->getUID();
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
         $res = $pdo->query("SELECT MAX(nID) as nID FROM schlopolis_news");
-        var_dump($res);
         $nID = $res->nID + 1;
+        echo $nID;
         $pdo->query("INSERT INTO schlopolis_news(nID, date, title, text, link, authorID, lastEditID, lastEditDate, version, state)"
             ."VALUES (:nid, :date, :title, :text, :link, :authorID, :lastEditID, :lastEditDate, 1, 1)",
             [":nid" => $nID, ":date" => $date, ":title" => $title, ":text" => $text, ":link" => $link, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate]);
@@ -410,7 +409,7 @@ class NewsEntry {
      */
     public static function getAllPublicEntries() {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_news WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date desc");
+        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM schlopolis_news WHERE state = 0 and CURDATE() >= date ORDER BY nID, version desc) x GROUP BY nID ORDER BY date desc");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\NewsEntry::fromVID");
 
     }
@@ -420,7 +419,7 @@ class NewsEntry {
      */
     public static function getAllEntries() {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_news WHERE state != 2 ORDER BY nID, version desc) x GROUP BY nID");
+        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM schlopolis_news WHERE state != 2 ORDER BY nID, version desc) x GROUP BY nID ORDER BY date desc");
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\NewsEntry::fromVID");
     }
 
@@ -430,7 +429,7 @@ class NewsEntry {
      */
     public static function getAllVersions($nID) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM schlopolis_news WHERE nID = :nid ORDER BY version desc", [":nid" => $nID]);
+        $stmt = $pdo->queryMulti("SELECT ID FROM schlopolis_news WHERE nID = :nid ORDER BY version desc", [":nid" => $nID]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\NewsEntry::fromVID");
     }
 

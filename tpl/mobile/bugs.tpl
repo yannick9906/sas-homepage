@@ -14,7 +14,7 @@
 			{/foreach}
 		</div>
 		<div>
-			<form action="action.php?p=1" method="post">
+			<form action="action.php?p=1&token={$page.token}" method="post">
 				<paper-shadow class="card" z="1">
 						<paper-input-decorator floatingLabel flex label="Emailadresse" error="Muss eine Emailadresse sein" autoValidate><input type="email" name="email"/></paper-input-decorator>
 						<paper-input-decorator floatingLabel flex label="Betreff"><input type="text" name="subject" /></paper-input-decorator>

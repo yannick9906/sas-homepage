@@ -24,6 +24,13 @@ define("PERM_TIMELINE_NEW_VERSION", "timeline.newVersion");
 define("PERM_TIMELINE_OP_DELETE", "admin.timeline.del");
 define("PERM_TIMELINE_OP_EDIT", "admin.timeline.edit");
 
+define("PERM_NEWS_CREATE", "news.create");
+define("PERM_NEWS_VIEW", "news.view");
+define("PERM_NEWS_APPROVE", "news.approve");
+define("PERM_NEWS_NEW_VERSION", "news.newVersion");
+define("PERM_NEWS_OP_DELETE", "admin.news.del");
+define("PERM_NEWS_OP_EDIT", "admin.news.edit");
+
 define("PERM_SITE_CREATE", "site.create");
 define("PERM_SITE_VIEW", "site.view");
 define("PERM_SITE_APPROVE", "site.approve");

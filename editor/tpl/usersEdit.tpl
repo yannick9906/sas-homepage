@@ -72,6 +72,13 @@
                                     <tr><td>Seite löschen</td>                  <td><input {if $perm.admin_site_del     == 1}checked{/if} type="radio" value="1" name="admin.site.del"/>     ON <input {if $perm.admin_site_del     == 0}checked{/if} type="radio" value="0" name="admin.site.del"/>     OFF</td></tr>
                                     <tr><td>Seite bearbeiten</td>               <td><input {if $perm.admin_site_edit    == 1}checked{/if} type="radio" value="1" name="admin.site.edit"/>    ON <input {if $perm.admin_site_edit    == 0}checked{/if} type="radio" value="0" name="admin.site.edit"/>    OFF</td></tr>
 
+                                    <tr><td>News ansehen</td>       <td><input {if $perm.news_view       == 1}checked{/if} type="radio" value="1" name="news.view"/>        ON <input {if $perm.news_view       == 0}checked{/if} type="radio" value="0" name="news.view"/>          OFF</td></tr>
+                                    <tr><td>News erstellen</td>     <td><input {if $perm.news_create     == 1}checked{/if} type="radio" value="1" name="news.create"/>      ON <input {if $perm.news_create     == 0}checked{/if} type="radio" value="0" name="news.create"/>        OFF</td></tr>
+                                    <tr><td>News neue Version</td>  <td><input {if $perm.news_newVersion == 1}checked{/if} type="radio" value="1" name="news.newVersion"/>  ON <input {if $perm.news_newVersion == 0}checked{/if} type="radio" value="0" name="news.newVersion"/>    OFF</td></tr>
+                                    <tr><td>News akzetieren</td>    <td><input {if $perm.news_approve    == 1}checked{/if} type="radio" value="1" name="news.approve"/>     ON <input {if $perm.news_approve    == 0}checked{/if} type="radio" value="0" name="news.approve"/>       OFF</td></tr>
+                                    <tr><td>News löschen</td>       <td><input {if $perm.admin_news_del  == 1}checked{/if} type="radio" value="1" name="admin.news.del"/>   ON <input {if $perm.admin_news_del  == 0}checked{/if} type="radio" value="0" name="admin.news.del"/>     OFF</td></tr>
+                                    <tr><td>News bearbeiten</td>    <td><input {if $perm.admin_news_edit == 1}checked{/if} type="radio" value="1" name="admin.news.edit"/>  ON <input {if $perm.admin_news_edit == 0}checked{/if} type="radio" value="0" name="admin.news.edit"/>    OFF</td></tr>
+
                                     <tr><td>Datenbank</td>               <td><input {if $perm.admin_database    == 1}checked{/if} type="radio" value="1" name="admin.database"/>    ON <input {if $perm.admin_database    == 0}checked{/if} type="radio" value="0" name="admin.database"/>    OFF</td></tr>
 
                                 </table>

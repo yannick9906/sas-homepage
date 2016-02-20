@@ -10,6 +10,7 @@ ini_set("diplay_errors", "on");
     require_once 'php/Parsedown.php'; // Parsedown
     require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
     require_once 'editor/classes/TimelineEntry.php';
+    require_once 'editor/classes/NewsEntry.php';
     require_once 'editor/classes/Site.php';
     require_once 'editor/classes/User.php';
     require_once 'editor/classes/TypeNormal.php';
@@ -57,21 +58,19 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $db = DBConnect();
-
-            $i = 0;
-            $res = $db->query("SELECT * FROM news ORDER BY ID DESC LIMIT 5");
-            while($row = $res->fetch_object()) {
-                $timestamp = strtotime($row->date);
+            $entries = \ICMS\NewsEntry::getAllPublicEntries();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = date("d. M Y", $timestamp);
+                    $evDate = dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = date("d. M Y - H:i", $timestamp);
-                $pgData["page"]["items"][$i]["title"] = $row->title;
-                $pgData["page"]["items"][$i]["text"]  = $row->text;
-                $pgData["page"]["items"][$i]["date"]  = $evDate;
-                $pgData["page"]["items"][$i]["link"]  = $row->link;
-                $i++;
+                    $evDate = dbDateToReadableWithTime($timestamp);
+                $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
+                $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
+                $pgData["page"]["items"][$i]["date"]      = $evDate;
+                $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
+                if($i == 5)
+                    break;
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/home.tpl", $pgData);
@@ -108,8 +107,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             else $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
             break;
         case 2: //News
-            require_once 'php/main.php';
-            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "News"
@@ -119,20 +116,21 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $i = 0;
-            $res = $db->query("SELECT * FROM news ORDER BY ID DESC LIMIT 20");
-            while($row = $res->fetch_object()) {
-                $timestamp = strtotime($row->date);
+            $entries = \ICMS\NewsEntry::getAllPublicEntries();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = date("d. M Y", $timestamp);
+                    $evDate = dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = date("d. M Y - H:i", $timestamp);
-                $pgData["page"]["items"][$i]["title"] = $row->title;
-                $pgData["page"]["items"][$i]["text"]  = $row->text;
-                $pgData["page"]["items"][$i]["date"]  = $evDate;
-                $pgData["page"]["items"][$i]["link"]  = $row->link;
-                $i++;
+                    $evDate = dbDateToReadableWithTime($timestamp);
+                $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
+                $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
+                $pgData["page"]["items"][$i]["date"]      = $evDate;
+                $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
+                if($i == 5)
+                    break;
             }
+
             if($detect->isMobile()) $dwoo->output("tpl/mobile/news.tpl", $pgData);
             else $dwoo->output("tpl/mobile/news.tpl", $pgData);
             break;
@@ -221,15 +219,23 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
         case 7: //FAQ
             require_once 'php/main.php';
             $db = DBConnect();
+            $pdo = new PDO_MYSQL();
+
+            $token = md5(random_int(111111,999999));
+            $tokenIP = $_SEVER["REMOTE_ADDR"];
+            $tokenDate = date();
             $pgData = [
                 "header" => [
                     "title" => "Häufige Fragen (FAQ)"
                 ],
                 "page" => [
                     "items"  => [],
-                    "i" => $_GET["i"]
+                    "i" => $_GET["i"],
+                    "token" => $token
                 ]
             ];
+
+            $pdo->query("INSERT INTO tokens(token, IP, date, active) VALUES (:token, :ip, :date, 1)", [":token" => $token, ":ip" => $tokenIP, ":date" => $tokenDate]);
 
             $i = 0;
             $res = $db->query("SELECT * FROM faq");
