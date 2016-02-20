@@ -13,6 +13,7 @@ ini_set("diplay_errors", "on");
     require_once 'editor/classes/NewsEntry.php';
     require_once 'editor/classes/Site.php';
     require_once 'editor/classes/User.php';
+    require_once 'editor/classes/Token.php';
     require_once 'editor/classes/TypeNormal.php';
     require_once 'editor/classes/TypeAK.php';
     require_once 'editor/classes/TypeParty.php';
@@ -219,11 +220,12 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
         case 7: //FAQ
             require_once 'php/main.php';
             $db = DBConnect();
-            $pdo = new PDO_MYSQL();
 
-            $token = md5(random_int(111111,999999));
-            $tokenIP = $_SEVER["REMOTE_ADDR"];
-            $tokenDate = date();
+            $token = \ICMS\Token::generateNewToken();
+
+            if($token == false) $tokenTXT = "youdonothaveatoken";
+            else $token->getToken();
+
             $pgData = [
                 "header" => [
                     "title" => "Häufige Fragen (FAQ)"
@@ -231,11 +233,9 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 "page" => [
                     "items"  => [],
                     "i" => $_GET["i"],
-                    "token" => $token
+                    "token" => $tokenTXT
                 ]
             ];
-
-            $pdo->query("INSERT INTO tokens(token, IP, date, active) VALUES (:token, :ip, :date, 1)", [":token" => $token, ":ip" => $tokenIP, ":date" => $tokenDate]);
 
             $i = 0;
             $res = $db->query("SELECT * FROM faq");
