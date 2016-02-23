@@ -31,6 +31,18 @@ define("PERM_NEWS_NEW_VERSION", "news.newVersion");
 define("PERM_NEWS_OP_DELETE", "admin.news.del");
 define("PERM_NEWS_OP_EDIT", "admin.news.edit");
 
+define("PERM_PROTOCOLS_CREATE", "protocols.create");
+define("PERM_PROTOCOLS_VIEW", "protocols.view");
+define("PERM_PROTOCOLS_APPROVE", "protocols.approve");
+define("PERM_PROTOCOLS_NEW_VERSION", "protocols.newVersion");
+define("PERM_PROTOCOLS_OP_DELETE", "admin.protocols.del");
+define("PERM_PROTOCOLS_OP_EDIT", "admin.protocols.edit");
+
+define("PERM_FILE_CREATE", "file.create");
+define("PERM_FILE_VIEW", "file.view");
+define("PERM_FILE_OP_DELETE", "admin.file.del");
+define("PERM_FILE_OP_EDIT", "admin.file.edit");
+
 define("PERM_SITE_CREATE", "site.create");
 define("PERM_SITE_VIEW", "site.view");
 define("PERM_SITE_APPROVE", "site.approve");

@@ -16,30 +16,33 @@
         </div>
         <div class="aside">
             <ul>
-                {if $args.level >= 0}
-                <li>User</li>
-                {if 0 == 1}<li><a href="">Dashboard</a></li>{/if}
-                {if $args.perm.site_view == 1}<li><a href="">Änderungen</a></li>{/if}
-                {if $args.perm.site_view == 1}<li><a href="sites.php">Seiten</a></li>{/if}
-                {if $args.perm.news_view == 1}<li><a href="news.php">News</a></li>{/if}
-                {if 0 == 1}<li><a href="">Download</a></li>{/if}
-                {if 0 == 1}<li><a href="">Bilder</a></li>{/if}
-                {if $args.perm.timeline_view == 1}<li><a href="timeline.php">Timeline</a></li>{/if}
-                {/if}
                 {if $args.level >= 1}
-                <hr/>
-                <li>Moderation</li>
-                {if $args.perm.site_approve == 1}<li><a href="">Ausst. Änderungen</a></li>{/if}
-                {if 0 == 1}<li><a href="">Fragen</a></li>{/if}
-                {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
-                {/if}
-                {if $args.level >= 2}
-                <hr/>
-                <li>Admin</li>
-                {if $args.perm.site_approve == 1}<li><a href="">Ausst. Änderungen</a></li>{/if}
-                {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
-                {if 0 == 1}<li><a href="">Emailverteilung</a></li>{/if}
-                {if $args.perm.admin_database == 1}<li><a href="adminer-4.2.4-mysql.php">Adminer (DB)</a></li>{/if}
+                    <li>ICH</li>
+                    {if 0 == 1}<li><a href="">Dashboard</a></li>{/if}
+                    {if $args.perm.site_view == 1 and false}<li><a href="">Meine Änderungen</a></li>{/if}
+                    <li><a href="users.php?action=edit&uID={$args.uID}">Mein Account</a></li>
+                    <hr/>
+                    <li>BEARBEITEN</li>
+                    {if $args.perm.site_view == 1}<li><a href="sites.php">Seiten</a></li>{/if}
+                    {if $args.perm.timeline_view == 1}<li><a href="timeline.php">Timeline</a></li>{/if}
+                    {if $args.perm.news_view == 1}<li><a href="news.php">News</a></li>{/if}
+                    <hr/>
+                    {if $args.perm.file_view or $args.perm.protocols_view}
+                        <li>DATEIEN</li>
+                        {if $args.perm.file_view == 1}<li><a href="files.php">Dateien</a></li>{/if}
+                        {if $args.perm.protocols_view == 1}<li><a href="protocols.php">Protokolle</a></li>{/if}
+                        <hr/>
+                    {/if}
+                    {if $args.perm.site_approve and false or 0 == 1}
+                        <li>ÜBERPRÜFEN</li>
+                        {if $args.perm.site_approve == 1 and false}<li><a href="">Ausst. Änderungen</a></li>{/if}
+                        {if 0 == 1}<li><a href="">Fragen</a></li>{/if}
+                        <hr/>
+                    {/if}
+                    <li>Administration</li>
+                    {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
+                    {if 0 == 1}<li><a href="">Emailverteilung</a></li>{/if}
+                    {if $args.perm.admin_database == 1}<li><a href="adminer-4.2.4-mysql.php">Adminer (DB)</a></li>{/if}
                 {/if}
                 <hr/>
                 <li>{exectime 3}ms</li>
