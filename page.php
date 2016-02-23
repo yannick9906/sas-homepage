@@ -69,7 +69,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
                 $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
-                $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
+                $pgData["page"]["items"][$i]["link"]      = handleLinks($entries[$i]->getLink());
                 if($i == 5)
                     break;
             }
@@ -127,7 +127,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
                 $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
-                $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
+                $pgData["page"]["items"][$i]["link"]      = handleLinks($entries[$i]->getLink());
                 if($i == 5)
                     break;
             }

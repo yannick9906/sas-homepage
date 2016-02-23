@@ -13,6 +13,7 @@ require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
 require_once '../php/Mobile_Detect.php'; // Mobile Detect
 require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 require_once 'classes/User.php';
+require_once 'classes/Site.php';
 require_once 'classes/NewsEntry.php';
 require_once 'classes/Permissions.php';
 require_once '../php/main.php';
@@ -53,10 +54,27 @@ if($action == "new") {
     if ($user->isActionAllowed(PERM_NEWS_NEW_VERSION)) {
         $newsToEdit = \ICMS\NewsEntry::fromNID($nID);
         $pgdata = getEditorPageDataStub("News", $user);
+
         $tml = $newsToEdit->asArray();
         $tml["text"] = $newsToEdit->getText();
-        //var_dump($tml);
         $pgdata["edit"] = $tml;
+
+        if($newsToEdit->getLink() == null or "") {
+            $pgdata["edit"]["linkType"] = "lnkNo";
+        } else {
+            if(substr($newsToEdit->getLink(), 0, 5 ) === "int::") {
+                $pgdata["edit"]["linkType"] = "lnkInt";
+                $pgdata["edit"]["lnkVal"] = str_replace("int::", "", $newsToEdit->getLink());
+            } else {
+                $pgdata["edit"]["linkType"] = "lnkExt";
+                $pgdata["edit"]["linkTo"] = $newsToEdit->getLink();
+            }
+        }
+
+        $entries = \ICMS\Site::getAllSites();
+        for ($i = 0; $i < sizeof($entries); $i++) {
+            $pgdata["sites"][$i] = $entries[$i]->asArray();
+        }
         $dwoo->output("tpl/newsEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -66,13 +84,14 @@ if($action == "new") {
 } elseif($action == "postEdit" and is_numeric($nID)) {
     if ($user->isActionAllowed(PERM_NEWS_NEW_VERSION)) {
         $newsToEdit = \ICMS\NewsEntry::fromNID($nID);
+        var_dump($_POST);
         $newsToEdit->setTitle($_POST["title"]);
-        $newsToEdit->setInfo($_POST["text"]);
+        $newsToEdit->setText($_POST["text"]);
         $newsToEdit->setDate(date("Y-m-d H:i:s"));
         if($_POST["lnkType"] == "rdNo") $newsToEdit->setLink("");
         elseif($_POST["lnkType"] == "rdExt") $newsToEdit->setLink($_POST["lnkExtern"]);
-        elseif($_POST["lnkType"] == "rdInt") $newsToEdit->setLink(""); //TODO
-
+        elseif($_POST["lnkType"] == "rdInt") $newsToEdit->setLink("int::".$_POST["lnkIntern"]);
+        echo $newsToEdit->getLink();
         $newsToEdit->saveAsNewVersion($user);
         //forwardTo("news.php");
         exit;

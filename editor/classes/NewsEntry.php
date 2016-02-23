@@ -23,20 +23,20 @@ class NewsEntry {
      * @param $date
      * @param $title
      * @param $text
-     * @param $type
+     * @param $link
      * @param $authorID
      * @param $lastAuthorID
      * @param $lastEditDate
      * @param $version
      * @param $state
      */
-    public function __construct($vID, $nID, $date, $title, $text, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state) {
+    public function __construct($vID, $nID, $date, $title, $text, $link, $authorID, $lastAuthorID, $lastEditDate, $version, $state) {
         $this->vID = $vID;
         $this->nID = $nID;
         $this->date = strtotime($date);
         $this->title = $title;
         $this->text = $text;
-        $this->type = $type;
+        $this->link = $link;
         $this->authorID = $authorID;
         $this->lastAuthorID = $lastAuthorID;
         $this->lastEditDate = strtotime($lastEditDate);
@@ -399,8 +399,8 @@ class NewsEntry {
         $info = $this->text;
         $link = $this->link;
         $pdo->query("INSERT INTO schlopolis_news(nID, date, title, text, link, authorID, lastEditID, lastEditDate, version, state)"
-            ."VALUES (:tid, :date, :title, :text, :link, :authorID, :lastEditID, :lastEditDate, :version, 1)",
-            [":nid" => $nID, ":date" => $date, ":title" => $title, ":info" => $info, ":link" => $link, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate, ":version" => $version]);
+            ."VALUES (:nid, :date, :title, :text, :link, :authorID, :lastEditID, :lastEditDate, :version, 1)",
+            [":nid" => $nID, ":date" => $date, ":title" => $title, ":title" => $title, ":link" => $link, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate, ":version" => $version]);
 
     }
 

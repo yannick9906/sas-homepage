@@ -183,3 +183,7 @@
         }
         return $randomString;
     }
+
+    function handleLinks($lnk) {
+        return $lnk == null or "" ? null : (substr($lnk, 0, 5) === "int::" ? "?p=11&id=" . str_replace("int::", "", $lnk) : $lnk);
+    }

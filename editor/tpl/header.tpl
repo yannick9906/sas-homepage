@@ -1,6 +1,6 @@
 <div class="header">
             <div class="logo"><b>IC</b>MS</div>
-            <input class="search" type="text" placeholder="Suchen" />
+            <!--<input class="search" type="text" placeholder="Suchen" />-->
             <div class="account-logo" onclick="onclickaccount()">{$args.usrchar}</div>
             <div class="account-detail" id="toggl">
                 <ul>
@@ -51,7 +51,6 @@
         </div>
         <div style="position: fixed; top: 0; left: 135px; z-index: 1000; color: red; font-family: 'Roboto'; font-size: 15px">beta</div>
         <!-- Before body closing tag -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/velocity/velocity.js"></script>
         <script src="bower_components/moment/min/moment-with-locales.js"></script>
         <script src="bower_components/angular/angular.js"></script>
