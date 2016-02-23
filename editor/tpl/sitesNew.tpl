@@ -4,26 +4,31 @@
             <table class="edit">
                 <thead>
                     <tr>
-                        <th colspan="2">
+                        <th>
                             Seite erstellen
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Name</th>
-                        <td><input id="title" type="text" name="name" value="" required placeholder="Darf nicht leer sein"/></td>
+                        <td>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="title">Titel</label>
+                                    <input id="title" value="{$edit.title}" required type="text" name="title" required length="255"/>
+                                </div>
+                                <div class="input-field col s12">
+                                    <select id="type" title="Type" name="type">
+                                        <option value="" disabled selected>Wähle einen Typ</option>
+                                        <option value="normal">Normale Seite</option>
+                                        <option value="party">Partei</option>
+                                        <option value="ak">AK</option>
+                                    </select>
+                                    <label for="selInt">Typ</label>
+                                </div>
+                        </td>
                     </tr>
                     <tr>
-                        <th>Typ</th>
-                        <td><select title="Typ Auswählen" name="type">
-                                <option value="normal">Normale Seite</option>
-                                <option value="party">Partei</option>
-                                <option value="ak">AK</option>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th></th>
                         <td><input type="submit" value="Neue Seite erstellen"/></td>
                     </tr>
                 </tbody>
@@ -34,5 +39,10 @@
         </div>
     </div>
 {include file="header.tpl" args=$header}
+<script>
+            jQuery(document).ready(function($) {
+                $('select').material_select();
+            });
+</script>
 </body>
 </html>

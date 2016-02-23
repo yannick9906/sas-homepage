@@ -31,6 +31,10 @@ $nID = $_GET['nID'];
 if($action == "new") {
     if ($user->isActionAllowed(PERM_NEWS_CREATE)) {
         $pgdata = getEditorPageDataStub("News", $user);
+        $entries = \ICMS\Site::getAllSites();
+        for ($i = 0; $i < sizeof($entries); $i++) {
+            $pgdata["sites"][$i] = $entries[$i]->asArray();
+        }
         $dwoo->output("tpl/newsNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -84,7 +88,6 @@ if($action == "new") {
 } elseif($action == "postEdit" and is_numeric($nID)) {
     if ($user->isActionAllowed(PERM_NEWS_NEW_VERSION)) {
         $newsToEdit = \ICMS\NewsEntry::fromNID($nID);
-        var_dump($_POST);
         $newsToEdit->setTitle($_POST["title"]);
         $newsToEdit->setText($_POST["text"]);
         $newsToEdit->setDate(date("Y-m-d H:i:s"));

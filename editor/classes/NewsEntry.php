@@ -392,7 +392,6 @@ class NewsEntry {
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
         $res = $pdo->query("SELECT MAX(version) as version FROM schlopolis_news WHERE nID = :nID", [":nID" => $this->nID]);
-        var_dump($res);
         $nID = $this->nID;
         $version = $res->version + 1;
         $title = $this->title;

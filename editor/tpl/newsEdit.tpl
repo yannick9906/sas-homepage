@@ -15,29 +15,31 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <label for="title">Titel</label>
-                                    <input id="title" value="{$edit.title}" required type="text" name="title" required placeholder="Darf nicht leer sein"/>
+                                    <input id="title" value="{$edit.title}" required type="text" name="title" required length="255"/>
                                 </div>
                                 <div class="input-field col s12">
-                                    <textarea id="text" name="text" required class="materialize-textarea" length="255">{$edit.text}</textarea>
+                                    <textarea id="text" name="text" required class="materialize-textarea" length="65355">{$edit.text}</textarea>
                                     <label for="textarea1">Text</label>
                                 </div>
-                                <p>
-                                    <input name="lnkType" value="rdNo" type="radio" id="rdNo" {if $edit.linkType == "lnkNo"}checked{/if} class="with-gap" />
-                                    <label for="rdNo">Kein Link</label>
-                                </p>
-                                <p>
-                                    <input name="lnkType" value="rdExt" type="radio" id="rdExt" {if $edit.linkType == "lnkExt"}checked{/if} class="with-gap" />
-                                    <label for="rdExt">Externer Link</label>
-                                </p>
-                                <p>
-                                    <input name="lnkType" value="rdInt" type="radio" id="rdInt" {if $edit.linkType == "lnkInt"}checked{/if} class="with-gap" />
-                                    <label for="rdInt">Interner Link</label>
-                                </p>
-                                <div class="input-field col s12" id="divExt" {if $edit.linkType != "lnkExt"}style="display: none;"{/if}>
-                                    <input id="inExt" value="{$edit.linkTo}" type="text" name="lnkExtern"/>
+                                <div class="col s6">
+                                    <p>
+                                        <input name="lnkType" value="rdNo" type="radio" id="rdNo" {if $edit.linkType == "lnkNo"}checked{/if} class="with-gap" />
+                                        <label for="rdNo">Kein Link</label>
+                                    </p>
+                                    <p>
+                                        <input name="lnkType" value="rdExt" type="radio" id="rdExt" {if $edit.linkType == "lnkExt"}checked{/if} class="with-gap" />
+                                        <label for="rdExt">Externer Link</label>
+                                    </p>
+                                    <p>
+                                        <input name="lnkType" value="rdInt" type="radio" id="rdInt" {if $edit.linkType == "lnkInt"}checked{/if} class="with-gap" />
+                                        <label for="rdInt">Interner Link</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s6" id="divExt" {if $edit.linkType != "lnkExt"}style="display: none;"{/if}>
+                                    <input id="inExt" value="{$edit.linkTo}" type="text" name="lnkExtern" length="65355"/>
                                     <label for="inExt">Externe URL</label>
                                 </div>
-                                <div class="input-field col s12 m6" id="divInt" {if $edit.linkType != "lnkInt"}style="display: none;"{/if}>
+                                <div class="input-field col s6" id="divInt" {if $edit.linkType != "lnkInt"}style="display: none;"{/if}>
                                     <select id="selInt" title="Intern" name="lnkIntern">
                                         <optgroup label="Seiten">
                                             {loop $sites}

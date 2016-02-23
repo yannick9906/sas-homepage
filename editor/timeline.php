@@ -30,6 +30,9 @@ $tID = $_GET['tID'];
 if($action == "new") {
     if ($user->isActionAllowed(PERM_TIMELINE_CREATE)) {
         $pgdata = getEditorPageDataStub("Timeline", $user);
+        for ($i = 0; $i < sizeof($entries); $i++) {
+            $pgdata["sites"][$i] = $entries[$i]->asArray();
+        }
         $dwoo->output("tpl/timelineNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -56,8 +59,24 @@ if($action == "new") {
         $tml = $timelineToEdit->asArray();
         $tml["text"] = $timelineToEdit->getInfo();
         $tml["date"] = str_replace("+02:00","",str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate())));
-        var_dump($tml);
         $pgdata["edit"] = $tml;
+
+        if($timelineToEdit->getLink() == null or "") {
+            $pgdata["edit"]["linkType"] = "lnkNo";
+        } else {
+            if(substr($timelineToEdit->getLink(), 0, 5 ) === "int::") {
+                $pgdata["edit"]["linkType"] = "lnkInt";
+                $pgdata["edit"]["lnkVal"] = str_replace("int::", "", $timelineToEdit->getLink());
+            } else {
+                $pgdata["edit"]["linkType"] = "lnkExt";
+                $pgdata["edit"]["linkTo"] = $timelineToEdit->getLink();
+            }
+        }
+
+
+        for ($i = 0; $i < sizeof($entries); $i++) {
+            $pgdata["sites"][$i] = $entries[$i]->asArray();
+        }
         $dwoo->output("tpl/timelineEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {

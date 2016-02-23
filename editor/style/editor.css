@@ -243,13 +243,13 @@ table.edit {
     font-family: "Ubuntu", sans-serif;
     text-align: center;
     font-size: 25px;
-    background-color: #eee;
+    background-color: #fefefe;
     padding: 7px 0 7px 10px;
     vertical-align: middle; }
   table.edit tbody tr td, table.edit tbody tr th {
     font-family: "Ubuntu", sans-serif;
     text-align: left;
-    background-color: #eee;
+    background-color: #fefefe;
     padding: 7px 0 7px 10px;
     vertical-align: middle; }
   table.edit input {
@@ -289,5 +289,17 @@ ins {
 del {
   text-decoration: none;
   background-color: #f44336; }
+
+/* label underline focus color */
+.input-field input[type=text] {
+  border-bottom: 1px solid #000; }
+
+/* label underline focus color */
+.input-field input[type=email] {
+  border-bottom: 1px solid #000; }
+
+/* label underline focus color */
+.input-field input[type=password] {
+  border-bottom: 1px solid #000; }
 
 /*# sourceMappingURL=editor.css.map */

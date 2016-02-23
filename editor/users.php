@@ -60,30 +60,27 @@ if($action == "new") {
     if ($user->isActionAllowed(PERM_USER_EDIT) or $uID == $user->getUID()) {
         $userToEdit = \ICMS\User::fromUID($uID);
         switch($_GET['field']) {
-            case "usrname":
-                $userToEdit->setUName($_POST['usrname']);
-                break;
-            case "firstname":
-                $userToEdit->setUFirstName($_POST['firstname']);
-                break;
-            case "lastname":
-                $userToEdit->setUlastName($_POST['lastname']);
+            case "all":
+                if($_POST['usrname'] != null)$userToEdit->setUName($_POST['usrname']);
+                if($_POST['firstname'] != null)$userToEdit->setUFirstName($_POST['firstname']);
+                if($_POST['lastname'] != null)$userToEdit->setUlastName($_POST['lastname']);
+                if($_POST['email'] != null)$userToEdit->setUEmail($_POST['email']);
+                $userToEdit->setUPrefix($_POST['lvl']);
                 break;
             case "passwd":
-                $userToEdit->setUPassHash($_POST['passwd']);
-                break;
-            case "email":
-                $userToEdit->setUEmail($_POST['email']);
-                break;
-            case "lvl":
-                $userToEdit->setUPrefix($_POST['lvl']);
+                if($_POST['passwd'] == $_POST['passwd2'])
+                    $userToEdit->setUPassHash($_POST['passwd']);
+                else {
+                    echo "Passwörter stimmen nicht überein!";
+                    exit;
+                }
                 break;
         }
 
         $userToEdit->saveChanges();
         $pgdata = getEditorPageDataStub("Benutzer", $user);
         $pgdata["edit"] = $userToEdit->asArray();
-        forwardTo("users.php");
+        forwardTo("users.php?action=edit&uID=".$uID);
         exit;
     } else {
         $pgdata = getEditorPageDataStub("Benutzer", $user);

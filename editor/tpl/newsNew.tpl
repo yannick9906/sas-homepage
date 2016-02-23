@@ -4,41 +4,64 @@
             <table class="edit">
                 <thead>
                     <tr>
-                        <th colspan="2">
+                        <th>
                             News Beitrag erstellen
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Titel</th>
-                        <td><input id="title" type="text" name="title" value="" required placeholder="Darf nicht leer sein"/></td>
-                    </tr>
-                    <tr>
-                        <th>Text</th>
-                        <td><textarea id="text" name="text" required placeholder="Darf nicht leer sein" cols="40" rows="8"></textarea></td>
-                    </tr>
-                    <tr>
-                        <th>Link</th>
-                        <td style="word-spacing: normal; line-height: 30px;">
-                            <input type="radio" value="rdNo"  id="rdNo"  name="lnkType" title="NoLink" checked/> Kein Link<br/>
-                            <input type="radio" value="rdExt" id="rdExt" name="lnkType" title="Extern"/> <input id="inExt" type="text" name="lnkExtern" disabled placeholder="Extern"/><br/>
-                            <input type="radio" disabled value="rdInt" id="rdInt" name="lnkType" title="Intern"/> Intern:
-                            <select id="selInt" title="Intern" name="lnkIntern" size="1" disabled>
-                                <option>Home</option>
-                            </select>
+                        <td>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="title">Titel</label>
+                                    <input id="title" value="" required type="text" name="title" required length="255"/>
+                                </div>
+                                <div class="input-field col s12">
+                                    <textarea id="text" name="text" required class="materialize-textarea" length="65355"></textarea>
+                                    <label for="textarea1">Text</label>
+                                </div>
+                                <div class="col s6">
+                                    <p>
+                                        <input name="lnkType" value="rdNo" type="radio" id="rdNo" checked class="with-gap" />
+                                        <label for="rdNo">Kein Link</label>
+                                    </p>
+                                    <p>
+                                        <input name="lnkType" value="rdExt" type="radio" id="rdExt" class="with-gap" />
+                                        <label for="rdExt">Externer Link</label>
+                                    </p>
+                                    <p>
+                                        <input name="lnkType" value="rdInt" type="radio" id="rdInt" class="with-gap" />
+                                        <label for="rdInt">Interner Link</label>
+                                    </p>
+                                </div>
+                                <div class="input-field col s12 m6" id="divExt" style="display: none;">
+                                    <input id="inExt" value="{$edit.linkTo}" type="text" name="lnkExtern" length="65355"/>
+                                    <label for="inExt">Externe URL</label>
+                                </div>
+                                <div class="input-field col s6" id="divInt" style="display: none;">
+                                    <select id="selInt" title="Intern" name="lnkIntern">
+                                        <option value="" disabled selected>Wähle ein Element aus der Liste</option>
+                                        <optgroup label="Seiten">
+                                            {loop $sites}
+                                                <option value="{$id}">{$title}</option>
+                                            {/loop}
+                                        </optgroup>
+                                    </select>
+                                    <label for="selInt">Interner Link</label>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <th></th>
-                        <td><input type="submit" value="Absenden"/></td>
+                        <td><input type="submit" value="Neuen Eintrag erstellen"/></td>
                     </tr>
                 </tbody>
             </table>
         </form>
         <script src="../vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
         <div>
-            <section id="cd-timeline" class="cd-container" style="position:relative; top: 500px;">
+            <section id="cd-timeline" class="cd-container" style="position:relative; top: 550px;">
                 <div class="cd-timeline-block">
                     <div class="cd-timeline-img cd-picture">
                         <img src="../vertical-timeline/img/cd-icon-voting.svg" alt="Picture">
@@ -52,16 +75,16 @@
                 </div> <!-- cd-timeline-block -->
             </section> <!-- cd-timeline -->
         </div>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="../vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
         <link rel="stylesheet" href="../vertical-timeline/css/reset.css"> <!-- CSS reset -->
         <link rel="stylesheet" href="../style/vert-timeline.css" type="text/css"/>
         <script>
             jQuery(document).ready(function($) {
                 updateView();
+                $('select').material_select();
             });
 
             function updateView() {
+                //$('select').material_select();
                 // For todays date;
                 Date.prototype.today = function () {
                     return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
@@ -103,23 +126,27 @@
 
             $("#rdExt").change(function(){
                 console.log("Extern");
-                $("#selInt").attr('disabled', true)
-                $("#inExt").attr('disabled', false)
+                $("#divInt").hide()
+                $("#divExt").show();
+                $("#inExt").attr('disabled', false);
+                $("select").attr('disabled', false);
             });
 
             $("#rdInt").change(function(){
                 console.log("Intern");
-                $("#inExt").attr('disabled', true)
-                $("#selInt").attr('disabled', false)
+                $("#divInt").show();
+                $("#divExt").hide();
+                $("#inExt").attr('disabled', false);
+                $("select").attr('disabled', false);
             });
 
             $("#rdNo").change(function(){
                 console.log("None");
-                $("#inExt").attr('disabled', true)
-                $("#selInt").attr('disabled', true)
+                $("#inExt").attr('disabled', true);
+                $("select").attr('disabled', true);
             });
         </script>
-    </div>
+</div>
 {include file="header.tpl" args=$header}
 </body>
 </html>

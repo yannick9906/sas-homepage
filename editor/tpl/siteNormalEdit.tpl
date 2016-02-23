@@ -4,26 +4,29 @@
             <table class="edit">
                 <thead>
                     <tr>
-                        <th colspan="2">
+                        <th>
                             Seite bearbeiten
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Name</th>
-                        <td><input id="name" value="{$edit.name}" type="text" name="name" required placeholder="Darf nicht leer sein"/></td>
+                        <td>
+                            <div class="input-field col s12">
+                                <label for="title">Name</label>
+                                <input id="name" value="{$edit.name}" required type="text" name="name" required length="255"/>
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="title">Titel</label>
+                                <input id="title" value="{$edit.title}" required type="text" name="title" required length="1023"/>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="text" name="text" required class="materialize-textarea" length="64501">{$edit.text}</textarea>
+                                <label for="textarea1">Text [GitHub flavored Markdown supported]</label>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <th>Titel</th>
-                        <td><input id="title" value="{$edit.header}" type="text" name="title" required placeholder="Darf nicht leer sein"/></td>
-                    </tr>
-                    <tr>
-                        <th>Text [Markdown Support]</th>
-                        <td><textarea id="text" name="text" required cols="40" rows="8">{$edit.text}</textarea></td>
-                    </tr>
-                    <tr>
-                        <th></th>
                         <td><input type="submit" value="Neue Version erstellen"/></td>
                     </tr>
                 </tbody>

@@ -11,27 +11,30 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Name</th>
-                        <td><input id="name" value="{$edit.name}" type="text" name="name" required placeholder="Darf nicht leer sein"/></td>
+                        <td>
+                            <div class="input-field col s12">
+                                <label for="title">Name</label>
+                                <input id="name" value="{$edit.name}" required type="text" name="name" required length="255"/>
+                            </div>
+                            <div class="input-field col s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Dieses Bild wird über dem Text angezeigt. Mach ein Leerzeichen rein, wenn du kein Bild möchtest.">
+                                <label for="title">Bild</label>
+                                <input id="image" value="{$edit.image}" required type="text" name="image" required length="1023" />
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="title">Logo</label>
+                                <input id="icon" value="{$edit.icon}" required type="text" name="icon" required length="1023"/>
+                            </div>
+                            <div class="input-field col s12">
+                                <label for="title">Kurz Info</label>
+                                <input id="title" value="{$edit.short}" required type="text" name="short" required length="1023"/>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="text" name="text" required class="materialize-textarea" length="62337">{$edit.text}</textarea>
+                                <label for="textarea1">Text [GitHub flavored Markdown supported]</label>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <th>Image</th>
-                        <td><input id="image" value="{$edit.image}" type="text" name="image" required placeholder="Darf nicht leer sein"/></td>
-                    </tr>
-                    <tr>
-                        <th>Logo</th>
-                        <td><input id="icon" value="{$edit.icon}" type="text" name="icon" required placeholder="Darf nicht leer sein"/></td>
-                    </tr>
-                    <tr>
-                        <th>Kurz Info</th>
-                        <td><input id="info" value="{$edit.short}" type="text" name="info" required placeholder="Darf nicht leer sein"/></td>
-                    </tr>
-                    <tr>
-                        <th>Text [Markdown Support]</th>
-                        <td><textarea id="text" name="text" required cols="40" rows="8">{$edit.text}</textarea></td>
-                    </tr>
-                    <tr>
-                        <th></th>
                         <td><input type="submit" value="Neue Version erstellen"/></td>
                     </tr>
                 </tbody>

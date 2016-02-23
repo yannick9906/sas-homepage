@@ -4,32 +4,41 @@
                 <table class="edit">
                     <thead>
                         <tr>
-                            <th colspan="2">
+                            <th>
                                 Neuer Benutzer
                             </th>
                         </tr>
                     </thead>
                         <tbody>
-                            <tr>
-                                <th>Username</th>
-                                <td><input type="text" name="usrname" required placeholder="Darf nicht leer sein"/> <input type="submit" value="setzen"/></td>
-                            </tr>
-                            <tr>
-                                <th>Vorname</th>
-                                <td><input type="text" name="firstname" required placeholder="Darf nicht leer sein"/></td>
-                            </tr>
-                            <tr>
-                                <th>Nachname</th>
-                                <td><input type="text" name="lastname" required placeholder="Darf nicht leer sein"/></td>
-                            </tr>
-                            <tr>
-                                <th>Neues Passwort</th>
-                                <td><input type="password" name="passwd" required placeholder="Darf nicht leer sein"/></td>
-                            </tr>
-                            <tr>
-                                <th>Emailadresse</th>
-                                <td><input type="email" name="email" required placeholder="Darf nicht leer sein"/></td>
-                            </tr>
+                            <tr><td>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <label for="firstname">Vorname</label>
+                                            <input id="firstname" required type="text" name="firstname" length="255"/>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label for="lastname">Nachname</label>
+                                            <input id="lastname" required type="text" name="lastname" length="255"/>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <label for="usrname">Benutzername</label>
+                                            <input id="usrname" required type="text" name="usrname" length="255"/>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <label for="email">Email</label>
+                                            <input id="email" required type="email" name="email" length="65535"/>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label for="pw1">Passwort</label>
+                                            <input id="pw1" required type="password" name="passwd" length="18446744073709551615"/>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label for="pw2">Passwort wiederholen</label>
+                                            <input id="pw2" required type="password" name="passwd2" length="18446744073709551615"/>
+                                        </div>
+                                    </div>
+                            </td></tr>
+                            <tr><td><input type="submit" value="Neuen Benutzer erstellen"/></td></tr>
                         </tbody>
                 </table>
             </form>

@@ -47,7 +47,7 @@
                 <hr/>
                 <li>{exectime 3}ms</li>
             </ul>
-            <span style="position: absolute; bottom: 5px; font-family: 'Roboto'; font-size: 11.5px;">ICMS&trade; Version 3.1.1(SAS) <span style="color: red;">beta</span><br/>&copy;2014-2016 Yannick F&#233;lix</span>
+            <span style="position: absolute; bottom: 5px; font-family: 'Roboto'; font-size: 11.5px;">ICMS&trade; Version 3.1.2(SAS) <span style="color: red;">beta</span><br/>&copy;2014-2016 Yannick F&#233;lix</span>
         </div>
         <div style="position: fixed; top: 0; left: 135px; z-index: 1000; color: red; font-family: 'Roboto'; font-size: 15px">beta</div>
         <!-- Before body closing tag -->
