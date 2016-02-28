@@ -42,7 +42,7 @@ class File {
      * @param $fID
      * @return File
      */
-    public function fromFID($fID) {
+    public static function fromFID($fID) {
         $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_files WHERE fID = :fid", [":fid" => $fID]);
         return new File($res->fID,$res->filename,$res->filepath,$res->ownerID,$res->uploaded);

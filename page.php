@@ -14,6 +14,8 @@ ini_set("diplay_errors", "on");
     require_once 'editor/classes/Site.php';
     require_once 'editor/classes/User.php';
     require_once 'editor/classes/Token.php';
+    require_once 'editor/classes/File.php';
+    require_once 'editor/classes/Protocol.php';
     require_once 'editor/classes/TypeNormal.php';
     require_once 'editor/classes/TypeAK.php';
     require_once 'editor/classes/TypeParty.php';
@@ -145,12 +147,12 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $parties = \ICMS\TypeAK::listAKs();
-            for ($i = 0; $i < sizeof($parties); $i++) {
-                $pgData["page"]["items"][$i]["id"] = $parties[$i]->getPID();
-                $pgData["page"]["items"][$i]["info"]  = $parties[$i]->getShort();
-                $pgData["page"]["items"][$i]["name"]  = $parties[$i]->getName();
-                $pgData["page"]["items"][$i]["icon"]  = $parties[$i]->getIcon();
+            $entries = \ICMS\TypeAK::listAKs();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $pgData["page"]["items"][$i]["id"] = $entries[$i]->getPID();
+                $pgData["page"]["items"][$i]["info"]  = $entries[$i]->getShort();
+                $pgData["page"]["items"][$i]["name"]  = $entries[$i]->getName();
+                $pgData["page"]["items"][$i]["icon"]  = $entries[$i]->getIcon();
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/AksList.tpl", $pgData);
@@ -186,12 +188,12 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $parties = \ICMS\TypeParty::listParties();
-            for ($i = 0; $i < sizeof($parties); $i++) {
-                $pgData["page"]["items"][$i]["id"] = $parties[$i]->getPID();
-                $pgData["page"]["items"][$i]["info"]  = $parties[$i]->getShort();
-                $pgData["page"]["items"][$i]["name"]  = $parties[$i]->getName();
-                $pgData["page"]["items"][$i]["icon"]  = $parties[$i]->getIcon();
+            $entries = \ICMS\TypeParty::listParties();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $pgData["page"]["items"][$i]["id"] = $entries[$i]->getPID();
+                $pgData["page"]["items"][$i]["info"]  = $entries[$i]->getShort();
+                $pgData["page"]["items"][$i]["name"]  = $entries[$i]->getName();
+                $pgData["page"]["items"][$i]["icon"]  = $entries[$i]->getIcon();
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
@@ -276,8 +278,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             else $dwoo->output("tpl/mobile/about.tpl", $pgData);
             break;
         case 10: // Protokolle
-            require_once 'php/main.php';
-            $db = DBConnect();
             $pgData = [
                 "header" => [
                     "title" => "Protokolle"
@@ -287,17 +287,12 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 ]
             ];
 
-            $i = 0;
-            $res = $db->query("SELECT * FROM protokols ORDER BY ID DESC");
-            while($row = $res->fetch_object()) {
-                $timestamp = strtotime($row->date);
-                $date = date("d. M Y", $timestamp);
-                $pgData["page"]["items"][$i]["dl"] = $row->dl;
-                $pgData["page"]["items"][$i]["name"]  = $row->title;
-                $pgData["page"]["items"][$i]["info"]  = $date;
-                $i++;
+            $entries = \ICMS\Protocol::getAllPublicEntries();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                $pgData["page"]["items"][$i]["dl"]    = $entries[$i]->getFile()->getFilePath();
+                $pgData["page"]["items"][$i]["name"] = $entries[$i]->getName();
+                $pgData["page"]["items"][$i]["info"]  = dbDateToReadableWithOutTime($entries[$i]->getDate());
             }
-
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
             else $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);
