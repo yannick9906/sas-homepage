@@ -140,7 +140,6 @@ class TypeNormal extends Site {
         $lastEditDate = date("Y-m-d H:i:s");
 
         $res = $pdo->query("SELECT MAX(pID) as pID FROM schlopolis_sites");
-        var_dump($res);
         $pID = $res->pID + 1;
 
         $resn = $pdo->queryMulti("INSERT INTO schlopolis_sites(pID, type, title, content, version, authorID, lastEditID, lastEditDate, state)"

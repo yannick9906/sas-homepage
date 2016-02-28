@@ -1,6 +1,6 @@
 {include file="base.tpl"}
 <div class="content">
-        <form action="timeline.php?action=postEdit?tID={$edit.id}" method="post">
+        <form action="timeline.php?action=postEdit&tID={$edit.id}" method="post">
             <table class="edit">
                 <thead>
                     <tr>

@@ -85,7 +85,7 @@ if($action == "new") {
     }
 } elseif($action == "postEdit" and is_numeric($tID)) {
     if ($user->isActionAllowed(PERM_TIMELINE_NEW_VERSION)) {
-        var_dump($_POST);
+        //var_dump($_POST);
         $timelineToEdit = \ICMS\TimelineEntry::fromTID($tID);
         $timelineToEdit->setTitle($_POST["title"]);
         $timelineToEdit->setInfo($_POST["text"]);
