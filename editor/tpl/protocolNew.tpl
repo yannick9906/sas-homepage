@@ -77,7 +77,7 @@
                 labelMonthSelect: 'Wähle einen Monat',
                 labelYearSelect: 'Wähle ein Jahr',
 
-                format: 'd. mmmm yyyy',
+                format: 'yyyy-mm-dd',
                 formatSubmit: undefined,
                 hiddenPrefix: undefined,
                 hiddenSuffix: '_submit',

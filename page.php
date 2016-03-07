@@ -289,9 +289,10 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
             $entries = \ICMS\Protocol::getAllPublicEntries();
             for ($i = 0; $i < sizeof($entries); $i++) {
-                $pgData["page"]["items"][$i]["dl"]    = $entries[$i]->getFile()->getFilePath();
-                $pgData["page"]["items"][$i]["name"] = $entries[$i]->getName();
-                $pgData["page"]["items"][$i]["info"]  = dbDateToReadableWithOutTime($entries[$i]->getDate());
+                $pgData["page"]["items"][$i]["dl"]     = $entries[$i]->getFile()->getFilePath();
+                $pgData["page"]["items"][$i]["name"]   = $entries[$i]->getName();
+                $pgData["page"]["items"][$i]["info"]   = dbDateToReadableWithOutTime($entries[$i]->getDate());
+                $pgData["page"]["items"][$i]["typeNo"] = $entries[$i]->getType();
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);

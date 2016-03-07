@@ -2,8 +2,14 @@
             <div tool icon="menu">Wahlen</div>
 
             <paper-shadow z="1" class="listcard">
-                Wahlergebnisse Parteien<br/>
-                <a href="#p=11&id=14">Hier sind die Ergebnisse</a>
+                <a href="#p=11&id=14"><img style="height: 64px; width: 64px; color: black;" src="img/other/chart-bar.png"/></a>
+                <a href="#p=11&id=14"><h2>Wahlergebnisse Parteien</h2></a>
+                <a href="#p=11&id=14"></a>
+            </paper-shadow>
+            <paper-shadow z="1" class="listcard">
+                <a href="#p=11&id=15"><img style="height: 64px; width: 64px; color: black;" src="img/other/chart-bar.png"/></a>
+                <a href="#p=11&id=15"><h2>Wahlergebnisse Monarch</h2></a>
+                <a href="#p=11&id=15"></a>
             </paper-shadow>
             {foreach $page.items item}
                 <paper-shadow z="1" class="listcard" style="min-height: 80px;">

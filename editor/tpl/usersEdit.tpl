@@ -108,7 +108,7 @@
                                     <tr><td>Protokolle akzetieren</td>   <td><div class="switch"><label>Off<input type="checkbox" id="cb30" {if $perm.protocols_approve    == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh30" type="hidden" value="0" name="protocols.approve"/>   </td></tr>
                                     <tr><td>Protokolle löschen</td>      <td><div class="switch"><label>Off<input type="checkbox" id="cb31" {if $perm.admin_protocols_del  == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh31" type="hidden" value="0" name="admin.protocols.del"/> </td></tr>
                                     <tr><td>Protokolle bearbeiten</td>   <td><div class="switch"><label>Off<input type="checkbox" id="cb32" {if $perm.admin_protocols_edit == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh32" type="hidden" value="0" name="admin.protocols.edit"/></td></tr>
-e
+
                                     <tr><td><b>Sonstige</b></td></tr>
                                     <tr><td>Datenbank</td> <td><div class="switch"><label>Off<input type="checkbox" id="cb33" {if $perm.admin_database == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh33" type="hidden" value="0" name="admin.database"/></td></tr>
 

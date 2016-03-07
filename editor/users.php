@@ -57,7 +57,7 @@ if($action == "new") {
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($uID)) {
-    if ($user->isActionAllowed(PERM_USER_EDIT) or $uID == $user->getUID()) {
+    if($user->isActionAllowed(PERM_USER_EDIT) or $uID == $user->getUID()) {
         $userToEdit = \ICMS\User::fromUID($uID);
         switch($_GET['field']) {
             case "all":
@@ -78,8 +78,6 @@ if($action == "new") {
         }
 
         $userToEdit->saveChanges();
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
-        $pgdata["edit"] = $userToEdit->asArray();
         forwardTo("users.php?action=edit&uID=".$uID);
         exit;
     } else {
@@ -102,7 +100,7 @@ if($action == "new") {
         foreach($_POST as $key => $value) {
             $userToEdit->setPermission(str_replace("_", ".", $key), $value);
         }
-        forwardTo("users.php");
+        forwardTo("users.php?action=edit&uID".$uID);
         exit;
     } else {
         $pgdata = getEditorPageDataStub("Benutzer", $user);

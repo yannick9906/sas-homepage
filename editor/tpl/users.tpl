@@ -2,7 +2,6 @@
 <div class="content">
             <table class="pages">
                 <thead>
-                    <!--<tr><th colspan="6" class="new"><a href="?action=new">Neuer Benutzer</a></th></tr>-->
                     <tr>
                         <th style="width: 30px; max-width: 30px;">#</th>
                         <th style="width: 90%; max-width: 90%;"></th>
@@ -11,14 +10,6 @@
                 </thead>
                 <tbody>
                     {loop $page.items}
-                        <!--<tr>
-                            <td>{$id}</td>
-                            <td>{$usrname}</td>
-                            <td>{$firstname} {$lastname}</td>
-                            <td>{$email}</td>
-                            <td>{$prefix}</td>
-                            <td><a href="users.php?action=edit&uID={$id}" class="edit">BEARBEITEN</a> | <a href="users.php?action=del&uID={$id}" class="delete">LÖSCHEN</a></td>
-                        </tr>-->
                         <tr>
                             <td>{$id}</td>
                             <td>

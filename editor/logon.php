@@ -19,17 +19,16 @@ $dwoo = new Dwoo\Core();
 $usrname  = $_POST['usrname'];
 $password = $_POST['password'];
 $logout   = $_GET['logout'];
-$ses = $_GET['badsession'];
+$ses      = $_GET['badsession'];
 
 if(isset($usrname)) {
     if(\ICMS\User::doesUserNameExist($usrname)) {
 
         $user = \ICMS\User::fromUName($usrname);
-        echo "test";
         if($user->comparePWHash(md5($password))) {
             session_start();
             $_SESSION['uID'] = $user->getUID();
-            echo "<html><head><meta http-equiv='refresh' content='0, url=users.php' /></head></html>";
+            forwardTo("users.php");
         } else {
             $dwoo->output("tpl/logon.tpl", ["err" => "2","usrname" => $usrname]);
         }

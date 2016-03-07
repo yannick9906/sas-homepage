@@ -193,14 +193,9 @@ class User {
         if($this->uPrefix != 6) {
             $pdo = new PDO_MYSQL();
             $res = $pdo->query("SELECT * FROM schlopolis_user_rights WHERE uID = :uid AND permission = :key", [":uid" => $this->uID, ":key" => $permission]);
-            if ($res->active == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return true;
-        }
+            if($res->active == 1) return true;
+            else return false;
+        } else return true;
     }
 
 
@@ -228,17 +223,6 @@ class User {
             $pdo->query("UPDATE schlopolis_user_rights SET active = :state WHERE uID = :uid and permission = :key", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
         else
             $pdo->query("INSERT INTO schlopolis_user_rights(active, uID, permission) VALUES (:state, :uid, :key)", [":uid" => $this->uID, ":key" => $actionKey, ":state" => $state]);
-    }
-
-    /**
-     * Same as isActionAllowed, but for a specific file/page
-     *
-     * @param $actionKey String for Permission
-     * @param $fileID int File/Page
-     * @return bool
-     */
-    public function isFileActionAllowed($actionKey, $fileID) {
-        return true;
     }
 
     /**

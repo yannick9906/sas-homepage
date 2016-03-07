@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <label for="title">Titel</label>
-                                    <input id="title" value="{$edit.title}" required type="text" name="title" required length="255"/>
+                                    <input id="title" value="{$edit.title}" required type="text" name="name" required length="255"/>
                                 </div>
                                 <div class="input-field col s12">
                                     <select id="type" title="Type" name="type">
@@ -26,6 +26,7 @@
                                     </select>
                                     <label for="selInt">Typ</label>
                                 </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>

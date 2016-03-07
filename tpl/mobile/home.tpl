@@ -2,7 +2,7 @@
 
             <!-- Main Content -->
             <paper-shadow style="width:100%; height:0; padding-bottom: 51%" class="video">
-                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ccRyW5vUJ10?autoplay=1&showinfo=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
+                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ccRyW5vUJ10?showinfo=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
             </paper-shadow>
             <style>
                 .video iframe {

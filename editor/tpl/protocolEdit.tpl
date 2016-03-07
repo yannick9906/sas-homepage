@@ -57,6 +57,7 @@
         <script>
             jQuery(document).ready(function($) {
                 $('select').material_select();
+                $('parallax').parallax
             });
 
             $('.datepicker').pickadate({
@@ -77,8 +78,8 @@
                 labelMonthSelect: 'Wähle einen Monat',
                 labelYearSelect: 'Wähle ein Jahr',
 
-                format: 'yyyy-m-d',
-                formatSubmit: 'yyyy-m-d',
+                format: 'yyyy-mm-dd',
+                formatSubmit: 'yyyy-mm-dd',
                 hiddenPrefix: undefined,
                 hiddenSuffix: '_submit',
                 hiddenName: undefined,
