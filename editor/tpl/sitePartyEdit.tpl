@@ -1,7 +1,7 @@
 {include file="newbase.tpl" args=$header}
 <main>
-    <div class="container">
-        <div class="card-panel row">
+    <div class="container row">
+        <div class="col s12 m6 card-panel row">
             <br/>
             <form action="sites.php?action=postEdit&pID={$edit.id}" method="post" id="form">
                 <div class="input-field col s12">
@@ -26,9 +26,46 @@
                 </div>
             </form>
         </div>
+        <div class="col s12 offset-m1 m5 card-panel row">
+            <h5 class="center"><b>Vorschau</b></h5>
+            <img class="prImg col s12"/>
+            <div class="card-panel col offset-s1 s10" style="position:relative; top: -50px;">
+                <h5 class="prHeader"></h5>
+                <p class="prContent">
+
+                </p>
+            </div>
+        </div>
     </div>
 </main>
+<style>
+    img {
+        width: 100%;
+    }
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    h5 {
+        font-size: 26px;
+        font-weight: bold;
+    }
+    h6 {
+        font-weight: bold;
+    }
+</style>
 <script>
+    jQuery(document).ready(function($) {
+        updateView();
+    });
 
+    function updateView() {
+
+        $("img.prImg").attr("src", $("#image").val());
+        $("h5.prHeader").html($("#title").val());
+        $("p.prContent").html(markdown.toHTML($("#text").val()));
+
+        window.setTimeout("updateView()", 500)
+    }
 </script>
 {include file="newEnd.tpl"}

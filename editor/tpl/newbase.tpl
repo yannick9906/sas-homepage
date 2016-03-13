@@ -16,6 +16,7 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="bower_components/materialize/js/materialize.min.js"></script>
+        <script type="text/javascript" src="bower_components/markdown.min.js"></script>
 
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
