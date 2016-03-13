@@ -19,8 +19,8 @@
                         </p>
                         <span class="secondary-content">
                             {if $_.perm.file_create == 1}
-                                <a> <!--href="file.php?action=edit&fID={$id}"-->
-                                <i class="waves-effect waves-circle" style="margin: 0px 5px;" class="material-icons grey-text text-lighten-1">create</i>
+                                <a class="waves-effect waves-circle"> <!--href="file.php?action=edit&fID={$id}"-->
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-lighten-1">create</i>
                             </a>
                             {/if}
                             {if $_.perm.admin_file_del == 1}

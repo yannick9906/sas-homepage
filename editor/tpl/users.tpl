@@ -12,7 +12,7 @@
                     <li class="collection-item avatar">
                         <i class="material-icons circle {if $lvl == 5}red{elseif $lvl == 0}grey{else}orange{/if}">person</i>
                         <span class="title">{$firstname} {$lastname}</span>
-                        <p>{$prefix} {$usrname} | {$email}
+                        <p>{$prefix} {$usrname}<br/>{$email}
                         </p>
                         <span class="secondary-content">
                             <a class="waves-effect waves-circle" href="users.php?action=edit&uID={$id}">
