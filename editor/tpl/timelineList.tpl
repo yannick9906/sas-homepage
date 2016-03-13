@@ -1,6 +1,6 @@
 {include file="newbase.tpl" args=$header}
 <main>
-    {if $_.perm.timline_create == 1}
+    {if $_.perm.timeline_create == 1}
         <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
         <a href="?action=new" class="btn-floating btn-large green tooltipped"  data-position="left" data-delay="50" data-tooltip="Neuen Timeline erstellen">
         <i class="large mdi mdi-calendar-plus"></i>
@@ -19,7 +19,7 @@
                         </p>
                         <span class="secondary-content">
                             {if (!$state == 0 and $_.perm.timeline_approve == 1)}
-                                <a class="waves-effect waves-circle waves-green" href="news.php?action=approve&vID={$vId}">
+                                <a class="waves-effect waves-circle waves-green" href="timeline.php?action=approve&vID={$vId}">
                                 <i style="margin: 0px 5px;" class="material-icons green-text text-darken-1">check</i>
                             </a>
                                 <a class="waves-effect waves-circle waves-red" href="news.php?action=deny&vID={$vId}">
@@ -27,12 +27,12 @@
                             </a>
                             {/if}
                             {if $_.perm.timeline_newVersion == 1}
-                                <a class="waves-effect waves-circle" href="news.php?action=edit&tID={$id}">
+                                <a class="waves-effect waves-circle" href="timeline.php?action=edit&tID={$id}">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">create</i>
                             </a>
                             {/if}
                             {if $_.perm.timeline_view == 1}
-                                <a class="waves-effect waves-circle" href="news.php?action=vers&tID={$id}">
+                                <a class="waves-effect waves-circle" href="timeline.php?action=vers&tID={$id}">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">history</i>
                             </a>
                             {/if}
