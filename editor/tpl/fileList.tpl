@@ -1,37 +1,38 @@
-{include file="base.tpl"}
-<div class="content">
-            <table class="pages">
-                <thead>
-                    <tr>
-                        <th style="width: 30px; max-width: 30px;">#</th>
-                        <th style="width: 80% !IMPORTANT; max-width: 80%;"></th>
-                        <th style="width: 250px; max-width: 250px;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {loop $page.items}
-                        <tr>
-                            <td>{$id}</td>
-                            <td>
-                                <div class="list-name">{$title}</div>
-                                <div class="list-type">{$date} | {$author}</div>
-                                <div class="list-type">{$filename}</div>
-                            </td>
-                            <td style="">
-                                <a {if $_.perm.file_create == 2}href="files.php?action=edit&fID={$id}" class="normal"{else}class="disabled"{/if}><i class="mdi mdi-pencil"></i></a><a {if $_.perm.admin_file_del == 1}href="files.php?action=del&fID={$id}" class="normal"{else}class="disabled"{/if}><i class="mdi mdi-delete"></i></a><br/>
-                            </td>
-                        </tr>
-                    {/loop}
-            </table>
-            <div style="position: fixed; bottom: 20px; right: 20px;">
-                <div class="fab">
-                    <button class="fab__primary btn btn--xl btn--green btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="left" onclick="parent.location='?action=new'">
-                        <i class="mdi mdi-upload"></i>
-                        <i class="mdi mdi-file"></i>
-                    </button>
-                </div>
-            </div>
+{include file="newbase.tpl" args=$header}
+<main>
+    {if $_.perm.file_create == 1}
+        <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+        <a href="?action=new" class="btn-floating btn-large green tooltipped"  data-position="left" data-delay="50" data-tooltip="Datei hochladen">
+        <i class="large mdi mdi-upload"></i>
+        </a>
+    </div>
+    {/if}
+    <div class="container">
+        <div class="row">
+            <ul class="collection">
+                {loop $page.items}
+                    <li class="collection-item avatar">
+                        <i class="mdi mdi-file circle indigo"></i>
+                        <span class="title">{$title}</span>
+                        <p>{$date} | {$author}<br/>
+                            {$filename}
+                        </p>
+                        <span class="secondary-content">
+                            {if $_.perm.file_create == 1}
+                                <a> <!--href="file.php?action=edit&fID={$id}"-->
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-lighten-1">create</i>
+                            </a>
+                            {/if}
+                            {if $_.perm.admin_file_del == 1}
+                                <a href="file.php?action=del&fID={$id}">
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">delete</i>
+                            </a>
+                            {/if}
+                        </span>
+                    </li>
+                {/loop}
+            </ul>
         </div>
-{include file="header.tpl" args=$header}
-</body>
-</html>
+    </div>
+</main>
+{include file="newEnd.tpl"}

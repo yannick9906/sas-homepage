@@ -17,15 +17,15 @@
                             <li class="collection-item avatar">
                                 <i class="material-icons circle indigo">{if $type == "Normal"}insert_drive_file{elseif $type == "AK"}group{elseif $type == "Partei"}people_outline{/if}</i>
                                 <span class="title">{$title}</span>
-                                <p>{$author} | {$email}<br/>
-                                    Letzte &Auml;nderung: {$lastEditAuthor}, {$lastEdit} (#{$version}) <i class="material-icons {$stateCSS}">{$stateText}</i>
+                                <p>{$type} | {$author}<br/>
+                                    Letzte &Auml;nderung: {$lastEditAuthor}, {$lastEdit} (#{$version}) <i class="mdi mdi-{$stateText} {$stateCSS}"></i>
                                 </p>
                                 <span class="secondary-content">
                                     {if (!$state == 0 and $_.perm.site_approve == 1)}
-                                    <a href="sites.php?action=approve&vID={$id}">
+                                    <a href="sites.php?action=approve&vID={$vId}">
                                         <i style="margin: 0px 5px;" class="material-icons green-text text-darken-1">check</i>
                                     </a>
-                                    <a href="sites.php?action=deny&vID={$id}">
+                                    <a href="sites.php?action=deny&vID={$vId}">
                                         <i style="margin: 0px 5px;" class="material-icons red-text text-darken-1">close</i>
                                     </a>
                                     {/if}
@@ -40,7 +40,7 @@
                                     </a>
                                     {/if}
                                     {if $_.perm.admin_site_del == 1}
-                                    <a href="sites.php?action=del&vID={$id}">
+                                    <a href="sites.php?action=del&vID={$vId}">
                                         <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">delete</i>
                                     </a>
                                     {/if}
