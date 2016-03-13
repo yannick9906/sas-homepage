@@ -172,7 +172,7 @@ class Site {
                 return "check";
                 break;
             case 1:
-                return "account-alert";
+                return "thumbs_up_down";
                 break;
             case 2:
                 return "close";
@@ -189,13 +189,13 @@ class Site {
     public static function stateAsCSS($state) {
         switch ($state) {
             case 0:
-                return "live";
+                return "green-text";
                 break;
             case 1:
-                return "test";
+                return "orange-text";
                 break;
             case 2:
-                return "invalid";
+                return "red-text";
                 break;
         }
     }
