@@ -3,58 +3,64 @@
     <div class="container">
         <div class="row">
             <br/>
-            <form method="post" action="users.php?action=postEdit&field=all&uID={$edit.id}">
-                <div class="input-field col s6">
-                    <label for="firstname">Vorname</label>
-                    <input id="firstname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.firstname}" type="text" name="firstname" length="255"/>
-                </div>
-                <div class="input-field col s6">
-                    <label for="lastname">Nachname</label>
-                    <input id="lastname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.lastname}" type="text" name="lastname" length="255"/>
-                </div>
-                <div class="input-field col s6">
-                    <label for="usrname">Benutzername</label>
-                    <input id="usrname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.usrname}" type="text" name="usrname" length="255"/>
-                </div>
-                <div class="input-field col s6">
-                    <select id="type" title="Type" name="lvl">
-                        <option value="" disabled selected>Wähle einen Level</option>
-                        <option {if $edit.lvl == 0}selected{/if} {if $header.level < 0}disabled{/if} value="0">User</option>
-                        <option {if $edit.lvl == 1}selected{/if} {if $header.level < 1}disabled{/if} value="1">Partei</option>
-                        <option {if $edit.lvl == 2}selected{/if} {if $header.level < 2}disabled{/if} value="2">AK</option>
-                        <option {if $edit.lvl == 3}selected{/if} {if $header.level < 3}disabled{/if} value="3">Orga</option>
-                        <option {if $edit.lvl == 4}selected{/if} {if $header.level < 4}disabled{/if} value="4">Lehrer</option>
-                        <option {if $edit.lvl == 5}selected{/if} {if $header.level < 5}disabled{/if} value="5">Admin</option>
-                    </select>
-                    <label for="selInt">Level</label>
-                </div>
-                <div class="input-field col s12">
-                    <label for="email">Email</label>
-                    <input id="email" required value="{$edit.email}" type="email" name="email" length="65535"/>
-                </div>
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light btn-flat" type="submit" name="action">SETZTEN
-                        <i class="material-icons left">done</i>
-                    </button>
-                </div>
-            </form>
-            <form method="post" action="users.php?action=postEdit&field=passwd&uID={$edit.id}">
-                <div class="input-field col s6">
-                    <label for="pw1">Passwort</label>
-                    <input id="pw1" type="password" name="passwd" length="18446744073709551615"/>
-                </div>
-                <div class="input-field col s6">
-                    <label for="pw2">Passwort wiederholen</label>
-                    <input id="pw2" type="password" name="passwd2" length="18446744073709551615"/>
-                </div>
-                <div class="col s12">
-                    <button class="btn waves-effect waves-light btn-flat" type="submit" name="action">SETZTEN
-                        <i class="material-icons left">done</i>
-                    </button>
-                </div>
-            </form>
+            <div class="card-panel row col s12">
+                <form method="post" action="users.php?action=postEdit&field=all&uID={$edit.id}">
+                    <div class="input-field col s6">
+                        <label for="firstname">Vorname</label>
+                        <input id="firstname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.firstname}" type="text" name="firstname" length="255"/>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="lastname">Nachname</label>
+                        <input id="lastname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.lastname}" type="text" name="lastname" length="255"/>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="usrname">Benutzername</label>
+                        <input id="usrname" {if $header.uID == $edit.id}disabled{else}required{/if} value="{$edit.usrname}" type="text" name="usrname" length="255"/>
+                    </div>
+                    <div class="input-field col s6">
+                        <select id="type" title="Type" name="lvl">
+                            <option value="" disabled selected>Wähle einen Level</option>
+                            <option {if $edit.lvl == 0}selected{/if} {if $header.level < 0}disabled{/if} value="0">User</option>
+                            <option {if $edit.lvl == 1}selected{/if} {if $header.level < 1}disabled{/if} value="1">Partei</option>
+                            <option {if $edit.lvl == 2}selected{/if} {if $header.level < 2}disabled{/if} value="2">AK</option>
+                            <option {if $edit.lvl == 3}selected{/if} {if $header.level < 3}disabled{/if} value="3">Orga</option>
+                            <option {if $edit.lvl == 4}selected{/if} {if $header.level < 4}disabled{/if} value="4">Lehrer</option>
+                            <option {if $edit.lvl == 5}selected{/if} {if $header.level < 5}disabled{/if} value="5">Admin</option>
+                        </select>
+                        <label for="selInt">Level</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="email">Email</label>
+                        <input id="email" required value="{$edit.email}" type="email" name="email" length="65535"/>
+                    </div>
+                    <div class="col s12">
+                        <button class="btn waves-effect waves-light btn-flat" type="submit" name="action">SETZTEN
+                            <i class="material-icons left">done</i>
+                        </button>
+                    </div>
+                </form>
+                <br/>
+            </div>
+            <div class="card-panel row col s12">
+                <form method="post" action="users.php?action=postEdit&field=passwd&uID={$edit.id}">
+                    <div class="input-field col s6">
+                        <label for="pw1">Passwort</label>
+                        <input id="pw1" type="password" name="passwd" length="18446744073709551615"/>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="pw2">Passwort wiederholen</label>
+                        <input id="pw2" type="password" name="passwd2" length="18446744073709551615"/>
+                    </div>
+                    <div class="col s12">
+                        <button class="btn waves-effect waves-light btn-flat" type="submit" name="action">SETZTEN
+                            <i class="material-icons left">done</i>
+                        </button>
+                    </div>
+                </form>
+                <br/>
+            </div>
 
-            <div class="s12">
+            <div class="card-panel row col s12">
                 <form action="users.php?action=updatePerms&uID={$edit.id}" method="post">
                     <table>
                         <tr><th>Rechte</th><th>{if $permU.users_perms == 1}
@@ -66,7 +72,7 @@
                         <tr><td>Benutzer ansehen           </td><td><div class="switch"><label>Off<input type="checkbox" id="cb00" {if $perm.users_view   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh00" type="hidden" value="0" name="users.view"/>  </td></tr>
                         <tr><td>Benutzer erstellen         </td><td><div class="switch"><label>Off<input type="checkbox" id="cb01" {if $perm.users_create == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh01" type="hidden" value="0" name="users.create"/></td></tr>
                         <tr><td>Benutzer bearbeiten        </td><td><div class="switch"><label>Off<input type="checkbox" id="cb02" {if $perm.users_edit   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh02" type="hidden" value="0" name="users.edit"/>  </td></tr>
-                        <tr><td>Benutzerrechte $auml;ndern </td><td><div class="switch"><label>Off<input type="checkbox" id="cb03" {if $perm.users_perms  == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh03" type="hidden" value="0" name="users.perms"/> </td></tr>
+                        <tr><td>Benutzerrechte &auml;ndern </td><td><div class="switch"><label>Off<input type="checkbox" id="cb03" {if $perm.users_perms  == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh03" type="hidden" value="0" name="users.perms"/> </td></tr>
                         <tr><td>Benutzer l&ouml;schen      </td><td><div class="switch"><label>Off<input type="checkbox" id="cb04" {if $perm.users_del    == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh04" type="hidden" value="0" name="users.del"/>   </td></tr>
 
                         <tr><td><b>Timeline</b></td></tr>

@@ -19,25 +19,25 @@
                         </p>
                         <span class="secondary-content">
                             {if (!$state == 0 and $_.perm.protocols_approve == 1)}
-                                <a href="news.php?action=approve&vID={$vId}">
+                                <a href="protocols.php?action=approve&vID={$vId}">
                                 <i style="margin: 0px 5px;" class="material-icons green-text text-darken-1">check</i>
                             </a>
-                                <a href="news.php?action=deny&vID={$vId}">
+                                <a href="protocols.php?action=deny&vID={$vId}">
                                 <i style="margin: 0px 5px;" class="material-icons red-text text-darken-1">close</i>
                             </a>
                             {/if}
                             {if $_.perm.protocols_newVersion == 1}
-                                <a href="news.php?action=edit&prID={$id}">
+                                <a href="protocols.php?action=edit&prID={$id}">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">create</i>
                             </a>
                             {/if}
                             {if $_.perm.protocols_view == 1}
-                                <a href="news.php?action=vers&prID={$id}">
+                                <a href="protocols.php?action=vers&prID={$id}">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">history</i>
                             </a>
                             {/if}
                             {if $_.perm.admin_protocols_del == 1}
-                                <a href="news.php?action=del&vID={$vId}">
+                                <a href="protocols.php?action=del&vID={$vId}">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">delete</i>
                             </a>
                             {/if}

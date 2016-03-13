@@ -1,7 +1,7 @@
 {include file="newbase.tpl" args=$header}
 <main>
     <div class="container">
-        <div class="row">
+        <div class="card-panel row">
             <br/>
             <form action="users.php?action=postNew" method="post" id="form">
                 <div class="input-field col s6">
