@@ -107,6 +107,7 @@ if($action == "approve" and is_numeric($vID)) {
 } elseif($action == "new") {
     if ($user->isActionAllowed(PERM_SITE_CREATE)) {
         $pgdata = getEditorPageDataStub("Seite erstellen", $user);
+        $pgdata["page"]["type"] = $_GET["type"];
         $dwoo->output("tpl/sitesNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -170,7 +171,7 @@ if($action == "approve" and is_numeric($vID)) {
     }/**/
 }
 
-    if($user->isActionAllowed(PERM_SITE_VIEW)) {
+if($user->isActionAllowed(PERM_SITE_VIEW)) {
     $pgdata = getEditorPageDataStub("Seiten", $user);
     $entries = \ICMS\Site::getAllSites();
     //var_dump($entries);

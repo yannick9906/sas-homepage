@@ -3,7 +3,7 @@
     <div class="container">
         <div class="card-panel row">
             <br/>
-            <form action="sites.php?action=postEdit" method="post" id="form">
+            <form action="sites.php?action=postEdit&pID={$edit.id}" method="post" id="form">
                 <div class="input-field col s12">
                     <label for="title">Name</label>
                     <input id="name" value="{$edit.name}" required type="text" name="name" required length="255"/>

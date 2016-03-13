@@ -1,49 +1,29 @@
-{include file="base.tpl"}
-<div class="content">
-        <form action="sites.php?action=postNew" method="post">
-            <table class="edit">
-                <thead>
-                    <tr>
-                        <th>
-                            Seite erstellen
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <label for="title">Titel</label>
-                                    <input id="title" value="{$edit.title}" required type="text" name="name" required length="255"/>
-                                </div>
-                                <div class="input-field col s12">
-                                    <select id="type" title="Type" name="type">
-                                        <option value="" disabled selected>Wähle einen Typ</option>
-                                        <option value="normal">Normale Seite</option>
-                                        <option value="party">Partei</option>
-                                        <option value="ak">AK</option>
-                                    </select>
-                                    <label for="selInt">Typ</label>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Neue Seite erstellen"/></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <div>
-
+{include file="newbase.tpl" args=$header}
+<main>
+    <div class="container">
+        <div class="card-panel row">
+            <br/>
+            <form action="sites.php?action=postNew" method="post" id="form">
+                <div class="input-field col s12 m6 offset-m3">
+                    <label for="title">Titel</label>
+                    <input id="title" value="{$edit.title}" required type="text" name="name" required length="255"/>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                    <select id="type" title="Type" name="type">
+                        <option value="" disabled selected>W&auml;hle einen Typ</option>
+                        <option {if $page.type == 1}selected{/if} value="normal">Normale Seite</option>
+                        <option {if $page.type == 1}selected{/if} value="party">Partei</option>
+                        <option {if $page.type == 1}selected{/if} value="ak">AK</option>
+                    </select>
+                    <label for="selInt">Typ</label>
+                </div>
+            </form>
         </div>
     </div>
-{include file="header.tpl" args=$header}
+</main>
 <script>
-            jQuery(document).ready(function($) {
-                $('select').material_select();
-            });
+    jQuery(document).ready(function($) {
+        $('select').material_select();
+    });
 </script>
-</body>
-</html>
+{include file="newEnd.tpl"}
