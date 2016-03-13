@@ -5,8 +5,9 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="bower_components/materialize/css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="bower_components/materialize/css/materialize.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="style/style.css" />
+        <link type="text/css" rel="stylesheet" href="style/materialdesignicons.min.css" media="all"/>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,8 +30,8 @@
                 <ul class="right">
                     <!-- Dropdown Trigger -->
                     {if $args.editor == 1}
-                    <li><a href="{$args.undoUrl}"><i class="material-icons">clear</i></a></li>
-                    <li><a href="javascript:{}" onclick="document.getElementById('form').submit();"><i class="material-icons">done</i></a></li>
+                    <li><a href="{$args.undoUrl}"><i class="mdi mdi-close"></i></a></li>
+                    <li><a href="javascript:{}" onclick="document.getElementById('form').submit();"><i class="mdi mdi-check"></i></a></li>
                     {/if}
                     <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="dropdown1">{$args.usrname}<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
@@ -38,7 +39,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">ICH<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <a class="collapsible-header">ICH<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li><a href="#!">Dashboard</a></li>
@@ -54,7 +55,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">Bearbeiten<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <a class="collapsible-header">Bearbeiten<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         {if $args.perm.site_view == 1}<li><a href="sites.php">Seiten</a></li>{/if}
@@ -70,7 +71,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">Dateien<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <a class="collapsible-header">Dateien<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         {if $args.perm.file_view == 1}<li><a href="files.php">Dateien</a></li>{/if}
@@ -86,7 +87,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">Überprüfen<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <a class="collapsible-header">Überprüfen<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         {if $args.perm.site_approve == 1 and false}<li><a href="">Ausst. Änderungen</a></li>{/if}
@@ -102,7 +103,7 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">Administration<i class="mdi-navigation-arrow-drop-down"></i></a>
+                                <a class="collapsible-header">Administration<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
                                         {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
@@ -119,7 +120,7 @@
                     </li>
                     {/if}
                 </ul>
-                {if $args.backable == 0}<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>{/if}
-                {if $args.backable == 1}<a href="{$args.undoUrl}" class="button"><i class="mdi-navigation-arrow-back"></i></a>{/if}
+                {if $args.backable == 0}<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi mdi-menu"></i></a>{/if}
+                {if $args.backable == 1}<a href="{$args.undoUrl}" class="button"><i class="mdi mdi-backburger"></i></a>{/if}
             </div>
         </nav>

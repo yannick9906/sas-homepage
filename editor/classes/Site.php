@@ -172,7 +172,7 @@ class Site {
                 return "check";
                 break;
             case 1:
-                return "thumbs_up_down";
+                return "account-alert";
                 break;
             case 2:
                 return "close";
