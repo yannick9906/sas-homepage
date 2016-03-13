@@ -77,7 +77,7 @@ if($action == "approve" and is_numeric($vID)) {
         $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
-} elseif($action == "versDetail" and is_numeric($vID)) {
+} elseif($action == "diff" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
         $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
         $page1 = \ICMS\Site::fromVID($vID)->toTypeObject();

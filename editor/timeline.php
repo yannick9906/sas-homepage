@@ -138,11 +138,14 @@ if($action == "new") {
         $entries = \ICMS\TimelineEntry::getAllVersions($tID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
-            $pgdata["page"]["items"][$i]["permDel"] = +$user->isActionAllowed(PERM_TIMELINE_OP_DELETE);
-            $pgdata["page"]["items"][$i]["permApprove"] = +$user->isActionAllowed(PERM_TIMELINE_APPROVE);
-            if($i != 0 && $entries[$i - 1]->getState() == 0) {
-                $pgdata["page"]["items"][$i]["stateCSS"] = "disabled";
-                $pgdata["page"]["items"][$i]["stateText"] = "alt";
+            $pgdata["page"]["items"][$i]["index"] = $i;
+            $pgdata["page"]["items"][$i]["negIndex"] = sizeof($entries)-1 - $i;
+            if(($i == 0 or $entries[$i - 1]->getState() != 0) && $hadlive == 0) {
+                if($entries[$i]->getState() == 0) $hadlive = 1;
+                $pgdata["page"]["items"][$i]["index"] = 0;
+            } else {
+                $pgdata["page"]["items"][$i]["stateCSS"] = "grey-text";
+                $pgdata["page"]["items"][$i]["stateText"] = "history";
             }
         }
         //$pgdata["perm"] = $user->getPermAsArray();

@@ -18,16 +18,12 @@
                             {$title} - {$date}
                         </p>
                         <span class="secondary-content">
-                            {if $index != 0}
-                                <a class="waves-effect waves-circle" href="news.php?action=jumpTo&vID={$id}">
-                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">backup_restore</i>
+                            <a {if $negIndex != 0}class="waves-effect waves-circle" href="timeline.php?action=diff&vID={$vId}"{/if}>
+                                <i style="margin: 0px 5px;" class="material-icons grey-text {if $negIndex != 0}text-darken-1{else}text-lighten-2{/if}">compare_arrows</i>
                             </a>
-                            {/if}
-                            {if $negIndex != 0}
-                                <a class="waves-effect waves-circle waves-red modal-trigger" href="#modal{$id}">
-                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">compare_arrows</i>
+                            <a {if $index != 0}class="waves-effect waves-circle waves-red modal-trigger" href="#modal{$vId}"{/if}>
+                                <i style="margin: 0px 5px;" class="material-icons grey-text {if $index !=0}text-darken-1{else}text-lighten-2{/if}">replay</i>
                             </a>
-                            {/if}
                         </span>
                         <div id="modal{$id}" class="modal">
                             <div class="modal-content black-text">
