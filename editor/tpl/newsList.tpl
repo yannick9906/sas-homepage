@@ -1,40 +1,51 @@
-{include file="base.tpl"}
-<div class="content">
-            <table class="pages">
-                <thead>
-                    <!--<tr><th colspan="8" class="new">{if $_.perm.news_create == 1}<a href="?action=new">Neuer News Beitrag</a>{/if}</th></tr>-->
-                    <tr>
-                        <th style="width: 30px; max-width: 30px;">#</th>
-                        <th style="width: 80% !IMPORTANT; max-width: 80%;"></th>
-                        <th style="width: 250px; max-width: 250px;"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {loop $page.items}
-                        <tr>
-                            <td>{$id}</td>
-                            <td>
-                                <div class="list-name">{$title}</div>
-                                <div class="list-type">{$date} | {$author}</div>
-                                <div class="list-type">Letzte Änderung: {$lastEditAuthor}, {$lastEdit} (#{$version}) <span class="{$stateCSS}"><i class="mdi mdi-{$stateText}"></i></span></div>
-                            </td>
-                            <td style="">
-                                <a {if !(!$state == 0 and $_.perm.news_approve == 1)}class="disabled"{else}href="news.php?action=approve&vID={$vId}" class="approve"{/if}><i class="mdi mdi-check"></i></a><a {if !(!$state == 0 and $_.perm.news_approve == 1)}class="disabled"{else}href="news.php?action=deny&vID={$vId}" class="deny"{/if}><i class="mdi mdi-close"></i></a>
-                                <a {if $_.perm.news_newVersion == 1}href="news.php?action=edit&nID={$id}" class="normal"{else}class="disabled"{/if}><i class="mdi mdi-pencil"></i></a><a {if $_.perm.news_view == 1}href="news.php?action=vers&nID={$id}" class="normal" {else} class="disabled"{/if}><i class="mdi mdi-clock"></i></a><a {if $_.perm.admin_news_del == 1}href="news.php?action=del&nID={$vId}" class="normal"{else}class="disabled"{/if}><i class="mdi mdi-delete"></i></a><br/>
-                                <div>{if $stateText == "account-alert"}<span class="{$stateCSS}">Sichtung ausstehend</span>{/if}</div>
-                            </td>
-                        </tr>
-                    {/loop}
-            </table>
-            <div style="position: fixed; bottom: 20px; right: 20px;">
-                <div class="fab">
-                    <button class="fab__primary btn btn--xl btn--green btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="left" onclick="parent.location='?action=new'">
-                        <i class="mdi mdi-plus"></i>
-                        <i class="mdi mdi-newspaper"></i>
-                    </button>
-                </div>
-            </div>
+{include file="newbase.tpl" args=$header}
+<main>
+    {if $_.perm.news_create == 1}
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+        <a href="?action=new" class="btn-floating btn-large green tooltipped"  data-position="left" data-delay="50" data-tooltip="Neuen News Eintrag erstellen">
+        <i class="large mdi mdi-newspaper"></i>
+        </a>
+    </div>
+    {/if}
+    <div class="container">
+        <div class="row">
+            <ul class="collection">
+                {loop $page.items}
+                    <li class="collection-item avatar">
+                        <i class="mdi mdi-newspaper circle indigo"></i>
+                        <span class="title">{$title}</span>
+                        <p>{$date} | {$author}<br/>
+                            Letzte &Auml;nderung: {$lastEditAuthor}, {$lastEdit} (#{$version}) <i class="mdi mdi-{$stateText} {$stateCSS}"></i>
+                        </p>
+                        <span class="secondary-content">
+                            {if (!$state == 0 and $_.perm.news_approve == 1)}
+                                <a href="news.php?action=approve&vID={$vId}">
+                                <i style="margin: 0px 5px;" class="material-icons green-text text-darken-1">check</i>
+                            </a>
+                                <a href="news.php?action=deny&vID={$vId}">
+                                <i style="margin: 0px 5px;" class="material-icons red-text text-darken-1">close</i>
+                            </a>
+                            {/if}
+                            {if $_.perm.news_newVersion == 1}
+                                <a href="news.php?action=edit&nID={$id}">
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">create</i>
+                            </a>
+                            {/if}
+                            {if $_.perm.news_view == 1}
+                                <a href="news.php?action=vers&nID={$id}">
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">history</i>
+                            </a>
+                            {/if}
+                            {if $_.perm.admin_news_del == 1}
+                                <a href="news.php?action=del&vID={$vId}">
+                                <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">delete</i>
+                            </a>
+                            {/if}
+                        </span>
+                    </li>
+                {/loop}
+            </ul>
         </div>
-{include file="header.tpl" args=$header}
-</body>
-</html>
+    </div>
+</main>
+{include file="newEnd.tpl"}
