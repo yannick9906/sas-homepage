@@ -295,13 +295,13 @@ class NewsEntry {
     public static function stateAsCSS($state) {
         switch ($state) {
             case 0:
-                return "live";
+                return "green-text";
                 break;
             case 1:
-                return "test";
+                return "orange-text";
                 break;
             case 2:
-                return "invalid";
+                return "red-text";
                 break;
         }
     }
