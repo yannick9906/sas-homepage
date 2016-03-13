@@ -122,9 +122,12 @@
     /**
      * @param $title String
      * @param $user \ICMS\User
+     * @param bool $backable
+     * @param bool $editor
+     * @param string $undoUrl
      * @return array
      */
-    function getEditorPageDataStub($title, $user) {
+    function getEditorPageDataStub($title, $user, $backable = false, $editor = false, $undoUrl = "") {
         return [
             "header" => [
                 "title" => $title,
@@ -132,11 +135,15 @@
                 "usrchar" => substr($user->getUName(), 0, 1),
                 "uID" => $user->getUID(),
                 "level" => $user->getUPrefix(),
-                "perm" => $user->getPermAsArray()
+                "perm" => $user->getPermAsArray(),
+                "editor" => $editor ? 1:0,
+                "undoUrl" => $undoUrl,
+                "backable" => $backable ? 1:0
             ],
             "perm" => $user->getPermAsArray()
         ];
     }
+
 
     /**
      * truncate a string only at a whitespace (by nogdog)

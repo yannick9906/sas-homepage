@@ -27,7 +27,7 @@ $uID    = $_GET['uID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_USER_CREATE)) {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = getEditorPageDataStub("Benutzer", $user, false, true, "users.php");
         $dwoo->output("tpl/usersNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
@@ -37,7 +37,7 @@ if($action == "new") {
 } elseif($action == "edit" and is_numeric($uID)) {
     if ($user->isActionAllowed(PERM_USER_EDIT) or $uID == $user->getUID()) {
         $userToEdit = \ICMS\User::fromUID($uID);
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = getEditorPageDataStub("Benutzer", $user, true, false, "users.php");
         $pgdata["edit"] = $userToEdit->asArray();
         $pgdata["perm"] = $userToEdit->getPermAsArray();
         $pgdata["permU"] = $user->getPermAsArray();

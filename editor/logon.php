@@ -8,6 +8,7 @@
 
 
 require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
+require_once '../php/main.php'; //DB Anbindung
 require_once '../php/Mobile_Detect.php'; // Mobile Detect
 require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 require_once 'classes/User.php';
