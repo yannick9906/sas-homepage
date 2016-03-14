@@ -29,7 +29,7 @@ $tID = $_GET['tID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_TIMELINE_CREATE)) {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["sites"][$i] = $entries[$i]->asArray();
         }
@@ -55,7 +55,7 @@ if($action == "new") {
 } elseif($action == "edit" and is_numeric($tID)) {
     if ($user->isActionAllowed(PERM_TIMELINE_NEW_VERSION)) {
         $timelineToEdit = \ICMS\TimelineEntry::fromTID($tID);
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
         $tml = $timelineToEdit->asArray();
         $tml["text"] = $timelineToEdit->getInfo();
         $tml["date"] = str_replace("+02:00","",str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate())));
@@ -134,7 +134,7 @@ if($action == "new") {
     }
 } elseif($action == "vers" and is_numeric($tID)) {
     if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
-        $pgdata = getEditorPageDataStub("Timeline Versionen", $user);
+        $pgdata = getEditorPageDataStub("Timeline Versionen", $user, true, false, "timeline.php");
         $entries = \ICMS\TimelineEntry::getAllVersions($tID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();

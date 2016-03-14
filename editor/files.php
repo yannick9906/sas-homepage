@@ -28,7 +28,7 @@ $fID    = $_GET['fID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_FILE_CREATE)) {
-        $pgdata = getEditorPageDataStub("Datei hochladen", $user);
+        $pgdata = getEditorPageDataStub("Datei hochladen", $user, false, true, "files.php");
         $dwoo->output("tpl/fileNew.tpl", $pgdata);
         exit; //To not show the list
     } else {

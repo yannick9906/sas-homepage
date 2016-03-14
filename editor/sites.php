@@ -54,7 +54,7 @@ if($action == "approve" and is_numeric($vID)) {
     }
 } elseif($action == "vers" and is_numeric($pID)) {
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
-        $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
+        $pgdata = getEditorPageDataStub("Seiten Versionen", $user, true, false, "sites.php");
         $entries = \ICMS\Site::getAllVersions($pID);
         $hadlive = 0;
         for ($i = 0; $i < sizeof($entries); $i++) {
@@ -79,7 +79,7 @@ if($action == "approve" and is_numeric($vID)) {
     }
 } elseif($action == "diff" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_SITE_VIEW)) {
-        $pgdata = getEditorPageDataStub("Seiten Versionen", $user);
+        $pgdata = getEditorPageDataStub("Seiten Versionen", $user, true, false, "sites.php");
         $page1 = \ICMS\Site::fromVID($vID)->toTypeObject();
         $page2 = \ICMS\Site::getSiteVersionBefore($vID)->toTypeObject();
 
@@ -106,7 +106,7 @@ if($action == "approve" and is_numeric($vID)) {
     }
 } elseif($action == "new") {
     if ($user->isActionAllowed(PERM_SITE_CREATE)) {
-        $pgdata = getEditorPageDataStub("Seite erstellen", $user);
+        $pgdata = getEditorPageDataStub("Seite erstellen", $user, false, true, "sites.php");
         $pgdata["page"]["type"] = $_GET["type"];
         $dwoo->output("tpl/sitesNew.tpl", $pgdata);
         exit; //To not show the list
@@ -127,7 +127,7 @@ if($action == "approve" and is_numeric($vID)) {
 } elseif($action == "edit" and is_numeric($pID)) {
     if ($user->isActionAllowed(PERM_SITE_NEW_VERSION_ALL) or ($user->isActionAllowed(PERM_SITE_NEW_VERSION_OWN) and \ICMS\Site::fromPID($pID)->getAuthor() == $user->getUID())) {
         $siteToEdit = \ICMS\Site::fromPID($pID)->toTypeObject();
-        $pgdata = getEditorPageDataStub("Seite bearbeiten", $user);
+        $pgdata = getEditorPageDataStub("Seite bearbeiten", $user, false, true, "sites.php");
         $site = $siteToEdit->asArray();
         $pgdata["edit"] = $site;
         $dwoo->output($siteToEdit->getTplLink(), $pgdata);
@@ -150,14 +150,14 @@ if($action == "approve" and is_numeric($vID)) {
                 $siteToEdit->setName($_POST["name"]);
                 $siteToEdit->setImg($_POST["image"]);
                 $siteToEdit->setIcon($_POST["icon"]);
-                $siteToEdit->setShort($_POST["info"]);
+                $siteToEdit->setShort($_POST["short"]);
                 $siteToEdit->setText($_POST["text"]);
                 break;
             case 2:
                 $siteToEdit->setName($_POST["name"]);
                 $siteToEdit->setImg($_POST["image"]);
                 $siteToEdit->setIcon($_POST["icon"]);
-                $siteToEdit->setShort($_POST["info"]);
+                $siteToEdit->setShort($_POST["short"]);
                 $siteToEdit->setText($_POST["text"]);
                 break;
         }

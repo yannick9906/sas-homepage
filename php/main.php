@@ -138,7 +138,7 @@
                 "perm" => $user->getPermAsArray(),
                 "editor" => $editor ? 1:0,
                 "undoUrl" => $undoUrl,
-                "backable" => $backable ? 1:0
+                "backable" => $backable ? 1:0,
             ],
             "perm" => $user->getPermAsArray()
         ];

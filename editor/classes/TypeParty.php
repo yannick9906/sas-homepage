@@ -194,7 +194,9 @@ class TypeParty extends Site {
             "short" => $this->short,
             "text" => $this->text
         ];
-        $contentJSON = json_encode($content);
+        var_dump($content);
+        $contentJSON = json_encode($content, JSON_HEX_TAG);
+        var_dump($contentJSON);
         $res = $pdo->queryMulti("INSERT INTO schlopolis_sites(pID, type, title, content, version, authorID, lastEditID, lastEditDate, state)"
             ."VALUES (:pID, 2, :name, :cnt, :vers, :authorID, :lastEditID, :lastEditDate, 1)",
             [":pID" => $pID, ":name" => $this->getName(), ":cnt" => $contentJSON, ":authorID" => $authorID, ":lastEditID" => $lastEditID, ":lastEditDate" => $lastEditDate, ":vers" => $version]);

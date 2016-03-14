@@ -1,3 +1,4 @@
+AddDefaultCharset utf-8
 ExpiresByType text/css "access plus 0 seconds"
 AddType application/x-web-app-manifest+json .json
 AddType application/x-web-app-manifest+json .webapp

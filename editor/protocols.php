@@ -29,7 +29,7 @@ $prID = $_GET['prID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_PROTOCOLS_CREATE)) {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
         $entries = \ICMS\File::getAllFiles();
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["files"][$i] = $entries[$i]->asArray();
@@ -52,7 +52,7 @@ if($action == "new") {
 } elseif($action == "edit" and is_numeric($prID)) {
     if ($user->isActionAllowed(PERM_PROTOCOLS_NEW_VERSION)) {
         $protocolToEdit = \ICMS\Protocol::fromPRID($prID);
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
         $tml = $protocolToEdit->asArray();
         $tml["date"] = date("Y-m-d" ,$protocolToEdit->getDate());
         $pgdata["edit"] = $tml;
@@ -114,7 +114,7 @@ if($action == "new") {
     }
 } elseif($action == "vers" and is_numeric($prID)) {
     if($user->isActionAllowed(PERM_PROTOCOLS_VIEW)) {
-        $pgdata = getEditorPageDataStub("Timeline Versionen", $user);
+        $pgdata = getEditorPageDataStub("Timeline Versionen", $user, true, false, "protocols.php");
         $entries = \ICMS\TimelineEntry::getAllVersions($prID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();

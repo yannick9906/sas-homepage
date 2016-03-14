@@ -107,7 +107,7 @@
                                 <a class="collapsible-header">Administration<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        {if $args.perm.users_view == 1}<li><a href="users.php">Benutzerkonten</a></li>{/if}
+                                        {if $args.perm.users_view == 1}<li><a href="users.php?filter=Alle&sort=ascID">Benutzerkonten</a></li>{/if}
                                         {if 0 == 1}<li><a href="">Emailverteilung</a></li>{/if}
                                         {if $args.perm.admin_database == 1}<li><a href="adminer-4.2.4-mysql.php">Adminer (DB)</a></li>{/if}
                                      </ul>
@@ -117,7 +117,7 @@
                     </li>
                     <li class="divider"></li>
                     <li class="indigo" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
-                        ICMS&trade; Version 3.1.3b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
+                        ICMS&trade; Version 3.1.4b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
                     </li>
                     {/if}
                 </ul>

@@ -30,7 +30,7 @@ $nID = $_GET['nID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_NEWS_CREATE)) {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = getEditorPageDataStub("News", $user, false, true, "news.php");
         $entries = \ICMS\Site::getAllSites();
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["sites"][$i] = $entries[$i]->asArray();
@@ -57,7 +57,7 @@ if($action == "new") {
 } elseif($action == "edit" and is_numeric($nID)) {
     if ($user->isActionAllowed(PERM_NEWS_NEW_VERSION)) {
         $newsToEdit = \ICMS\NewsEntry::fromNID($nID);
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = getEditorPageDataStub("News", $user, false, true, "news.php");
 
         $tml = $newsToEdit->asArray();
         $tml["text"] = $newsToEdit->getText();
@@ -134,7 +134,7 @@ if($action == "new") {
     }
 } elseif($action == "vers" and is_numeric($nID)) {
     if($user->isActionAllowed(PERM_NEWS_VIEW)) {
-        $pgdata = getEditorPageDataStub("News Versionen", $user);
+        $pgdata = getEditorPageDataStub("News Versionen", $user, true, false, "news.php");
         $entries = \ICMS\NewsEntry::getAllVersions($nID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();

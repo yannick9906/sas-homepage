@@ -7,7 +7,40 @@
     </div>
     <div class="container">
         <div class="row">
-            <ul class="collection">
+            <div class="col offset-s8 s2 right-align">
+                <br/>
+                            <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
+
+                            <!-- Dropdown Structure -->
+                <ul id='dropdown0' class='dropdown-content'>
+                    <li><a href="#!">{$page.sort}</a></li>
+                    <li class="divider"></li>
+                    {if $page.sort != "ascName"} <li><a href="?filter={$page.filter}&sort=ascName"> <i class="mdi mdi-sort-ascending"> </i> Name</a></li>{/if}
+                    {if $page.sort != "descName"}<li><a href="?filter={$page.filter}&sort=descName"><i class="mdi mdi-sort-descending"></i> Name</a></li>{/if}
+                    {if $page.sort != "ascID"}   <li><a href="?filter={$page.filter}&sort=ascID">   <i class="mdi mdi-sort-ascending"> </i> ID</a></li>{/if}
+                    {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
+                </ul>
+            </div>
+            <div class="col s2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {$page.filter}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a href="#!">{$page.filter}</a></li>
+                    <li class="divider"></li>
+                    {if $page.filter != "Alle"}<li>  <a href="?sort={$page.sort}&filter=Alle">Alle</a></li>{/if}
+                    {if $page.filter != "Admin"}<li> <a href="?sort={$page.sort}&filter=Admin">Admins</a></li>{/if}
+                    {if $page.filter != "Lehrer"}<li><a href="?sort={$page.sort}&filter=Lehrer">Lehrer</a></li>{/if}
+                    {if $page.filter != "Orga"}<li>  <a href="?sort={$page.sort}&filter=Orga">Orga</a></li>{/if}
+                    {if $page.filter != "AK"}<li>    <a href="?sort={$page.sort}&filter=AK">AK</a></li>{/if}
+                    {if $page.filter != "Partei"}<li><a href="?sort={$page.sort}&filter=Partei">Partei</a></li>{/if}
+                    {if $page.filter != "User"}<li>  <a href="?sort={$page.sort}&filter=User">User</a></li>{/if}
+                </ul>
+            </div>
+            <ul class="collection col s12">
                 {loop $page.items}
                     <li class="collection-item avatar">
                         <i class="material-icons circle {if $lvl == 5}red{elseif $lvl == 0}grey{else}orange{/if}">person</i>
@@ -39,9 +72,20 @@
     </div>
 </main>
 <script>
-  $(document).ready(function(){
-      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-      $('.modal-trigger').leanModal();
-  });
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrain_width: false, // Does not change width of dropdown to that of the activator
+        hover: false, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'right' // Displays dropdown with edge aligned to the left of button
+    });
+
 </script>
 {include file="newEnd.tpl"}

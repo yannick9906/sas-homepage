@@ -6,7 +6,7 @@
  * Time: 17:52
  */
 
-error_reporting(E_WARNING);
+error_reporting(E_ERROR);
 ini_set("diplay_errors", "on");
 
 require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
@@ -110,10 +110,12 @@ if($action == "new") {
 
 if($user->isActionAllowed(PERM_USER_VIEW)) {
     $pgdata = getEditorPageDataStub("Benutzer", $user);
-    $users = \ICMS\User::getAllUsers();
+    $users = \ICMS\User::getAllUsers($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($users); $i++) {
         $pgdata["page"]["items"][$i] = $users[$i]->asArray();
     }
+    if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
+    if(isset($_GET["filter"])) $pgdata["page"]["filter"] = $_GET["filter"]; else $pgdata["page"]["filter"] = "Alle";
 
     $dwoo->output("tpl/users.tpl", $pgdata);
 } else {
