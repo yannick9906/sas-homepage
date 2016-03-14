@@ -11,7 +11,7 @@ namespace ICMS;
 use PDO;
 use PDO_MYSQL;
 
-const SORTING = [
+const USORTING = [
     "ascName"  => " ORDER BY username ASC",
     "ascID"    => " ORDER BY uID ASC",
     "descName" => " ORDER BY username DESC",
@@ -19,7 +19,7 @@ const SORTING = [
     "" => ""
 ];
 
-const FILTERING = [
+const UFILTERING = [
     "" => "",
     "all" => "",
     "Admin"  => " WHERE level = 5",
@@ -320,7 +320,7 @@ class User {
      */
     public static function getAllUsers($sort = "", $filter = "") {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti('SELECT uID FROM schlopolis_user'.FILTERING[$filter].' '.SORTING[$sort]);
+        $stmt = $pdo->queryMulti('SELECT uID FROM schlopolis_user'.UFILTERING[$filter].' '.USORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\User::fromUID");
     }
 

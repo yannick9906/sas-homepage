@@ -7,7 +7,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col offset-s8 s2 right-align">
+            <div class="col offset-s4 s4 offset-m8 m2 right-align">
                 <br/>
                             <!-- Dropdown Trigger -->
                 <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
@@ -22,7 +22,7 @@
                     {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
                 </ul>
             </div>
-            <div class="col s2 right-align">
+            <div class="col s4 m2 right-align">
                 <br/>
                 <!-- Dropdown Trigger -->
                 <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {$page.filter}</a>

@@ -8,9 +8,24 @@
 
 namespace ICMS;
 
-
 use PDO;
 use PDO_MYSQL;
+
+const TSORTING = [
+    "ascName"  => " ORDER BY title ASC",
+    "ascID"    => " ORDER BY tID ASC",
+    "ascDate"  => " ORDER BY date ASC",
+    "descName" => " ORDER BY title DESC",
+    "descID"   => " ORDER BY tID DESC",
+    "descDate" => " ORDER BY date DESC",
+    "" => ""
+];
+
+const TFILTERING = [
+    "Alle" => " ",
+    "+30T" => " WHERE `date` BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()",
+    "Neue"  => " WHERE `date` > CURDATE() "
+];
 
 class TimelineEntry {
     private $vID, $tID, $date, $title, $info, $link, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
@@ -423,9 +438,9 @@ class TimelineEntry {
     /**
      * @return TimelineEntry[]
      */
-    public static function getAllEntries() {
+    public static function getAllEntries($sort, $filter) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID");
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM (SELECT * FROM schlopolis_timeline WHERE state != 2 ORDER BY tID, version desc) x GROUP BY tID) y ".TFILTERING[$filter].TSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
     }
 

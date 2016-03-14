@@ -160,13 +160,17 @@ if($action == "new") {
 
 if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
     $pgdata = getEditorPageDataStub("Timeline", $user);
-    $entries = \ICMS\TimelineEntry::getAllEntries();
+    $entries = \ICMS\TimelineEntry::getAllEntries($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
         $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
         $pgdata["page"]["items"][$i]["permDel"] = +$user->isActionAllowed(PERM_TIMELINE_OP_DELETE);
         $pgdata["page"]["items"][$i]["permApprove"] = +$user->isActionAllowed(PERM_TIMELINE_APPROVE);
     }
+
+    if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
+    if(isset($_GET["filter"])) $pgdata["page"]["filter"] = str_replace("+", "%2B",$_GET["filter"]); else $pgdata["page"]["filter"] = "Alle";
+
 
     $dwoo->output("tpl/timelineList.tpl", $pgdata);
 } else {

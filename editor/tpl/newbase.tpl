@@ -11,6 +11,10 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="manifest" href="manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#3F51B5" />
     </head>
     <body>
         <!--Import jQuery before materialize.js-->
@@ -24,6 +28,7 @@
             <li class="divider"></li>
             <li><a href="logon.php?logout=1">Abmelden</a></li>
         </ul>
+        <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper indigo">
                 <a href="#!" class="brand-logo hide-on-med-and-down" style="padding-left: 250px;"><b>IC</b>MS - {$args.title}</a>
@@ -60,7 +65,7 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         {if $args.perm.site_view == 1}<li><a href="sites.php">Seiten</a></li>{/if}
-                                        {if $args.perm.timeline_view == 1}<li><a href="timeline.php">Timeline</a></li>{/if}
+                                        {if $args.perm.timeline_view == 1}<li><a href="timeline.php?filter=%2B30T&sort=ascDate">Timeline</a></li>{/if}
                                         {if $args.perm.news_view == 1}<li><a href="news.php">News</a></li>{/if}                                    </ul>
                                 </div>
                             </li>
@@ -117,7 +122,7 @@
                     </li>
                     <li class="divider"></li>
                     <li class="indigo" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
-                        ICMS&trade; Version 3.1.4b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
+                        ICMS&trade; Version 3.1.5b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
                     </li>
                     {/if}
                 </ul>
@@ -125,3 +130,4 @@
                 {if $args.backable == 1}<a href="{$args.undoUrl}" class="button"><i class="mdi mdi-backburger"></i></a>{/if}
             </div>
         </nav>
+        </div>

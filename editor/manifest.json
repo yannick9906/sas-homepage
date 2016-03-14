@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+
+  "name": "ICMS SAS",
+  "description": "Editor - Homepage des Staates Schlopolis",
+  "version": "3.1.4b",
+  "icons": [
+    {
+      "src": "img/splashicon/Schlopolis.png",
+      "sizes": "132x132",
+      "type": "image/png",
+      "density": "1.0"
+    }
+  ],
+  "splash_screens": [{
+    "src": "img/splashicon/lowres.png",
+    "type": "image/png",
+    "sizes": "240x320",
+    "density": 1
+  }, {
+    "src": "img/splashicon/hdready.png",
+    "type": "image/png",
+    "sizes": "750x1334",
+    "density": 2
+  }, {
+    "src": "img/splashicon/fullhd.png",
+    "type": "image/png",
+    "sizes": "1080x1920",
+    "density": 3
+  }],
+  "start_url": "logon.php",
+  "display": "standalone",
+  "orientation": "portrait",
+  "default-locale": "de",
+  "developer": "Yannick F&#233;lix",
+  "theme_color": "#3F51B5",
+  "background_color": "#3F51B5",
+  "chrome": { "navigation": true }
+}

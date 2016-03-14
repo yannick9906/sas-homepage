@@ -9,7 +9,38 @@
     {/if}
     <div class="container">
         <div class="row">
-            <ul class="collection">
+            <div class="col offset-s4 s4 offset-m8 m2 right-align">
+                <br/>
+                            <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
+
+                            <!-- Dropdown Structure -->
+                <ul id='dropdown0' class='dropdown-content'>
+                    <li><a href="#!">{$page.sort}</a></li>
+                    <li class="divider"></li>
+                    {if $page.sort != "ascName"} <li><a href="?filter={$page.filter}&sort=ascName"> <i class="mdi mdi-sort-ascending"> </i> Name</a></li>{/if}
+                    {if $page.sort != "descName"}<li><a href="?filter={$page.filter}&sort=descName"><i class="mdi mdi-sort-descending"></i> Name</a></li>{/if}
+                    {if $page.sort != "ascID"}   <li><a href="?filter={$page.filter}&sort=ascID">   <i class="mdi mdi-sort-ascending"> </i> ID</a></li>{/if}
+                    {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
+                    {if $page.sort != "ascDate"} <li><a href="?filter={$page.filter}&sort=ascDate"> <i class="mdi mdi-sort-ascending"> </i> Datum</a></li>{/if}
+                    {if $page.sort != "descDate"}<li><a href="?filter={$page.filter}&sort=descDate"><i class="mdi mdi-sort-descending"></i> Datum</a></li>{/if}
+                </ul>
+            </div>
+            <div class="col s4 m2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {replace $page.filter "%2B" "+"}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a href="#!">{replace $page.filter "%2B" "+"}</a></li>
+                    <li class="divider"></li>
+                    {if $page.filter != "Alle"}<li>  <a href="?sort={$page.sort}&filter=Alle">Alle</a></li>{/if}
+                    {if $page.filter != "%2B30T"}<li> <a href="?sort={$page.sort}&filter=%2B30T">+30T</a></li>{/if}
+                    {if $page.filter != "Neue"}<li><a href="?sort={$page.sort}&filter=Neue">Neue</a></li>{/if}
+                </ul>
+            </div>
+            <ul class="collection col s12">
                 {loop $page.items}
                     <li class="collection-item avatar">
                         <i class="mdi mdi-calendar-text circle indigo"></i>
@@ -63,5 +94,16 @@
       // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
       $('.modal-trigger').leanModal();
   });
+
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'right' // Displays dropdown with edge aligned to the left of button
+  });
+
 </script>
 {include file="newEnd.tpl"}

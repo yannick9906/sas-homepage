@@ -9,6 +9,37 @@
     {/if}
     <div class="container">
         <div class="row">
+            <div class="col offset-s4 s4 offset-m8 m2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown0' class='dropdown-content'>
+                    <li><a href="#!">{$page.sort}</a></li>
+                    <li class="divider"></li>
+                    {if $page.sort != "ascName"} <li><a href="?filter={$page.filter}&sort=ascName"> <i class="mdi mdi-sort-ascending"> </i> Name</a></li>{/if}
+                    {if $page.sort != "descName"}<li><a href="?filter={$page.filter}&sort=descName"><i class="mdi mdi-sort-descending"></i> Name</a></li>{/if}
+                    {if $page.sort != "ascID"}   <li><a href="?filter={$page.filter}&sort=ascID">   <i class="mdi mdi-sort-ascending"> </i> ID</a></li>{/if}
+                    {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
+                    {if $page.sort != "ascDate"} <li><a href="?filter={$page.filter}&sort=ascDate"> <i class="mdi mdi-sort-ascending"> </i> Datum</a></li>{/if}
+                    {if $page.sort != "descDate"}<li><a href="?filter={$page.filter}&sort=descDate"><i class="mdi mdi-sort-descending"></i> Datum</a></li>{/if}
+                </ul>
+            </div>
+            <div class="col s4 m2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {$page.filter}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a href="#!">{$page.filter}</a></li>
+                    <li class="divider"></li>
+                    {if $page.filter != "+30T"}<li>  <a href="?sort={$page.sort}&filter=%2B30T">+30T</a></li>{/if}
+                    {if $page.filter != "Alte"}<li> <a href="?sort={$page.sort}&filter=Alte">Alte</a></li>{/if}
+                    {if $page.filter != "Neue"}<li><a href="?sort={$page.sort}&filter=Neue">Neue</a></li>{/if}
+                </ul>
+            </div>
             <ul class="collection">
                 {loop $page.items}
                     <li class="collection-item avatar">
