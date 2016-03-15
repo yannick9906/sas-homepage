@@ -11,6 +11,22 @@ namespace ICMS;
 use PDO;
 use PDO_MYSQL;
 
+const SSORTING = [
+    "ascName"  => " ORDER BY title ASC",
+    "ascID"    => " ORDER BY pID ASC",
+    "descName" => " ORDER BY title DESC",
+    "descID"   => " ORDER BY pID DESC",
+    "" => ""
+];
+
+const SFILTERING = [
+    "Alle"         => " ",
+    "Normal"       => " WHERE type = 0 ",
+    "AK"           => " WHERE type = 1 ",
+    "Partei"       => " WHERE type = 2 ",
+    "ZuÜberprüfen" => " WHERE state = 1 "
+];
+
 class Site {
     private $vID, $pID, $name, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
 
@@ -271,9 +287,9 @@ class Site {
      *
      * @return \ICMS\Site[]
      */
-    public static function getAllSites() {
+    public static function getAllSites($sort, $filter) {
         $pdo = new \PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM schlopolis_sites WHERE state != 2 ORDER BY pID, version desc) x GROUP BY pID");
+        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM (SELECT * FROM schlopolis_sites WHERE state != 2 ORDER BY pID, version desc) x GROUP BY pID) y ".SFILTERING[$filter].SSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Site::fromVID");
     }
 

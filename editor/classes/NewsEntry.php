@@ -8,9 +8,24 @@
 
 namespace ICMS;
 
-
 use PDO;
 use PDO_MYSQL;
+
+const NSORTING = [
+    "ascName"  => " ORDER BY title ASC",
+    "ascID"    => " ORDER BY nID ASC",
+    "ascDate"  => " ORDER BY date ASC",
+    "descName" => " ORDER BY title DESC",
+    "descID"   => " ORDER BY nID DESC",
+    "descDate" => " ORDER BY date DESC",
+    "" => ""
+];
+
+const NFILTERING = [
+    "Alle" => " ",
+    "+30T" => " WHERE `date` BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()",
+    "Neue"  => " WHERE `date` > CURDATE() "
+];
 
 class NewsEntry {
     private $vID, $nID, $date, $title, $text, $link, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
@@ -416,9 +431,9 @@ class NewsEntry {
     /**
      * @return NewsEntry[]
      */
-    public static function getAllEntries() {
+    public static function getAllEntries($sort, $filter) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM schlopolis_news WHERE state != 2 ORDER BY nID, version desc) x GROUP BY nID ORDER BY date desc");
+        $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM (SELECT * FROM schlopolis_news WHERE state != 2 ORDER BY nID, version desc) x GROUP BY nID) y ".NFILTERING[$filter].NSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\NewsEntry::fromVID");
     }
 

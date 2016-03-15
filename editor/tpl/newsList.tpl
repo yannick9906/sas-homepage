@@ -29,18 +29,18 @@
             <div class="col s4 m2 right-align">
                 <br/>
                 <!-- Dropdown Trigger -->
-                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {$page.filter}</a>
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {replace $page.filter "%2B" "+"}</a>
 
                 <!-- Dropdown Structure -->
                 <ul id='dropdown' class='dropdown-content'>
-                    <li><a href="#!">{$page.filter}</a></li>
+                    <li><a href="#!">{replace $page.filter "%2B" "+"}</a></li>
                     <li class="divider"></li>
-                    {if $page.filter != "+30T"}<li>  <a href="?sort={$page.sort}&filter=%2B30T">+30T</a></li>{/if}
-                    {if $page.filter != "Alte"}<li> <a href="?sort={$page.sort}&filter=Alte">Alte</a></li>{/if}
+                    {if $page.filter != "Alle"}<li>  <a href="?sort={$page.sort}&filter=Alle">Alle</a></li>{/if}
+                    {if $page.filter != "%2B30T"}<li> <a href="?sort={$page.sort}&filter=%2B30T">+30T</a></li>{/if}
                     {if $page.filter != "Neue"}<li><a href="?sort={$page.sort}&filter=Neue">Neue</a></li>{/if}
                 </ul>
             </div>
-            <ul class="collection">
+            <ul class="collection col s12">
                 {loop $page.items}
                     <li class="collection-item avatar">
                         <i class="mdi mdi-newspaper circle indigo"></i>

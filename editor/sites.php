@@ -173,12 +173,15 @@ if($action == "approve" and is_numeric($vID)) {
 
 if($user->isActionAllowed(PERM_SITE_VIEW)) {
     $pgdata = getEditorPageDataStub("Seiten", $user);
-    $entries = \ICMS\Site::getAllSites();
+    $entries = \ICMS\Site::getAllSites($_GET["sort"], $_GET["filter"]);
     //var_dump($entries);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
         $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
     }
+
+    if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
+    if(isset($_GET["filter"])) $pgdata["page"]["filter"] = str_replace("+", "%2B",$_GET["filter"]); else $pgdata["page"]["filter"] = "Alle";
 
     $dwoo->output("tpl/sitesList.tpl", $pgdata);
 } else {

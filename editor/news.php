@@ -157,7 +157,7 @@ if($action == "new") {
 
 if($user->isActionAllowed(PERM_NEWS_VIEW)) {
     $pgdata = getEditorPageDataStub("News", $user);
-    $entries = \ICMS\NewsEntry::getAllEntries();
+    $entries = \ICMS\NewsEntry::getAllEntries($_GET["sort"], $_GET["filter"]);
     //var_dump($entries);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
@@ -165,6 +165,10 @@ if($user->isActionAllowed(PERM_NEWS_VIEW)) {
         $pgdata["page"]["items"][$i]["permDel"] = +$user->isActionAllowed(PERM_NEWS_OP_DELETE);
         $pgdata["page"]["items"][$i]["permApprove"] = +$user->isActionAllowed(PERM_NEWS_APPROVE);
     }
+
+    if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
+    if(isset($_GET["filter"])) $pgdata["page"]["filter"] = str_replace("+", "%2B",$_GET["filter"]); else $pgdata["page"]["filter"] = "Alle";
+
 
     $dwoo->output("tpl/newsList.tpl", $pgdata);
 } else {

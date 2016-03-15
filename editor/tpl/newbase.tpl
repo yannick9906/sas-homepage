@@ -64,9 +64,9 @@
                                 <a class="collapsible-header">Bearbeiten<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        {if $args.perm.site_view == 1}<li><a href="sites.php">Seiten</a></li>{/if}
+                                        {if $args.perm.site_view == 1}<li><a href="sites.php?filter=Alle&sort=ascID">Seiten</a></li>{/if}
                                         {if $args.perm.timeline_view == 1}<li><a href="timeline.php?filter=%2B30T&sort=ascDate">Timeline</a></li>{/if}
-                                        {if $args.perm.news_view == 1}<li><a href="news.php">News</a></li>{/if}                                    </ul>
+                                        {if $args.perm.news_view == 1}<li><a href="news.php?filter=Alle&sort=descDate">News</a></li>{/if}                                    </ul>
                                 </div>
                             </li>
                         </ul>
