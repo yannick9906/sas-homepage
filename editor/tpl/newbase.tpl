@@ -80,8 +80,8 @@
                                 <a class="collapsible-header">Dateien<i class="material-icons">arrow_drop_down</i></a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        {if $args.perm.file_view == 1}<li><a href="files.php">Dateien</a></li>{/if}
-                                        {if $args.perm.protocols_view == 1}<li><a href="protocols.php">Protokolle</a></li>{/if}
+                                        {if $args.perm.file_view == 1}<li><a href="files.php?filter=Alle&sort=ascName">Dateien</a></li>{/if}
+                                        {if $args.perm.protocols_view == 1}<li><a href="protocols.php?sort=descName&filter=Alle">Protokolle</a></li>{/if}
                                     </ul>
                                 </div>
                             </li>

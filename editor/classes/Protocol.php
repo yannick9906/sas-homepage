@@ -8,8 +8,29 @@
 
 namespace ICMS;
 
-
 use ICMS\File;
+
+const PSORTING = [
+    "ascName"  => " ORDER BY name ASC",
+    "ascID"    => " ORDER BY fID ASC",
+    "ascDate"  => " ORDER BY date ASC",
+    "descName" => " ORDER BY name DESC",
+    "descID"   => " ORDER BY fID DESC",
+    "descDate" => " ORDER BY date DESC",
+    "" => ""
+];
+
+const PFILTERING = [
+    "" => "",
+    "Alle"       => " ",
+    "Orgateam"   => " WHERE type = 1",
+    "Parlament"  => " WHERE type = 2",
+    "Wirtschaft" => " WHERE type = 3",
+    "Öffentl."   => " WHERE type = 4",
+    "Politik"    => " WHERE type = 5",
+    "Finanzen"   => " WHERE type = 6",
+    "Sonstige"   => " WHERE type = 7",
+];
 
 class Protocol {
     private $vID, $prID, $fileID, $name, $date, $type, $authorID, $lastAuthorID, $lastEditDate, $version, $state;
@@ -349,9 +370,9 @@ class Protocol {
     /**
      * @return Protocol[]
      */
-    public static function getAllEntries() {
+    public static function getAllEntries($sort, $filter) {
         $pdo = new \PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT prID FROM (SELECT * FROM schlopolis_protocols WHERE state != 2 ORDER BY prID, version desc) x GROUP BY prID ORDER BY date DESC");
+        $stmt = $pdo->queryMulti("SELECT prID FROM (SELECT * FROM (SELECT * FROM schlopolis_protocols WHERE state != 2 ORDER BY prID, version desc) x GROUP BY prID) y ".PFILTERING[$filter].PSORTING[$sort]);
         return $stmt->fetchAll(\PDO::FETCH_FUNC, "\\ICMS\\Protocol::fromPRID");
     }
 

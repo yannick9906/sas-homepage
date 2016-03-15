@@ -171,7 +171,6 @@ if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
     if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
     if(isset($_GET["filter"])) $pgdata["page"]["filter"] = str_replace("+", "%2B",$_GET["filter"]); else $pgdata["page"]["filter"] = "Alle";
 
-
     $dwoo->output("tpl/timelineList.tpl", $pgdata);
 } else {
     $pgdata = getEditorPageDataStub("Timeline", $user);

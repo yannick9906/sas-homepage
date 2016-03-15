@@ -8,9 +8,24 @@
 
 namespace ICMS;
 
-
 use PDO;
 use PDO_MYSQL;
+
+const FSORTING = [
+    "ascName"  => " ORDER BY filename ASC",
+    "ascID"    => " ORDER BY fID ASC",
+    "ascDate"  => " ORDER BY date ASC",
+    "descName" => " ORDER BY filename DESC",
+    "descID"   => " ORDER BY fID DESC",
+    "descDate" => " ORDER BY date DESC",
+    "" => ""
+];
+
+const FFILTERING = [
+    "Alle" => " ",
+    "" => ""
+];
+
 
 class File {
 
@@ -109,9 +124,9 @@ class File {
      *
      * @return File[]
      */
-    public static function getAllFiles() {
+    public static function getAllFiles($sort, $filter) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT fID FROM schlopolis_files ORDER BY filename");
+        $stmt = $pdo->queryMulti("SELECT fID FROM schlopolis_files ".FFILTERING[$filter].FSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\File::fromFID");
     }
 

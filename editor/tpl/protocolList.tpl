@@ -9,7 +9,43 @@
     {/if}
     <div class="container">
         <div class="row">
-            <ul class="collection">
+            <div class="col offset-s4 s4 offset-m8 m2 right-align">
+                <br/>
+                            <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
+
+                            <!-- Dropdown Structure -->
+                <ul id='dropdown0' class='dropdown-content'>
+                    <li><a href="#!">{$page.sort}</a></li>
+                    <li class="divider"></li>
+                    {if $page.sort != "ascName"} <li><a href="?filter={$page.filter}&sort=ascName"> <i class="mdi mdi-sort-ascending"> </i> Name</a></li>{/if}
+                    {if $page.sort != "descName"}<li><a href="?filter={$page.filter}&sort=descName"><i class="mdi mdi-sort-descending"></i> Name</a></li>{/if}
+                    {if $page.sort != "ascID"}   <li><a href="?filter={$page.filter}&sort=ascID">   <i class="mdi mdi-sort-ascending"> </i> ID</a></li>{/if}
+                    {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
+                    {if $page.sort != "ascDate"} <li><a href="?filter={$page.filter}&sort=ascDate"> <i class="mdi mdi-sort-ascending"> </i> Datum</a></li>{/if}
+                    {if $page.sort != "descDate"}<li><a href="?filter={$page.filter}&sort=descDate"><i class="mdi mdi-sort-descending"></i> Datum</a></li>{/if}
+                </ul>
+            </div>
+            <div class="col s4 m2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {replace $page.filter "%2B" "+"}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a href="#!">{replace $page.filter "%2B" "+"}</a></li>
+                    <li class="divider"></li>
+                    {if $page.filter != "Alle"}<li>       <a href="?sort={$page.sort}&filter=Alle"      >Alle      </a></li>{/if}
+                    {if $page.filter != "Orgateam"}<li>   <a href="?sort={$page.sort}&filter=Orgateam"  >Orgateam  </a></li>{/if}
+                    {if $page.filter != "Parlament"}<li>  <a href="?sort={$page.sort}&filter=Parlament" >Parlament </a></li>{/if}
+                    {if $page.filter != "Wirtschaft"}<li> <a href="?sort={$page.sort}&filter=Wirtschaft">Wirtschaft</a></li>{/if}
+                    {if $page.filter != "Öffentl."}<li>   <a href="?sort={$page.sort}&filter=Öffentl."  >Öffentl.  </a></li>{/if}
+                    {if $page.filter != "Politik"}<li>    <a href="?sort={$page.sort}&filter=Politik"   >Politik   </a></li>{/if}
+                    {if $page.filter != "Finanzen"}<li>   <a href="?sort={$page.sort}&filter=Finanzen"  >Finanzen  </a></li>{/if}
+                    {if $page.filter != "Sonstige"}<li>   <a href="?sort={$page.sort}&filter=Sonstige"  >Sonstige  </a></li>{/if}
+                </ul>
+            </div>
+            <ul class="collection col s12">
                 {loop $page.items}
                     <li class="collection-item avatar">
                         <i class="mdi mdi-book circle indigo"></i>

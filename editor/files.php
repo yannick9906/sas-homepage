@@ -59,10 +59,13 @@ if($action == "new") {
 
 if($user->isActionAllowed(PERM_FILE_VIEW)) {
     $pgdata = getEditorPageDataStub("Dateien", $user);
-    $files = \ICMS\File::getAllFiles();
+    $files = \ICMS\File::getAllFiles($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($files); $i++) {
         $pgdata["page"]["items"][$i] = $files[$i]->asArray();
     }
+
+    if(isset($_GET["sort"])) $pgdata["page"]["sort"] = $_GET["sort"]; else $pgdata["page"]["sort"] = "ascName";
+    if(isset($_GET["filter"])) $pgdata["page"]["filter"] = str_replace("+", "%2B",$_GET["filter"]); else $pgdata["page"]["filter"] = "Alle";
 
     $dwoo->output("tpl/fileList.tpl", $pgdata);
 } else {

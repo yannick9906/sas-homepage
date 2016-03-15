@@ -12,7 +12,38 @@
     </div>
     <div class="container">
         <div class="row">
-            <ul class="collection">
+            <div class="col offset-s4 s4 offset-m8 m2 right-align">
+                <br/>
+                            <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
+
+                            <!-- Dropdown Structure -->
+                <ul id='dropdown0' class='dropdown-content'>
+                    <li><a href="#!">{$page.sort}</a></li>
+                    <li class="divider"></li>
+                    {if $page.sort != "ascName"} <li><a href="?filter={$page.filter}&sort=ascName"> <i class="mdi mdi-sort-ascending"> </i> Name</a></li>{/if}
+                    {if $page.sort != "descName"}<li><a href="?filter={$page.filter}&sort=descName"><i class="mdi mdi-sort-descending"></i> Name</a></li>{/if}
+                    {if $page.sort != "ascID"}   <li><a href="?filter={$page.filter}&sort=ascID">   <i class="mdi mdi-sort-ascending"> </i> ID</a></li>{/if}
+                    {if $page.sort != "descID"}  <li><a href="?filter={$page.filter}&sort=descID">  <i class="mdi mdi-sort-descending"></i> ID</a></li>{/if}
+                </ul>
+            </div>
+            <div class="col s4 m2 right-align">
+                <br/>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {replace $page.filter "%2B" "+"}</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown' class='dropdown-content'>
+                    <li><a href="#!">{replace $page.filter "%2B" "+"}</a></li>
+                    <li class="divider"></li>
+                    {if $page.filter != "Alle"}<li>  <a href="?sort={$page.sort}&filter=Alle">Alle</a></li>{/if}
+                    {if $page.filter != "Normal"}<li> <a href="?sort={$page.sort}&filter=Normal">Normal</a></li>{/if}
+                    {if $page.filter != "AK"}<li><a href="?sort={$page.sort}&filter=AK">AK</a></li>{/if}
+                    {if $page.filter != "Partei"}<li><a href="?sort={$page.sort}&filter=Partei">Partei</a></li>{/if}
+                    {if $page.filter != "ZuÜberprüfen"}<li><a href="?sort={$page.sort}&filter=ZuÜberprüfen">Zu Überprüfen</a></li>{/if}
+                </ul>
+            </div>
+            <ul class="collection col s12">
                 {loop $page.items}
                     <li class="collection-item avatar">
                         <i class="material-icons circle indigo">{if $type == "Normal"}insert_drive_file{elseif $type == "AK"}group{elseif $type == "Partei"}people_outline{/if}</i>
