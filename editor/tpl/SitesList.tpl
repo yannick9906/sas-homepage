@@ -12,8 +12,17 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col offset-s4 s4 offset-m8 m2 right-align">
-                <br/>
+            <form class="col s12 m7" method="post" action="" id="live-search">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input id="filter" type="text" class="validate">
+                        <label for="filter">In Seiten suchen ...</label>
+                    </div>
+                </div>
+            </form>
+            <div class="col offset-s4 s4 offset-m1 m2 right-align">
+                <br class="hide-on-small-only"/>
                             <!-- Dropdown Trigger -->
                 <a class='dropdown-button btn indigo' href='#' data-activates='dropdown0'><i class="mdi mdi-sort"></i> {$page.sort}</a>
 
@@ -28,7 +37,7 @@
                 </ul>
             </div>
             <div class="col s4 m2 right-align">
-                <br/>
+                <br class="hide-on-small-only"/>
                 <!-- Dropdown Trigger -->
                 <a class='dropdown-button btn indigo' href='#' data-activates='dropdown'><i class="mdi mdi-filter"></i> {replace $page.filter "%2B" "+"}</a>
 
@@ -96,6 +105,28 @@
   $(document).ready(function(){
       // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
       $('.modal-trigger').leanModal();
+      $("#filter").keyup(function(){
+
+          // Retrieve the input field text and reset the count to zero
+          var filter = $(this).val(), count = 0;
+
+          // Loop through the comment list
+          $("ul.collection li").each(function(){
+
+              // If the list item does not contain the text phrase fade it out
+              if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                  $(this).fadeOut();
+
+                  // Show the list item if the phrase matches and increase the count by 1
+              } else {
+                  $(this).show();
+                  count++;
+              }
+          });
+
+          // Update the count
+          var numberItems = count;
+      });
   });
 </script>
 {include file="newEnd.tpl"}

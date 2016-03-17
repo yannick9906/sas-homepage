@@ -10,20 +10,15 @@
 error_reporting(E_ERROR);
 ini_set("diplay_errors", "on");
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../php/Parsedown.php'; // Parsedown
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-require_once 'classes/Site.php';
-require_once 'classes/TypeNormal.php';
-require_once 'classes/TypeAK.php';
-require_once 'classes/TypeParty.php';
-require_once 'classes/Permissions.php';
-require_once '../php/main.php';
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 
-$user = checkSession();
-$pdo = new PDO_MYSQL();
+$user = \ICMS\Util::checkSession();
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();

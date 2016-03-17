@@ -9,16 +9,16 @@
 error_reporting(E_ERROR);
 ini_set("diplay_errors", "on");
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-require_once 'classes/TimelineEntry.php';
-require_once 'classes/Permissions.php';
-require_once '../php/main.php';
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/TimelineEntry.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 
-$user = checkSession();
-$pdo = new PDO_MYSQL();
+$user = \ICMS\Util::checkSession();
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
@@ -29,14 +29,14 @@ $tID = $_GET['tID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_TIMELINE_CREATE)) {
-        $pgdata = getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["sites"][$i] = $entries[$i]->asArray();
         }
         $dwoo->output("tpl/timelineNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postNew") {
@@ -46,16 +46,16 @@ if($action == "new") {
         elseif($_POST["lnkType"] == "rdInt") $link = ""; //TODO
 
         $timelineCreated = \ICMS\TimelineEntry::createEntry($user, $_POST['date'], $_POST['title'], $_POST['text'], $link, $_POST['type']);
-        forwardTo("timeline.php");
+        \ICMS\Util::forwardTo("timeline.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "edit" and is_numeric($tID)) {
     if ($user->isActionAllowed(PERM_TIMELINE_NEW_VERSION)) {
         $timelineToEdit = \ICMS\TimelineEntry::fromTID($tID);
-        $pgdata = getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user, false, true, "timeline.php");
         $tml = $timelineToEdit->asArray();
         $tml["text"] = $timelineToEdit->getInfo();
         $tml["date"] = str_replace("+02:00","",str_replace("+01:00", "", date(DATE_W3C ,$timelineToEdit->getDate())));
@@ -80,7 +80,7 @@ if($action == "new") {
         $dwoo->output("tpl/timelineEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($tID)) {
@@ -96,45 +96,45 @@ if($action == "new") {
         $timelineToEdit->setType($_POST["type"]);
 
         $timelineToEdit->saveAsNewVersion($user);
-        forwardTo("timeline.php");
+        \ICMS\Util::forwardTo("timeline.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }/**/
 } elseif($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_EDIT) || $user->isActionAllowed(PERM_TIMELINE_APPROVE)) {
         $entryToDelete = \ICMS\TimelineEntry::fromvID($vID);
         $entryToDelete->approve();
-        forwardTo("timeline.php");
+        \ICMS\Util::forwardTo("timeline.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "deny" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_EDIT) || $user->isActionAllowed(PERM_TIMELINE_APPROVE)) {
         $entryToDelete = \ICMS\TimelineEntry::fromvID($vID);
         $entryToDelete->deny();
-        forwardTo("timeline.php");
+        \ICMS\Util::forwardTo("timeline.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "del" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_DELETE)) {
         $entryToDelete = \ICMS\TimelineEntry::fromvID($vID);
         $entryToDelete->delete();
-        forwardTo("timeline.php");
+        \ICMS\Util::forwardTo("timeline.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "vers" and is_numeric($tID)) {
     if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
-        $pgdata = getEditorPageDataStub("Timeline Versionen", $user, true, false, "timeline.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline Versionen", $user, true, false, "timeline.php");
         $entries = \ICMS\TimelineEntry::getAllVersions($tID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
@@ -153,13 +153,13 @@ if($action == "new") {
         $dwoo->output("tpl/timelineVersions.tpl", $pgdata);
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Timeline", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 }
 
 if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
-    $pgdata = getEditorPageDataStub("Timeline", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
     $entries = \ICMS\TimelineEntry::getAllEntries($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
@@ -173,6 +173,6 @@ if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
 
     $dwoo->output("tpl/timelineList.tpl", $pgdata);
 } else {
-    $pgdata = getEditorPageDataStub("Timeline", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
     $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
 }

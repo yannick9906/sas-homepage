@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sas Entrance</title>
+        <title>ICMS SAS - {$args.title}</title>
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
@@ -122,7 +122,7 @@
                     </li>
                     <li class="divider"></li>
                     <li class="indigo" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
-                        ICMS&trade; Version 3.1.5b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
+                        ICMS&trade; Version 3.1.6b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
                     </li>
                     {/if}
                 </ul>

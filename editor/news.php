@@ -9,17 +9,17 @@
 error_reporting(E_ERROR);
 ini_set("diplay_errors", "on");
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-require_once 'classes/Site.php';
-require_once 'classes/NewsEntry.php';
-require_once 'classes/Permissions.php';
-require_once '../php/main.php';
+require_once '../classes/Site.php';
+require_once '../classes/NewsEntry.php';
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 
-$user = checkSession();
-$pdo = new PDO_MYSQL();
+$user = \ICMS\Util::checkSession();
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
@@ -30,7 +30,7 @@ $nID = $_GET['nID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_NEWS_CREATE)) {
-        $pgdata = getEditorPageDataStub("News", $user, false, true, "news.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user, false, true, "news.php");
         $entries = \ICMS\Site::getAllSites();
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["sites"][$i] = $entries[$i]->asArray();
@@ -38,7 +38,7 @@ if($action == "new") {
         $dwoo->output("tpl/newsNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postNew") {
@@ -48,16 +48,16 @@ if($action == "new") {
         elseif($_POST["lnkType"] == "rdInt") $link = ""; //TODO
 
         $newsCreated = \ICMS\NewsEntry::createEntry($user, date("Y-m-d H:i:s"), $_POST['title'], $_POST['text'], $link);
-        forwardTo("news.php");
+        \ICMS\Util::forwardTo("news.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "edit" and is_numeric($nID)) {
     if ($user->isActionAllowed(PERM_NEWS_NEW_VERSION)) {
         $newsToEdit = \ICMS\NewsEntry::fromNID($nID);
-        $pgdata = getEditorPageDataStub("News", $user, false, true, "news.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user, false, true, "news.php");
 
         $tml = $newsToEdit->asArray();
         $tml["text"] = $newsToEdit->getText();
@@ -82,7 +82,7 @@ if($action == "new") {
         $dwoo->output("tpl/newsEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($nID)) {
@@ -96,45 +96,45 @@ if($action == "new") {
         elseif($_POST["lnkType"] == "rdInt") $newsToEdit->setLink("int::".$_POST["lnkIntern"]);
         echo $newsToEdit->getLink();
         $newsToEdit->saveAsNewVersion($user);
-        //forwardTo("news.php");
+        \ICMS\Util::forwardTo("news.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }/**/
 } elseif($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_NEWS_OP_EDIT) || $user->isActionAllowed(PERM_NEWS_APPROVE)) {
         $entryToDelete = \ICMS\NewsEntry::fromvID($vID);
         $entryToDelete->approve();
-        forwardTo("news.php");
+        \ICMS\Util::forwardTo("news.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "deny" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_NEWS_OP_EDIT) || $user->isActionAllowed(PERM_NEWS_APPROVE)) {
         $entryToDelete = \ICMS\NewsEntry::fromvID($vID);
         $entryToDelete->deny();
-        forwardTo("news.php");
+        \ICMS\Util::forwardTo("news.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "del" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_NEWS_OP_DELETE)) {
         $entryToDelete = \ICMS\NewsEntry::fromvID($vID);
         $entryToDelete->delete();
-        forwardTo("news.php");
+        \ICMS\Util::forwardTo("news.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "vers" and is_numeric($nID)) {
     if($user->isActionAllowed(PERM_NEWS_VIEW)) {
-        $pgdata = getEditorPageDataStub("News Versionen", $user, true, false, "news.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News Versionen", $user, true, false, "news.php");
         $entries = \ICMS\NewsEntry::getAllVersions($nID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
@@ -150,13 +150,13 @@ if($action == "new") {
         $dwoo->output("tpl/newsVersions.tpl", $pgdata);
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("News", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 }
 
 if($user->isActionAllowed(PERM_NEWS_VIEW)) {
-    $pgdata = getEditorPageDataStub("News", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
     $entries = \ICMS\NewsEntry::getAllEntries($_GET["sort"], $_GET["filter"]);
     //var_dump($entries);
     for ($i = 0; $i < sizeof($entries); $i++) {
@@ -172,6 +172,6 @@ if($user->isActionAllowed(PERM_NEWS_VIEW)) {
 
     $dwoo->output("tpl/newsList.tpl", $pgdata);
 } else {
-    $pgdata = getEditorPageDataStub("News", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("News", $user);
     $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
 }

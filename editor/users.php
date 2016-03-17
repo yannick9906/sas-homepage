@@ -9,15 +9,15 @@
 error_reporting(E_ERROR);
 ini_set("diplay_errors", "on");
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-require_once 'classes/Permissions.php';
-require_once '../php/main.php';
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 
-$user = checkSession();
-$pdo = new PDO_MYSQL();
+$user = \ICMS\Util::checkSession();
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
@@ -27,24 +27,24 @@ $uID    = $_GET['uID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_USER_CREATE)) {
-        $pgdata = getEditorPageDataStub("Benutzer", $user, false, true, "users.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user, false, true, "users.php");
         $dwoo->output("tpl/usersNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "edit" and is_numeric($uID)) {
     if ($user->isActionAllowed(PERM_USER_EDIT) or $uID == $user->getUID()) {
         $userToEdit = \ICMS\User::fromUID($uID);
-        $pgdata = getEditorPageDataStub("Benutzer", $user, true, false, "users.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user, true, false, "users.php");
         $pgdata["edit"] = $userToEdit->asArray();
         $pgdata["perm"] = $userToEdit->getPermAsArray();
         $pgdata["permU"] = $user->getPermAsArray();
         $dwoo->output("tpl/usersEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postNew") {
@@ -53,7 +53,7 @@ if($action == "new") {
         forwardTo("users.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($uID)) {
@@ -78,20 +78,20 @@ if($action == "new") {
         }
 
         $userToEdit->saveChanges();
-        forwardTo("users.php?action=edit&uID=".$uID);
+        \ICMS\Util::forwardTo("users.php?action=edit&uID=".$uID);
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "del" and is_numeric($uID)) {
     if($user->isActionAllowed(PERM_USER_DELETE)) {
         $userToDelete = \ICMS\User::fromUID($uID);
         $userToDelete->delete();
-        forwardTo("users.php");
+        \ICMS\Util::forwardTo("users.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "updatePerms" and is_numeric($uID)) {
@@ -100,16 +100,16 @@ if($action == "new") {
         foreach($_POST as $key => $value) {
             $userToEdit->setPermission(str_replace("_", ".", $key), $value);
         }
-        forwardTo("users.php?action=edit&uID".$uID);
+        \ICMS\Util::forwardTo("users.php?action=edit&uID".$uID);
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Benutzer", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 }
 
 if($user->isActionAllowed(PERM_USER_VIEW)) {
-    $pgdata = getEditorPageDataStub("Benutzer", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
     $users = \ICMS\User::getAllUsers($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($users); $i++) {
         $pgdata["page"]["items"][$i] = $users[$i]->asArray();
@@ -119,6 +119,6 @@ if($user->isActionAllowed(PERM_USER_VIEW)) {
 
     $dwoo->output("tpl/users.tpl", $pgdata);
 } else {
-    $pgdata = getEditorPageDataStub("Benutzer", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Benutzer", $user);
     $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
 }

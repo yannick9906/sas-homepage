@@ -8,17 +8,17 @@
 error_reporting(E_ERROR);
 ini_set("display_errors", 1);
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-require_once 'classes/Protocol.php';
-require_once 'classes/File.php';
-require_once 'classes/Permissions.php';
-require_once '../php/main.php';
+require_once '../classes/Protocol.php';
+require_once '../classes/File.php';
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 
-$user = checkSession();
-$pdo = new PDO_MYSQL();
+$user = \ICMS\Util::checkSession();
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
@@ -29,7 +29,7 @@ $prID = $_GET['prID'];
 
 if($action == "new") {
     if ($user->isActionAllowed(PERM_PROTOCOLS_CREATE)) {
-        $pgdata = getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
         $entries = \ICMS\File::getAllFiles();
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["files"][$i] = $entries[$i]->asArray();
@@ -37,22 +37,22 @@ if($action == "new") {
         $dwoo->output("tpl/protocolNew.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postNew") {
     if ($user->isActionAllowed(PERM_PROTOCOLS_CREATE)) {
         $timelineCreated = \ICMS\Protocol::createEntry($user, $_POST['date'], $_POST['title'], $_POST['fileID'], $_POST['type']);
-        forwardTo("protocols.php");
+        \ICMS\Util::forwardTo("protocols.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "edit" and is_numeric($prID)) {
     if ($user->isActionAllowed(PERM_PROTOCOLS_NEW_VERSION)) {
         $protocolToEdit = \ICMS\Protocol::fromPRID($prID);
-        $pgdata = getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user, false, true, "protocols.php");
         $tml = $protocolToEdit->asArray();
         $tml["date"] = date("Y-m-d" ,$protocolToEdit->getDate());
         $pgdata["edit"] = $tml;
@@ -64,7 +64,7 @@ if($action == "new") {
         $dwoo->output("tpl/protocolEdit.tpl", $pgdata);
         exit; //To not show the list
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "postEdit" and is_numeric($prID)) {
@@ -76,45 +76,45 @@ if($action == "new") {
         $protocolToEdit->setFileID($_POST["fileID"]);
 
         $protocolToEdit->saveAsNewVersion($user);
-        forwardTo("protocols.php");
+        \ICMS\Util::forwardTo("protocols.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }/**/
 } elseif($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_PROTOCOLS_OP_EDIT) || $user->isActionAllowed(PERM_PROTOCOLS_APPROVE)) {
         $entryToDelete = \ICMS\Protocol::fromVID($vID);
         $entryToDelete->approve();
-        forwardTo("protocols.php");
+        \ICMS\Util::forwardTo("protocols.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "deny" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_PROTOCOLS_OP_EDIT) || $user->isActionAllowed(PERM_PROTOCOLS_APPROVE)) {
         $entryToDelete = \ICMS\Protocol::fromVID($vID);
         $entryToDelete->deny();
-        forwardTo("protocols.php");
+        \ICMS\Util::forwardTo("protocols.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "del" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_PROTOCOLS_OP_DELETE)) {
         $entryToDelete = \ICMS\Protocol::fromvID($vID);
         $entryToDelete->delete();
-        forwardTo("protocols.php");
+        \ICMS\Util::forwardTo("protocols.php");
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 } elseif($action == "vers" and is_numeric($prID)) {
     if($user->isActionAllowed(PERM_PROTOCOLS_VIEW)) {
-        $pgdata = getEditorPageDataStub("Timeline Versionen", $user, true, false, "protocols.php");
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline Versionen", $user, true, false, "protocols.php");
         $entries = \ICMS\TimelineEntry::getAllVersions($prID);
         for ($i = 0; $i < sizeof($entries); $i++) {
             $pgdata["page"]["items"][$i] = $entries[$i]->asArray();
@@ -130,7 +130,7 @@ if($action == "new") {
         $dwoo->output("tpl/timelineVersions.tpl", $pgdata);
         exit;
     } else {
-        $pgdata = getEditorPageDataStub("Protokolle", $user);
+        $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
     }
 }

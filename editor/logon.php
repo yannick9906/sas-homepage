@@ -7,12 +7,14 @@
  */
 
 
-require_once '../php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once '../php/main.php'; //DB Anbindung
-require_once '../php/Mobile_Detect.php'; // Mobile Detect
-require_once '../dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-require_once 'classes/User.php';
-$pdo = new PDO_MYSQL();
+require_once '../classes/PDO_MYSQL.php'; //DB Anbindung
+require_once '../classes/User.php';
+require_once '../classes/Permissions.php';
+require_once '../classes/Util.php';
+require_once '../libs/Mobile_Detect.php'; // Mobile Detect
+require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
+
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 Dwoo\Autoloader::register();
 $dwoo = new Dwoo\Core();
@@ -29,7 +31,7 @@ if(isset($usrname)) {
         if($user->comparePWHash(md5($password))) {
             session_start();
             $_SESSION['uID'] = $user->getUID();
-            forwardTo("users.php");
+            \ICMS\Util::forwardTo("users.php");
         } else {
             $dwoo->output("tpl/logon.tpl", ["err" => "2","usrname" => $usrname]);
         }
