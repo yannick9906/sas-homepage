@@ -77,6 +77,7 @@
             OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
             SOFTWARE.</p>
         </div>
+        <a href="editor/logon.php" class="col s12 indigo waves-effect waves-light btn">Editor Login</a>
     </div>
 </div>
 <style>

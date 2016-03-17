@@ -97,7 +97,7 @@ ini_set("diplay_errors", "on");
                         </li>
                     </ul>
                     <div class="menu"><a href="#" data-activates="slide-out" class="button-collapse"><i id="menu" class="mdi mdi-menu"></i></a></div>
-                    <div class="back"><a onclick="history.back()" data-activates="" class="btn-block"><i id="menu" class="mdi mdi-backburger"></i></a></div>
+                    <div class="back" style="visibility: hidden;"><a onclick="history.back()" data-activates="" class="btn-block"><i id="menu" class="mdi mdi-backburger"></i></a></div>
                 </div>
             </nav>
         </div>
@@ -148,8 +148,8 @@ ini_set("diplay_errors", "on");
         var lasturl = "";	//here we store the current URL hash
 
         $(document).ready(function() {
-            $(".dropdown-button").dropdown();
             $(".back").css('visibility', 'hidden');
+            $(".menu").css('display', 'block');
             $(".menu").css('visibility', 'visible');
             // Initialize collapse button
             $(".button-collapse").sideNav(<? if ($mobile) {?>{closeOnClick: true}<? } ?>);
@@ -188,7 +188,8 @@ ini_set("diplay_errors", "on");
                 data: url,	//with the page number as a parameter
                 dataType: "html",	//expect html to be returned
                 error: function () {
-                    alert("Mmh irgendwas ist hier falsch :/")
+                    $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
+                    $('.networkerror').css('visibility', 'visible');	//and hide the rotating gif
                 },
                 success: function (msg) {
                     if (parseInt(msg) != -1) {	//if no errors
@@ -219,6 +220,7 @@ ini_set("diplay_errors", "on");
             });
         }
     </script>
+    <span style="display: none;"><script type="text/javascript" src="//rc.revolvermaps.com/0/0/6.js?i=2pgjgy5sa1m&amp;m=7&amp;s=220&amp;c=e63100&amp;cr1=ffffff&amp;f=arial&amp;l=0&amp;bv=90&amp;lx=-420&amp;ly=420&amp;hi=20&amp;he=7&amp;hc=a8ddff&amp;rs=80" async="async"></script></span>
 </html>
 <?php
     }

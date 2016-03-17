@@ -33,15 +33,19 @@ if(isset($usrname)) {
             $_SESSION['uID'] = $user->getUID();
             \ICMS\Util::forwardTo("users.php");
         } else {
-            $dwoo->output("tpl/logon.tpl", ["err" => "2","usrname" => $usrname]);
+            if($detect->isMobile()) $dwoo->output("tpl/logonM.tpl", ["err" => "2","usrname" => $usrname]);
+            else $dwoo->output("tpl/logon.tpl", ["err" => "2","usrname" => $usrname]);
         }
     } else {
-        $dwoo->output("tpl/logon.tpl", ["err" => "1", "usrname" => $usrname]);
+        if($detect->isMobile()) $dwoo->output("tpl/logonM.tpl", ["err" => "1", "usrname" => $usrname]);
+        else $dwoo->output("tpl/logon.tpl", ["err" => "1", "usrname" => $usrname]);
     }
 } elseif($logout == 1) {
     session_start();
     session_destroy();
-    $dwoo->output("tpl/logon.tpl");
+    if($detect->isMobile()) $dwoo->output("tpl/logonM.tpl");
+    else $dwoo->output("tpl/logon.tpl");
 } else {
-    $dwoo->output("tpl/logon.tpl", ["ses" => $ses]);
+    if($detect->isMobile()) $dwoo->output("tpl/logonM.tpl", ["ses" => $ses]);
+    else $dwoo->output("tpl/logon.tpl", ["ses" => $ses]);
 }

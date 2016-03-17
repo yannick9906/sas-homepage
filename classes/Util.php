@@ -19,7 +19,7 @@ class Util {
     public static function checkSession() {
         session_start();
         if(!isset($_SESSION["uID"])) {
-            forwardTo("logon.php?badsession=1");
+            self::forwardTo("logon.php?badsession=1");
             exit;
         } else {
             $user = User::fromUID($_SESSION["uID"]);

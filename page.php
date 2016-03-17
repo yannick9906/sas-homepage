@@ -26,10 +26,7 @@ ini_set("diplay_errors", "on");
     $dwoo = new Dwoo\Core();
 
 if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
-
-    if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
-    else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 403],"code" => 403]);
-    exit;
+    http_response_code(403);
 }
     switch($pg) {
         case 0: //Home
@@ -299,8 +296,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
         case 11: // Pages
             $id = $_POST['id'];
             if(!is_numeric($id)) {
-                if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
-                else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
+                http_response_code(404);
                 exit;
             }
 
@@ -323,7 +319,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                     if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
                     else $dwoo->output("tpl/mobile/page.tpl", $pgData);
                     break;
-                case 1: //todo
+                case 1:
                     $pgData = [
                         "header" => [
                             "title" => $site->getTitle()
@@ -338,7 +334,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                     if($detect->isMobile()) $dwoo->output("tpl/mobile/page.tpl", $pgData);
                     else $dwoo->output("tpl/mobile/page.tpl", $pgData);
                     break;
-                case 2://todo
+                case 2:
                     $pgData = [
                         "header" => [
                             "title" => $site->getTitle()
@@ -358,7 +354,5 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
 
             break;
         default:
-            if($detect->isMobile()) $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
-            else $dwoo->output("tpl/mobile/error.tpl", ["header" => ["title" => 404],"code" => 404]);
-            break;
+            http_response_code(404);
     }
