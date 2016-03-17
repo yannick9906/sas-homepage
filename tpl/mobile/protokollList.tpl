@@ -1,106 +1,73 @@
-3            <!-- Main Content -->
-            <div tool icon="menu">Protokolle</div>
-
-            <paper-tabs selected="0" scrollable>
-                <paper-tab>Orgateam</paper-tab>
-                <paper-tab>Parlament</paper-tab>
-                <paper-tab>AK Wirtschaft</paper-tab>
-                <paper-tab>AK Öffentlichkeitsarbeit</paper-tab>
-                <paper-tab>AK Finanzen</paper-tab>
-                <paper-tab>AK Politik</paper-tab>
-                <paper-tab>Sonstige</paper-tab>
-            </paper-tabs>
-            <core-pages selected="0">
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 1}
-                        <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
+<div class="indigo white-text">
+    <ul class="tabs indigo white-text" style="overflow: hidden;">
+        <li class="tab col s2"><a class="white-text active" href="#tab1">Orgateam</a></li>
+        <li class="tab col s2"><a class="white-text" href="#tab2">Parlament</a></li>
+        <li class="tab col s2"><a class="white-text" href="#tab3">AKs</a></li>
+        <li class="tab col s2"><a class="white-text" href="#tab4">Sonstige</a></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="row">
+        <div id="tab1" class="col s12">
+            <ul class="collection">
+                {foreach $page.items item}
+                    {if $item.typeNo == 1}
+                        <li class="collection-item">
+                            <div>{$item.info} - <b>{$item.name}</b>
+                                <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
+                            </div>
+                        </li>
+                    </paper-shadow>
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+        <div id="tab2" class="col s12">
+            <ul class="collection">
+                {foreach $page.items item}
+                    {if $item.typeNo == 2}
+                        <li class="collection-item">
+                            <div>{$item.name}
+                                <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
+                            </div>
+                        </li>
                         </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 2}
-                        <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+        <div id="tab3" class="col s12">
+            <ul class="collection">
+                {foreach $page.items item}
+                    {if $item.typeNo <= 6 and $item.typeNo >= 3}
+                        <li class="collection-item">
+                            <div>{$item.name}
+                                <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
+                            </div>
+                        </li>
                         </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 3}
-                            <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+        <div id="tab4" class="col s12">
+            <ul class="collection">
+                {foreach $page.items item}
+                    {if $item.typeNo == 7}
+                        <li class="collection-item">
+                            <div>{$item.name}
+                                <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
+                            </div>
+                        </li>
                         </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 4}
-                            <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
-                        </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 5}
-                            <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
-                        </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 6}
-                            <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
-                        </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-                <div>
-                    {foreach $page.items item}
-                        {if $item.typeNo == 7}
-                            <paper-shadow z="1" class="listcard">
-                            <a href="{$item.dl}"><core-icon style="height: 64px; width: 64px; color: black;" icon="assignment"></core-icon></a>
-                            <a href="{$item.dl}"><h2>{$item.name}</h2></a>
-                            <a href="{$item.dl}"><p>{$item.info}</p></a>
-                        </paper-shadow>
-                        {/if}
-                    {/foreach}
-                </div>
-            </core-pages>
-	<script>
-		var tabs = document.querySelector('paper-tabs');
-        var pages = document.querySelector('core-pages');
-
-        tabs.addEventListener('core-select',function(){
-            pages.selected = tabs.selected;
-        });
-
-        function show() {
-            var toast = document.querySelector('#toast');
-            toast.show();
-        }
-	</script>
-
-            {include("counter.tpl")}
+                    {/if}
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('ul.tabs').tabs();
+    });
+</script>

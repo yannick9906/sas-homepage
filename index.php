@@ -1,43 +1,34 @@
 <?php
-    require_once 'php/Mobile_Detect.php'; // Mobile Detect
+
+error_reporting(E_ERROR);
+ini_set("diplay_errors", "on");
+
+    require_once 'libs/Mobile_Detect.php'; // Mobile Detect
+    require_once 'classes/Util.php'; // Mobile Detect
     $detect = new Mobile_Detect;
+    $mobile = $detect->isMobile();
     if($detect->isMobile() or !$detect->isMobile()) {
 ?>
 <!DOCTYPE html>
 <html>
-    <head lang="de">
+    <head>
         <meta charset="UTF-8">
         <title>Schlopolis 2.0</title>
         <meta name="theme-color" content="#3F51B5"/>
-        <meta name="apple-mobile-web-app-status-bar-style" content="black_translucent">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#3F51B5">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"/>
-        <link rel="import" href="bower_components/polymer/polymer.html"/>
         <link rel="manifest" href="manifest.webapp"/>
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic|Ubuntu:400,700'
-              rel='stylesheet' type='text/css'>
-        <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-        <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
-        <link rel="import" href="bower_components/core-item/core-item.html">
-        <link rel="import" href="bower_components/core-menu/core-menu.html">
-        <link rel="import" href="bower_components/paper-input/paper-input.html">
-        <link rel="import" href="bower_components/paper-fab/paper-fab.html">
-        <link rel="import" href="bower_components/paper-shadow/paper-shadow.html">
-        <link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
-        <link rel="import" href="bower_components/paper-toast/paper-toast.html">
-        <link rel="import" href="bower_components/core-icons/social-icons.html">
-        <link rel="import" href="bower_components/core-icons/av-icons.html">
-        <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-        <link rel="import" href="bower_components/core-pages/core-pages.html">
-        <link rel="import" href="bower_components/paper-button/paper-button.html">
-        <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-        <link rel="import" href="bower_components/paper-input/paper-autogrow-textarea.html">
-        <link rel="import" href="bower_components/paper-input/paper-char-counter.html">
-        <script src="javascript/jquery-2.1.4.min.js"></script> <!-- jQuery -->
-        <script src="javascript/main.js"></script> <!-- jQuery -->
-        <script src="vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
-        <link rel="stylesheet" href="style/pages_main.css" type="text/css"/>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="libs/materialize/css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/style.css" />
+        <link type="text/css" rel="stylesheet" href="libs/mdi/css/materialdesignicons.min.css" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Piwik -->
         <script type="text/javascript">
           var _paq = _paq || [];
@@ -57,125 +48,177 @@
         <noscript><p><img src="//piwik.schlopolis.de/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
     </head>
-    <body fullbleed unresolved>
-        <core-scaffold id="pageContent">
+    <body>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="libs/materialize/js/materialize.min.js"></script>
 
-            <!-- Drawer Panel -->
-            <core-header-panel navigation flex>
-                <core-toolbar style="background-color: #7986CB;">
-                    Schlopolis
-                </core-toolbar>
-                <core-menu selected="{$args}">
-                    <core-item icon="home" label="Home"><a href="#p=0" target="_self"><paper-ripple fit></paper-ripple></a></core-item>
-                    <core-item icon="view-list" label="Timeline"><a href="#p=1" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="av:news" label="News"><a href="#p=2" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="assignment" label="Protokolle"><a href="#p=10" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="account-balance" label="Staat"><a href="#p=11&id=1" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="view-headline" label="Verfassung"><a href="pdf/verf.pdf" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="social:group" label="Arbeitskreise"><a href="#p=3" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="receipt" label="Wahlen"><a href="#p=5" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="announcement" label="Fragen"><a href="#p=7" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="more-horiz" label="Impressum"><a href="#p=9" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                    <core-item icon="account-circle" label="Login"><a href="editor/logon.php" target="_self"><paper-ripple
-                                fit></paper-ripple></a></core-item>
-                </core-menu>
-            </core-header-panel>
-        </core-scaffold>
-        <script>
-            $(document).ready(function () {	//executed after the page has loaded
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+        </ul>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper indigo">
+                    <a href="#!" class="brand-logo hide-on-med-and-down" style="padding-left: 250px;">Schlopolis</a>
+                    <a href="#!" class="brand-logo hide-on-large-only" style="">Schlopolis</a>
+                    <ul class="right hide-on-med-and-down">
 
-                if(window.location.hash == "") window.location.hash='p=0';
+                    </ul>
+                    <ul id="slide-out" class="side-nav fixed">
+                        <li class="logo">
+                            <img src="img/splashicon/Schlopolis.png" alt="Logo" style="width: 100%; height: auto" />
+                        </li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=0"><i class="mdi mdi-home left"></i>Home</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=1"><i class="mdi mdi-view-list left"></i>Timeline</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=2"><i class="mdi mdi-bullhorn left"></i>News</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#!"><i class="mdi mdi-city left"></i>Parlament</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=10"><i class="mdi mdi-clipboard-text left"></i>Protokolle</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=11&id=1"><i class="mdi mdi-bank left"></i>Staat</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=3"><i class="mdi mdi-account-multiple left"></i>Arbeitskreise</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=5"><i class="mdi mdi-chart-pie left"></i>Wahlen</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=7"><i class="mdi mdi-comment left"></i>Fragen</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="#p=9"><i class="mdi mdi-dots-horizontal left"></i>Impressum</a></li>
+                        <li class="divider"></li>
+                        <li class="indigo hide-on-med-and-down" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
+                            ICMS&trade; Version <? echo \ICMS\Util::getVersionInfo(); ?><br/>&copy;2014-2016 Yannick F&#233;lix
+                        </li>
+                        <li class="indigo hide-on-large-only" style="width:100%; font-size: 12px; line-height: 16px; padding: 10px;">
+                            ICMS&trade; Version <? echo \ICMS\Util::getVersionInfo(); ?><br/>&copy;2014-2016 Yannick F&#233;lix
+                        </li>
+                    </ul>
+                    <div class="menu"><a href="#" data-activates="slide-out" class="button-collapse"><i id="menu" class="mdi mdi-menu"></i></a></div>
+                    <div class="back"><a onclick="history.back()" data-activates="" class="btn-block"><i id="menu" class="mdi mdi-backburger"></i></a></div>
+                </div>
+            </nav>
+        </div>
+        <main>
+            <div class="loading">
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                        <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="networkerror grey lighten-4 hide-on-med-and-down" style="visibility: hidden; position: absolute; padding-left: 250px; left: 0; right: 0; height: 100%;">
+                <div class="container row">
+                    <div class="card-panel col s6 offset-s3 center grey lighten-3">
+                        <br/>
+                        <i class="mdi mdi-server-network-off grey-text" style="font-size: 100px;"></i>
+                        <br/>
+                        <b class="grey-text">
+                        Beim Abrufen der Seite ist ein Fehler aufgetreten<br/>
+                            Versuche es später erneut</b>
+                        <br/>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="networkerror center grey lighten-4 hide-on-large-only" style="visibility: hidden; position: absolute; left: 0; right: 0; height: 100%;">
+                <br/>
+                <i class="mdi mdi-server-network-off grey-text" style="font-size: 100px;"></i>
+                <br/>
+                <b class="grey-text">
+                Beim Abrufen der Seite ist ein Fehler aufgetreten<br/>
+                    Versuche es später erneut</b>
+                <br/>
+                &nbsp;
+            </div>
+            <div class="content">
 
-                checkURL();	//check if the URL has a reference to a page and load it
-
-                $('ul li a').click(function (e) {	//traverse through all our navigation links..
-
-                    checkURL(this.hash);	//.. and assign them a new onclick event, using their own hash as a parameter (#page1 for example)
-
-                });
-
-                setInterval("checkURL()", 100);	//check for a change in the URL every 250 ms to detect if the history buttons have been used
-
-            });
-
-            var lasturl = "";	//here we store the current URL hash
-
-            function checkURL(hash) {
-                if (!hash) hash = window.location.hash;	//if no parameter is provided, use the hash value from the current address
-
-                if (hash != lasturl)	// if the hash value has changed
-                {
-                    lasturl = hash;	//update the current hash
-                    loadPage(hash);	// and load the new page
-                }
-            }
-
-            function loadPage(url)	//the function that loads pages via AJAX
-            {
-                url = url.replace('#', '');	//strip the #page part of the hash and leave only the page number
-
-                if(window.chrome) document.getElementById("pageContent").closeDrawer();
-
-                $('.spinner').css('visibility', 'visible');	//show the rotating gif animation
-
-                $('#pageContent').html('<div class="loa"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>');
-
-                $.ajax({	//create an ajax request to load_page.php
-                    type: "POST",
-                    async: true,
-                    url: "page.php",
-                    data: url,	//with the page number as a parameter
-                    dataType: "html",	//expect html to be returned
-                    error: function () {
-                        alert("Mmh irgendwas ist hier falsch :/")
-                    },
-                    success: function (msg) {
-
-                        if (parseInt(msg) != -1)	//if no errors
-                        {
-                            sel = msg.charAt(0);
-                            drawer = "<core-header-panel navigation flex>" +
-                                '<core-toolbar style="background-color: #7986CB;">' +
-                                "Schlopolis" +
-                                "</core-toolbar>" +
-                                '<core-menu selected="' + sel + '">' +
-                                '<core-item icon="home" label="Home"><a href="#p=0" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="view-list" label="Timeline"><a href="#p=1" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="av:news" label="News"><a href="#p=2" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="assignment" label="Protokolle"><a href="#p=10" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="account-balance" label="Staat"><a href="#p=11&id=1" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="view-headline" label="Verfassung"><a href="pdf/verf.pdf" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="social:group" label="Arbeitskreise"><a href="#p=3" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="receipt" label="Wahlen"><a href="#p=5" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="announcement" label="Fragen"><a href="#p=7" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="more-horiz" label="Impressum"><a href="#p=9" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '<core-item icon="account-circle" label="Login"><a href="editor/logon.php" target="_self"><paper-ripple fit></paper-ripple></a></core-item>' +
-                                '</core-menu>' +
-                                "</core-header-panel>";
-                            msg = drawer + msg;
-                            $('#pageContent').html(msg);	//load the returned html into pageContent
-                            $('.spinner').css('visibility', 'hidden');	//and hide the rotating gif
-                            console.log(msg);
-                            if (sel == 0) {
-                                countdown();
-                            }
-
-                        }
-                    }
-
-                });
-            }
-        </script>
+            </div>
+        </main>
     </body>
+    <script>
+        var lasturl = "";	//here we store the current URL hash
+
+        $(document).ready(function() {
+            $(".dropdown-button").dropdown();
+            $(".back").css('visibility', 'hidden');
+            $(".menu").css('visibility', 'visible');
+            // Initialize collapse button
+            $(".button-collapse").sideNav(<? if ($mobile) {?>{closeOnClick: true}<? } ?>);
+            // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+            $('.collapsible').collapsible();
+
+            if(window.location.hash == "") window.location.hash='p=0';
+            checkURL();	//check if the URL has a reference to a page and load it
+            $('ul li a').click(function (e) {	//traverse through all our navigation links..
+                checkURL(this.hash);	//.. and assign them a new onclick event, using their own hash as a parameter (#page1 for example)
+            });
+            setInterval("checkURL()", 100);	//check for a change in the URL every 250 ms to detect if the history buttons have been used
+
+            <? if($_GET["i"] == 1) { ?>Materialize.toast('Frage eingesendet', 4000)<? } ?>
+            <? if($_GET["i"] == 2) { ?>Materialize.toast('Fehler', 4000)<? } ?>
+        });
+
+        function checkURL(hash) {
+            if (!hash) hash = window.location.hash;	//if no parameter is provided, use the hash value from the current address
+            if (hash != lasturl) {	// if the hash value has changed
+                lasturl = hash;	//update the current hash
+                loadPage(hash);	// and load the new page
+            }
+        }
+
+        function loadPage(url) {//the function that loads pages via AJAX
+            url = url.replace('#', '');	//strip the #page part of the hash and leave only the page number
+
+            $('.content').html("");
+            $('.loading').css('visibility', 'visible');	//show the rotating gif animation
+
+            $.ajax({	//create an ajax request to load_page.php
+                type: "POST",
+                async: true,
+                url: "page.php",
+                data: url,	//with the page number as a parameter
+                dataType: "html",	//expect html to be returned
+                error: function () {
+                    alert("Mmh irgendwas ist hier falsch :/")
+                },
+                success: function (msg) {
+                    if (parseInt(msg) != -1) {	//if no errors
+                        sel = msg.charAt(0);
+                        $('.content').html(msg);	//load the returned html into pageContent
+                        if (sel == 1) {
+                            $(".menu").css('visibility', 'hidden');
+                            $(".menu").css('display', 'none');
+                            $(".back").css('visibility', 'visible');
+                            msg = msg.substr(1);
+                        } else if(sel == 2) {
+                            countdown();
+                            msg = msg.substr(1);
+                        } else {
+                            $(".back").css('visibility', 'hidden');
+                            $(".menu").css('display', 'block');
+                            $(".menu").css('visibility', 'visible');
+                        }
+                        $('.content').html(msg);	//load the returned html into pageContent
+                        $('.networkerror').css('visibility', 'hidden');	//and hide the rotating gif
+                        $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
+                        console.log(msg);
+                    } else {
+                        $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
+                        $('.networkerror').css('visibility', 'visible');	//and hide the rotating gif
+                    }
+                }
+            });
+        }
+    </script>
 </html>
 <?php
     }

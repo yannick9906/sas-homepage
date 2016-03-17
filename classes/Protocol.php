@@ -9,6 +9,7 @@
 namespace ICMS;
 
 use ICMS\File;
+use \ICMS\PDO_MYSQL;
 
 const PSORTING = [
     "ascName"  => " ORDER BY name ASC",
@@ -70,7 +71,7 @@ class Protocol {
      * @return Protocol
      */
     public static function fromPRID($prID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_protocols WHERE prID = :prid ORDER BY version DESC LIMIT 1", [":prid" => $prID]);
         return new Protocol($res->ID, $res->prID, $res->fileID, $res->name, $res->date, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
@@ -82,7 +83,7 @@ class Protocol {
      * @return Protocol
      */
     public static function fromVID($vID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $res = $pdo->query("SELECT * FROM schlopolis_protocols WHERE ID = :id", [":id" => $vID]);
         return new Protocol($res->ID, $res->prID, $res->fileID, $res->name, $res->date, $res->type, $res->authorID, $res->lastEditID, $res->lastEditDate, $res->version, $res->state);
     }
@@ -291,7 +292,7 @@ class Protocol {
      * Deletes the whole Entry, including it's versions
      */
     public function delete() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("DELETE FROM schlopolis_protocols WHERE prID = :prid", [":prid" => $this->prID]);
     }
 
@@ -299,7 +300,7 @@ class Protocol {
      * Approves this version
      */
     public function approve() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("UPDATE schlopolis_protocols SET state = 0 WHERE ID = :id", [":id" => $this->vID]);
     }
 
@@ -307,7 +308,7 @@ class Protocol {
      * Denies this version
      */
     public function deny() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $pdo->query("UPDATE schlopolis_protocols SET state = 2 WHERE ID = :id", [":id" => $this->vID]);
     }
 
@@ -321,7 +322,7 @@ class Protocol {
      */
     public static function createEntry($user, $date, $name, $fileID, $type) {
         echo $date = date("Y-m-d H:i:s", strtotime($date));
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $authorID = $user->getUID();
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
@@ -340,7 +341,7 @@ class Protocol {
      * @param $user User
      */
     public function saveAsNewVersion($user) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $authorID = $this->authorID;
         $lastEditID = $user->getUID();
         $lastEditDate = date("Y-m-d H:i:s");
@@ -361,7 +362,7 @@ class Protocol {
      * @return Protocol[]
      */
     public static function getAllPublicEntries() {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT prID FROM (SELECT * FROM schlopolis_protocols WHERE state = 0 ORDER BY prID, version desc) x GROUP BY prID ORDER BY date DESC");
         return $stmt->fetchAll(\PDO::FETCH_FUNC, "\\ICMS\\Protocol::fromPRID");
 
@@ -371,7 +372,7 @@ class Protocol {
      * @return Protocol[]
      */
     public static function getAllEntries($sort, $filter) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT prID FROM (SELECT * FROM (SELECT * FROM schlopolis_protocols WHERE state != 2 ORDER BY prID, version desc) x GROUP BY prID) y ".PFILTERING[$filter].PSORTING[$sort]);
         return $stmt->fetchAll(\PDO::FETCH_FUNC, "\\ICMS\\Protocol::fromPRID");
     }
@@ -381,7 +382,7 @@ class Protocol {
      * @return Protocol[]
      */
     public static function getAllVersions($prID) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT ID FROM schlopolis_protocols WHERE prID = :prid ORDER BY version desc", [":prid" => $prID]);
         return $stmt->fetchAll(\PDO::FETCH_FUNC, "\\ICMS\\Protocol::fromVID");
     }

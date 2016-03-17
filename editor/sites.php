@@ -21,6 +21,7 @@ require_once '../classes/TypeParty.php';
 require_once '../libs/Mobile_Detect.php'; // Mobile Detect
 require_once '../libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
 require_once '../libs/simplediff.php';
+require_once '../libs/Parsedown.php';
 
 $user = \ICMS\Util::checkSession();
 $pdo = new \ICMS\PDO_MYSQL();

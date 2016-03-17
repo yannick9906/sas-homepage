@@ -13,3 +13,12 @@ header, main, footer {
     font-weight: bold;
   }
 }
+
+.loading {
+  /*padding-left: 250px;*/
+  position: fixed;
+  left: 50%;
+  margin-left: -24px;
+  top: 50%;
+  margin-top: -24px;
+}

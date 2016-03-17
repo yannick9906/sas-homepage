@@ -5,9 +5,9 @@
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="bower_components/materialize/css/materialize.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="style/style.css" />
-        <link type="text/css" rel="stylesheet" href="style/materialdesignicons.min.css" media="all"/>
+        <link type="text/css" rel="stylesheet" href="../libs/materialize/css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../libs/mdi/css/materialdesignicons.min.css" media="all"/>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -19,8 +19,8 @@
     <body>
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="bower_components/materialize/js/materialize.min.js"></script>
-        <script type="text/javascript" src="bower_components/markdown.min.js"></script>
+        <script type="text/javascript" src="../libs/materialize/js/materialize.min.js"></script>
+        <script type="text/javascript" src="../libs/markdown.min.js"></script>
 
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
@@ -121,10 +121,10 @@
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li class="indigo" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
-                        ICMS&trade; Version 3.1.6b(SAS)<br/>&copy;2014-2016 Yannick F&#233;lix
-                    </li>
                     {/if}
+                    <li class="indigo" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
+                        ICMS&trade; Version {$args.vInfo}<br/>&copy;2014-2016 Yannick F&#233;lix
+                    </li>
                 </ul>
                 {if $args.backable == 0}<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi mdi-menu"></i></a>{/if}
                 {if $args.backable == 1}<a href="{$args.undoUrl}" class="button"><i class="mdi mdi-backburger"></i></a>{/if}

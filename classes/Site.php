@@ -9,7 +9,7 @@
 namespace ICMS;
 
 use PDO;
-use PDO_MYSQL;
+use \ICMS\PDO_MYSQL;
 
 const SSORTING = [
     "ascName"  => " ORDER BY title ASC",
@@ -229,7 +229,7 @@ class Site {
             "title" => $this->name,
             "type" => self::getTypeAsText($this->type),
             "author" =>  User::fromUID($this->authorID)->getPrefixAsHtml()." ".User::fromUID($this->authorID)->getUName(),
-            "lastEdit" => dbDateToReadableWithTime($this->lastEditDate),
+            "lastEdit" => Util::dbDateToReadableWithTime($this->lastEditDate),
             "lastEditAuthor" => User::fromUID($this->lastAuthorID)->getPrefixAsHtml()." ".User::fromUID($this->lastAuthorID)->getUName(),
             "state" => $this->state,
             "stateCSS" => self::stateAsCSS($this->state),
@@ -288,7 +288,7 @@ class Site {
      * @return \ICMS\Site[]
      */
     public static function getAllSites($sort, $filter) {
-        $pdo = new \PDO_MYSQL();
+        $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT ID FROM (SELECT * FROM (SELECT * FROM schlopolis_sites WHERE state != 2 ORDER BY pID, version desc) x GROUP BY pID) y ".SFILTERING[$filter].SSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Site::fromVID");
     }

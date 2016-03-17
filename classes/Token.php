@@ -8,7 +8,7 @@
 
 namespace ICMS;
 
-use PDO_MYSQL;
+use \ICMS\PDO_MYSQL;
 
 class Token {
     private $customerIP, $token, $tokenID, $validfrom, $active;
@@ -50,7 +50,7 @@ class Token {
         $pdo = new PDO_MYSQL();
         $customerIP = $_SERVER["REMOTE_ADDR"];
         $validfrom  = date("Y-m-d H:i:s");
-        $token      = generateRandomString(32);
+        $token      = Util::generateRandomString(32);
         if(!self::validTokenForIP($customerIP)) {
             $pdo->query("INSERT INTO tokens(token, IP, date, active) VALUES (:token, :ip, :date, 1)", [":token" => $token, ":ip" => $customerIP, ":date" => $validfrom]);
             $res = $pdo->query("SELECT * FROM tokens ORDER BY ID DESC LIMIT 1");

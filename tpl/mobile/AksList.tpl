@@ -1,12 +1,17 @@
-6            <div tool icon="menu">Vorstellung der Arbeitskreise</div>
-
-            {foreach $page.items item}
-                <paper-shadow z="1" class="listcard" style="min-height: 80px;">
-                    <a href="#p=4&id={$item.id}"><core-icon style="height: 64px; width: 64px; color: black;" icon="{$item.icon}"></core-icon></a>
-                    <a href="#p=4&id={$item.id}"><h2>{$item.name}</h2></a>
-                    <a href="#p=4&id={$item.id}"><p>{$item.info}</p></a>
-                </paper-shadow>
-            {/foreach}
-
-
-            {include("counter.tpl")}
+<div class="container">
+    <div class="row">
+        <div class="card-panel col s12 m10 offset-m1">
+            <ul class="collection">
+                {foreach $page.items item}
+                    <li class="collection-item avatar">
+                    <i class="indigo circle mdi mdi-{$item.icon}"></i>
+                        <span class="title">{$item.name}</span>
+                    <p>{$item.info}
+                    </p>
+                    <a href="#p=6&id={$item.id}" class="secondary-content"><i class="material-icons">info_outline</i></a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>

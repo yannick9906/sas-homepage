@@ -9,7 +9,7 @@
 namespace ICMS;
 
 use PDO;
-use PDO_MYSQL;
+use \ICMS\PDO_MYSQL;
 
 const NSORTING = [
     "ascName"  => " ORDER BY title ASC",

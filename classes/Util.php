@@ -9,10 +9,12 @@
 
 namespace ICMS;
 
+use mysqli;
+
 class Util {
 
     /**
-     * @return bool|\ICMS\User
+     * @return bool|User
      */
     public static function checkSession() {
         session_start();
@@ -20,7 +22,7 @@ class Util {
             forwardTo("logon.php?badsession=1");
             exit;
         } else {
-            $user = \ICMS\User::fromUID($_SESSION["uID"]);
+            $user = User::fromUID($_SESSION["uID"]);
             if($_GET["m"] == "debug") {
                 echo "<pre style='display: block; position: absolute'>\n";
                 echo "[0] Perm Array Information:\n";
@@ -69,7 +71,7 @@ class Util {
 
     /**
      * @param $title String
-     * @param $user \ICMS\User
+     * @param $user User
      * @param bool $backable
      * @param bool $editor
      * @param string $undoUrl
@@ -87,6 +89,7 @@ class Util {
                 "editor" => $editor ? 1:0,
                 "undoUrl" => $undoUrl,
                 "backable" => $backable ? 1:0,
+                "vInfo" => self::getVersionInfo()
             ],
             "perm" => $user->getPermAsArray()
         ];
@@ -200,14 +203,18 @@ class Util {
                 break;
         }
     }
-}
 
-	/**
+    /**
      * Connects to a Mysql DB
      *
      * @deprecated
-	 * @return mysqli
-	 */
-	function DBConnect() {
-		return new mysqli('rdbms.strato.de', 'U2344370', 'bA2ZeRp0', 'DB2344370');
-	}
+     * @return mysqli
+     */
+    public static function DBConnect() {
+        return new mysqli('rdbms.strato.de', 'U2344370', 'bA2ZeRp0', 'DB2344370');
+    }
+
+    public static function getVersionInfo() {
+        return "3.1.7b (SAS)";
+    }
+}

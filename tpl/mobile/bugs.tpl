@@ -1,41 +1,42 @@
-8            <div tool icon="menu">Fragen</div>
-
-            <paper-tabs selected="0">
-		<paper-tab>Häufige Fragen (FAQ)</paper-tab>
-		<paper-tab>Neue Frage</paper-tab>
-	</paper-tabs>
-	<core-pages selected="0">
-		<div>
+<div class="container">
+    <div class="row">
+		<div class="card-panel col s12 m10 offset-m1">
+			<form action="action.php?p=1&token={$page.token}" method="post">
+				<h5 class="center">Du hast eine Frage? Dann schicke sie uns.</h5>
+				<div class="input-field col s12">
+                    <label for="email">Emailaddresse</label>
+                    <input id="email" required type="email" name="email" required length="255"/>
+                </div>
+				<div class="input-field col s12">
+                    <label for="subject">Betreff</label>
+                    <input id="subject" required type="text" name="subject" required length="512"/>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="text" name="text" required class="materialize-textarea" length="10000">{$edit.text}</textarea>
+                    <label for="text">Nachricht</label>
+                </div>
+				<div class="col s12">
+					<button class="btn waves-effect waves-light indigo right" type="submit" name="action">Abschicken
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+				<br/>&nbsp;
+			</form>
+        </div>
+		<div class="collection col s12 m10 offset-m1">
 			{foreach $page.items item}
-				<paper-shadow z="1" class="card">
-					<h2 style="font-size: 20px;">{$item.ques}</h2>
-					<p>{$item.answ}</p>
-				</paper-shadow>
+				<li class="collection-item avatar">
+				<i class="indigo circle mdi mdi-comment"></i>
+					<span class="title">{$item.ques}</span>
+				<p>{$item.answ}
+				</p>
+			</li>
 			{/foreach}
 		</div>
-		<div>
-			<form action="action.php?p=1&token={$page.token}" method="post">
-				<paper-shadow class="card" z="1">
-						<paper-input-decorator floatingLabel flex label="Emailadresse" error="Muss eine Emailadresse sein" autoValidate><input type="email" name="email"/></paper-input-decorator>
-						<paper-input-decorator floatingLabel flex label="Betreff"><input type="text" name="subject" /></paper-input-decorator>
-						<paper-input-decorator floatingLabel flex label="Nachricht"><paper-autogrow-textarea><textarea id="i1" name="text" maxlength="10000"></textarea></paper-autogrow-textarea><paper-char-counter class="counter" target="i1"></paper-char-counter></paper-input-decorator>
-				</paper-shadow>
-				<paper-button raised flex style="top: 20px; position: relative; width: 95%; left: 5px;" onclick="document.getElementById('submit').click();">Einschicken</paper-button>
-				<input type="submit" id="submit" style="display: none;"/>
-			</form>
-		</div>
-	</core-pages>
-    <paper-toast id="toast" text="Frage eingesendet"></paper-toast>
-	<script>
-		var tabs = document.querySelector('paper-tabs');
-        var pages = document.querySelector('core-pages');
-
-        tabs.addEventListener('core-select',function(){
-            pages.selected = tabs.selected;
-        });
-
-        function show() {
-            var toast = document.querySelector('#toast');
-            toast.show();
-        }
-	</script>
+    </div>
+</div>
+<script>
+	 $(document).ready(function() {
+		 $('input#email, input#subject, textarea#text').characterCounter();
+	 });
+</script>

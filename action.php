@@ -5,7 +5,7 @@
  * Date: 02.11.2015
  * Time: 19:20
  */
-error_reporting(E_ERROR);
+error_reporting(E_ALL);
 ini_set("diplay_errors", "on");
 
 
@@ -13,11 +13,11 @@ $pg = $_GET['p']; // ID der Seite
 if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
 $token = $_GET['token'];
 
-require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
-require_once 'php/main.php'; //DB Anbindung
-require_once 'php/Mobile_Detect.php'; // Mobile Detect
-require_once 'editor/classes/Token.php'; // Mobile Detect
-$pdo = new PDO_MYSQL();
+require_once 'classes/PDO_MYSQL.php'; //DB Anbindung
+require_once 'classes/Util.php'; //DB Anbindung
+require_once 'libs/Mobile_Detect.php'; // Mobile Detect
+require_once 'classes/Token.php'; // Mobile Detect
+$pdo = new \ICMS\PDO_MYSQL();
 $detect = new Mobile_Detect;
 $token = \ICMS\Token::fromToken($token);
 
@@ -46,10 +46,10 @@ EMAIL;
 
 
             mail($emailadrr, "SAS FAQ Neue Frage: " . $betreff, $message, $header);
-            forwardTo("index.php#p=7&i=1");
+            \ICMS\Util::forwardTo("index.php?i=1#p=7");
             $token->useIt();
             break;
     }
 } else {
-    forwardTo("index.php#p=7&i=2");
+    \ICMS\Util::forwardTo("index.php?i=2#p=7");
 }

@@ -5,22 +5,22 @@ ini_set("diplay_errors", "on");
 
     $pg = $_POST['p']; // ID der Seite
     if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
-    require_once 'php/PDO_MYSQL.class.php'; //DB Anbindung
-    require_once 'php/Mobile_Detect.php'; // Mobile Detect
-    require_once 'php/Parsedown.php'; // Parsedown
-    require_once 'dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
-    require_once 'editor/classes/TimelineEntry.php';
-    require_once 'editor/classes/NewsEntry.php';
-    require_once 'editor/classes/Site.php';
-    require_once 'editor/classes/User.php';
-    require_once 'editor/classes/Token.php';
-    require_once 'editor/classes/File.php';
-    require_once 'editor/classes/Protocol.php';
-    require_once 'editor/classes/TypeNormal.php';
-    require_once 'editor/classes/TypeAK.php';
-    require_once 'editor/classes/TypeParty.php';
-    require_once 'php/main.php';
-    $pdo = new PDO_MYSQL();
+    require_once 'libs/Mobile_Detect.php'; // Mobile Detect
+    require_once 'libs/Parsedown.php'; // Parsedown
+    require_once 'libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
+    require_once 'classes/TimelineEntry.php';
+    require_once 'classes/NewsEntry.php';
+    require_once 'classes/PDO_MYSQL.php';
+    require_once 'classes/Site.php';
+    require_once 'classes/User.php';
+    require_once 'classes/Token.php';
+    require_once 'classes/File.php';
+    require_once 'classes/Protocol.php';
+    require_once 'classes/TypeNormal.php';
+    require_once 'classes/TypeAK.php';
+    require_once 'classes/TypeParty.php';
+    require_once 'classes/Util.php';
+    $pdo = new \ICMS\PDO_MYSQL();
     $detect = new Mobile_Detect;
     Dwoo\Autoloader::register();
     $dwoo = new Dwoo\Core();
@@ -37,9 +37,9 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             $entries = \ICMS\TimelineEntry::getAllPublicEntries();
             $timestamp = $entries[0]->getDate();
             if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                $evDate = dbDateToReadableWithOutTime($timestamp);
+                $evDate = \ICMS\Util::dbDateToReadableWithOutTime($timestamp);
             else
-                $evDate = dbDateToReadableWithTime($timestamp);
+                $evDate = \ICMS\Util::dbDateToReadableWithTime($timestamp);
             $evTitle    = $entries[0]->getTitle();
 
             //Spruch der Woche
@@ -65,13 +65,13 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = dbDateToReadableWithOutTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = dbDateToReadableWithTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithTime($timestamp);
                 $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
                 $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
-                $pgData["page"]["items"][$i]["link"]      = handleLinks($entries[$i]->getLink());
+                $pgData["page"]["items"][$i]["link"]      = \ICMS\Util::handleLinks($entries[$i]->getLink());
                 if($i == 5)
                     break;
             }
@@ -95,15 +95,15 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = dbDateToReadableWithOutTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = dbDateToReadableWithTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithTime($timestamp);
                 $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
                 $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getInfo();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
                 $pgData["page"]["items"][$i]["link"]      = $entries[$i]->getLink();
-                $pgData["page"]["items"][$i]["htmlclass"] = getHtmlClassForCalType($entries[$i]->getType());
-                $pgData["page"]["items"][$i]["imgpath"]   = getImgPathForCalType($entries[$i]->getType());
+                $pgData["page"]["items"][$i]["htmlclass"] = \ICMS\Util::getHtmlClassForCalType($entries[$i]->getType());
+                $pgData["page"]["items"][$i]["imgpath"]   = \ICMS\Util::getImgPathForCalType($entries[$i]->getType());
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/calendar.tpl", $pgData);
@@ -123,13 +123,13 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $timestamp = $entries[$i]->getDate();
                 if($timestamp == mktime(0,0,0,date("m", $timestamp),date("d", $timestamp),date("Y", $timestamp)))
-                    $evDate = dbDateToReadableWithOutTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithOutTime($timestamp);
                 else
-                    $evDate = dbDateToReadableWithTime($timestamp);
+                    $evDate = \ICMS\Util::dbDateToReadableWithTime($timestamp);
                 $pgData["page"]["items"][$i]["title"]     = $entries[$i]->getTitle();
                 $pgData["page"]["items"][$i]["text"]      = $entries[$i]->getText();
                 $pgData["page"]["items"][$i]["date"]      = $evDate;
-                $pgData["page"]["items"][$i]["link"]      = handleLinks($entries[$i]->getLink());
+                $pgData["page"]["items"][$i]["link"]      = \ICMS\Util::handleLinks($entries[$i]->getLink());
                 if($i == 5)
                     break;
             }
@@ -200,7 +200,6 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             else $dwoo->output("tpl/mobile/PartyList.tpl", $pgData);
             break;
         case 6: //Parteien Detail
-            echo "7";
             $id = $_POST['id'];
             if(is_numeric($id)) {
                 $site = \ICMS\Site::fromPID($id)->toTypeObject();
@@ -220,8 +219,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             }
             break;
         case 7: //FAQ
-            require_once 'php/main.php';
-            $db = DBConnect();
+            $db = \ICMS\Util::DBConnect();
 
             $token = \ICMS\Token::generateNewToken();
 
@@ -291,7 +289,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $pgData["page"]["items"][$i]["dl"]     = $entries[$i]->getFile()->getFilePath();
                 $pgData["page"]["items"][$i]["name"]   = $entries[$i]->getName();
-                $pgData["page"]["items"][$i]["info"]   = dbDateToReadableWithOutTime($entries[$i]->getDate());
+                $pgData["page"]["items"][$i]["info"]   = \ICMS\Util::dbDateToReadableWithOutTime($entries[$i]->getDate());
                 $pgData["page"]["items"][$i]["typeNo"] = $entries[$i]->getType();
             }
 
