@@ -23,7 +23,7 @@ const TSORTING = [
 
 const TFILTERING = [
     "Alle" => " ",
-    "+30T" => " WHERE `date` BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()",
+    "+30T" => " WHERE `date` BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() OR `date` > CURDATE() ",
     "Neue"  => " WHERE `date` > CURDATE() "
 ];
 
@@ -334,13 +334,13 @@ class TimelineEntry {
         return [
             "id" => $this->tID,
             "vId" => $this->vID,
-            "date" => dbDateToReadableWithTime($this->date),
+            "date" => Util::dbDateToReadableWithTime($this->date),
             "title" => $this->title,
-            "text" => truncate($this->info, 40),
+            "text" => $this->info,
             "type" => $this->type,
             "linkTo" => $this->link,
             "author" =>  User::fromUID($this->authorID)->getPrefixAsHtml()." ".User::fromUID($this->authorID)->getUName(),
-            "lastEdit" => dbDateToReadableWithTime($this->lastEditDate),
+            "lastEdit" => Util::dbDateToReadableWithTime($this->lastEditDate),
             "lastEditAuthor" => User::fromUID($this->lastAuthorID)->getPrefixAsHtml()." ".User::fromUID($this->lastAuthorID)->getUName(),
             "state" => $this->state,
             "stateCSS" => self::stateAsCSS($this->state),

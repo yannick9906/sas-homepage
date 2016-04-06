@@ -136,7 +136,7 @@ if($action == "new") {
 }
 
 if($user->isActionAllowed(PERM_PROTOCOLS_VIEW)) {
-    $pgdata = getEditorPageDataStub("Protokolle", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
     $entries = \ICMS\Protocol::getAllEntries($_GET["sort"], $_GET["filter"]);
     for ($i = 0; $i < sizeof($entries); $i++) {
         $pgdata["page"]["items"][$i]["index"] = $i;
@@ -148,7 +148,7 @@ if($user->isActionAllowed(PERM_PROTOCOLS_VIEW)) {
 
     $dwoo->output("tpl/protocolList.tpl", $pgdata);
 } else {
-    $pgdata = getEditorPageDataStub("Protokolle", $user);
+    $pgdata = \ICMS\Util::getEditorPageDataStub("Protokolle", $user);
     $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
 }
 

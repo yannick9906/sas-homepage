@@ -74,7 +74,7 @@
                             </div>
                             <div class="modal-footer">
                                 <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Abbrechen</a>
-                                <a href="timeline.php?action=del&vID={$vId}" class="modal-action modal-close waves-effect waves-green btn-flat red-text">L&ouml;schen</a>
+                                <a href="files.php?action=del&fID={$id}" class="modal-action modal-close waves-effect waves-green btn-flat red-text">L&ouml;schen</a>
                             </div>
                         </div>
                     </li>
