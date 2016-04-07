@@ -288,6 +288,7 @@ if($_SERVER['REMOTE_ADDR'] == "84.132.121.2") {
                 $pgData["page"]["items"][$i]["name"]   = $entries[$i]->getName();
                 $pgData["page"]["items"][$i]["info"]   = \ICMS\Util::dbDateToReadableWithOutTime($entries[$i]->getDate());
                 $pgData["page"]["items"][$i]["typeNo"] = $entries[$i]->getType();
+                $pgData["page"]["items"][$i]["lastEdit"] = \ICMS\Util::dbDateToReadableWithTime($entries[$i]->getLastEditDate());
             }
 
             if($detect->isMobile()) $dwoo->output("tpl/mobile/protokollList.tpl", $pgData);

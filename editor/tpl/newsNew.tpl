@@ -54,13 +54,13 @@
         </div>
         <div class="card-panel row">
             <h2><b>Vorschau</b></h2>
-            <script src="../vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
-            <script src="../vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
+            <script src="../libs/vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
+            <script src="../libs/vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
             <div class="col s12">
                 <section id="cd-timeline" class="cd-container" style="font-family: 'Roboto', sans-serif;">
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-picture">
-                            <img src="../vertical-timeline/img/cd-icon-voting.svg" alt="Picture">
+                            <img src="../libs/vertical-timeline/img/cd-icon-voting.svg" alt="Picture">
                         </div> <!-- cd-timeline-img -->
 
                         <div class="cd-timeline-content">
@@ -71,8 +71,8 @@
                     </div> <!-- cd-timeline-block -->
                 </section> <!-- cd-timeline -->
             </div>
-            <link rel="stylesheet" href="../vertical-timeline/css/reset.css"> <!-- CSS reset -->
-            <link rel="stylesheet" href="../style/vert-timeline.css" type="text/css"/>
+            <link rel="stylesheet" href="../libs/vertical-timeline/css/reset.css"> <!-- CSS reset -->
+            <link rel="stylesheet" href="../css/vert-timeline.css" type="text/css"/>
 
         </div>
     </div>
@@ -103,7 +103,7 @@
         else if(type.val() == 3) { icon = "cd-icon-up.svg"; clas = "cd-location"; }
 
 
-        $(".cd-timeline-img img").attr("src", "../vertical-timeline/img/" + icon);
+        $(".cd-timeline-img img").attr("src", "../libs/vertical-timeline/img/" + icon);
         var imgClass = $(".cd-timeline-img")
         imgClass.removeClass("cd-picture");
         imgClass.removeClass("cd-movie");

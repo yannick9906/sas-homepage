@@ -12,8 +12,11 @@
             <ul class="collection">
                 {foreach $page.items item}
                     {if $item.typeNo == 1}
-                        <li class="collection-item">
-                            <div>{$item.info} - <b>{$item.name}</b>
+                        <li class="collection-item avatar">
+                            <div>
+                                <i class="mdi mdi-book circle indigo"></i>
+                                {$item.info} - <b>{$item.name}</b>
+                                <p class="grey-text" style="font-style: italic">Hochgeladen: {$item.lastEdit}</p>
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
@@ -26,8 +29,11 @@
             <ul class="collection">
                 {foreach $page.items item}
                     {if $item.typeNo == 2}
-                        <li class="collection-item">
-                            <div>{$item.name}
+                        <li class="collection-item avatar">
+                            <div>
+                                <i class="mdi mdi-book circle indigo"></i>
+                                {$item.info} - <b>{$item.name}</b>
+                                <p class="grey-text" style="font-style: italic">Hochgeladen: {$item.lastEdit}</p>
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
@@ -40,8 +46,11 @@
             <ul class="collection">
                 {foreach $page.items item}
                     {if $item.typeNo <= 6 and $item.typeNo >= 3}
-                        <li class="collection-item">
-                            <div>{$item.name}
+                        <li class="collection-item avatar">
+                            <div>
+                                <i class="mdi mdi-book circle indigo"></i>
+                                {$item.info} - <b>{$item.name}</b>
+                                <p class="grey-text" style="font-style: italic">Hochgeladen: {$item.lastEdit}</p>
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
@@ -54,8 +63,11 @@
             <ul class="collection">
                 {foreach $page.items item}
                     {if $item.typeNo == 7}
-                        <li class="collection-item">
-                            <div>{$item.name}
+                        <li class="collection-item avatar">
+                            <div>
+                                <i class="mdi mdi-book circle indigo"></i>
+                                {$item.info} - <b>{$item.name}</b>
+                                <p class="grey-text" style="font-style: italic">Hochgeladen: {$item.lastEdit}</p>
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="card-panel row">
             <br/>
-            <form action="news.php?action=postNew" method="post" id="form">
+            <form action="timeline.php?action=postEdit" method="post" id="form">
                 <div class="input-field col s12">
                     <label for="title">Titel</label>
                     <input id="title" value="{$edit.title}" required type="text" name="title" required length="65535"/>
@@ -20,9 +20,9 @@
                 <div class="input-field col s12">
                     <select id="type" title="Type" name="type">
                         <option value="" disabled selected>Wähle einen Typ</option>
-                        <option {if $edit.type == 1}selected{/if} data-icon="../vertical-timeline/img/cd-icon-voting-bg.svg" class="left circle" value="1">Abstimmung</option>
-                        <option {if $edit.type == 2}selected{/if} data-icon="../vertical-timeline/img/cd-icon-down-bg.svg" class="left circle" value="2">Start</option>
-                        <option {if $edit.type == 3}selected{/if} data-icon="../vertical-timeline/img/cd-icon-up-bg.svg" class="left circle" value="3">Ende</option>
+                        <option {if $edit.type == 1}selected{/if} data-icon="../libs/vertical-timeline/img/cd-icon-voting-bg.svg" class="left circle" value="1">Abstimmung</option>
+                        <option {if $edit.type == 2}selected{/if} data-icon="../libs/vertical-timeline/img/cd-icon-down-bg.svg" class="left circle" value="2">Start</option>
+                        <option {if $edit.type == 3}selected{/if} data-icon="../libs/vertical-timeline/img/cd-icon-up-bg.svg" class="left circle" value="3">Ende</option>
                     </select>
                     <label for="selInt">Typ</label>
                 </div>
@@ -68,13 +68,13 @@
         </div>
         <div class="card-panel row">
             <h2><b>Vorschau</b></h2>
-            <script src="../vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
-            <script src="../vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
+            <script src="../libs/vertical-timeline/js/main.js"></script> <!-- Resource jQuery -->
+            <script src="../libs/vertical-timeline/js/modernizr.js"></script> <!-- Modernizr -->
             <div class="col s12">
                 <section id="cd-timeline" class="cd-container" style="font-family: 'Roboto', sans-serif;">
                     <div class="cd-timeline-block">
                         <div class="cd-timeline-img cd-picture">
-                            <img src="../vertical-timeline/img/cd-icon-voting.svg" alt="Picture">
+                            <img src="../libs/vertical-timeline/img/cd-icon-voting.svg" alt="Picture">
                         </div> <!-- cd-timeline-img -->
 
                         <div class="cd-timeline-content">
@@ -85,8 +85,8 @@
                     </div> <!-- cd-timeline-block -->
                 </section> <!-- cd-timeline -->
             </div>
-            <link rel="stylesheet" href="../vertical-timeline/css/reset.css"> <!-- CSS reset -->
-            <link rel="stylesheet" href="../style/vert-timeline.css" type="text/css"/>
+            <link rel="stylesheet" href="../libs/vertical-timeline/css/reset.css"> <!-- CSS reset -->
+            <link rel="stylesheet" href="../css/vert-timeline.css" type="text/css"/>
 
         </div>
     </div>
@@ -144,8 +144,8 @@
         else if(type.val() == 3) { icon = "cd-icon-up.svg"; clas = "cd-location"; }
 
 
-        $(".cd-timeline-img img").attr("src", "../vertical-timeline/img/" + icon);
-        var imgClass = $(".cd-timeline-img")
+        $(".cd-timeline-img img").attr("src", "../libs/vertical-timeline/img/" + icon);
+        var imgClass = $(".cd-timeline-img");
         imgClass.removeClass("cd-picture");
         imgClass.removeClass("cd-movie");
         imgClass.removeClass("cd-location");
