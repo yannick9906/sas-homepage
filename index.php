@@ -89,10 +89,9 @@ ini_set("diplay_errors", "on");
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=9"><i class="mdi mdi-dots-horizontal left"></i>Impressum</a></li>
                         <li class="divider"></li>
-                        <li class="indigo hide-on-med-and-down" style="position: absolute; width:100%; bottom: 60px; font-size: 12px; line-height: 16px; padding: 10px;">
-                            ICMS&trade; Version <? echo \ICMS\Util::getVersionInfo(); ?><br/>&copy;2014-2016 Yannick F&#233;lix
-                        </li>
-                        <li class="indigo hide-on-large-only" style="width:100%; font-size: 12px; line-height: 16px; padding: 10px;">
+                        <li class="no-padding" style="height:100px"></li>
+                        {/if}
+                        <li class="indigo" style="position: fixed; width: 240px; bottom: 0; font-size: 12px; line-height: 16px; padding: 10px;">
                             ICMS&trade; Version <? echo \ICMS\Util::getVersionInfo(); ?><br/>&copy;2014-2016 Yannick F&#233;lix
                         </li>
                     </ul>

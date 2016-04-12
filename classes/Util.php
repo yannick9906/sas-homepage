@@ -215,6 +215,6 @@ class Util {
     }
 
     public static function getVersionInfo() {
-        return "3.1.7b (SAS)";
+        return "3.1.8b (SAS)";
     }
 }
