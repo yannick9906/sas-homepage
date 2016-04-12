@@ -38,6 +38,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "postNew") {
     if ($user->isActionAllowed(PERM_TIMELINE_CREATE)) {
@@ -51,6 +52,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "edit" and is_numeric($tID)) {
     if ($user->isActionAllowed(PERM_TIMELINE_NEW_VERSION)) {
@@ -82,6 +84,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "postEdit" and is_numeric($tID)) {
     if ($user->isActionAllowed(PERM_TIMELINE_NEW_VERSION)) {
@@ -101,6 +104,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }/**/
 } elseif($action == "approve" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_EDIT) || $user->isActionAllowed(PERM_TIMELINE_APPROVE)) {
@@ -111,6 +115,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "deny" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_EDIT) || $user->isActionAllowed(PERM_TIMELINE_APPROVE)) {
@@ -121,6 +126,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "del" and is_numeric($vID)) {
     if($user->isActionAllowed(PERM_TIMELINE_OP_DELETE)) {
@@ -131,6 +137,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 } elseif($action == "vers" and is_numeric($tID)) {
     if($user->isActionAllowed(PERM_TIMELINE_VIEW)) {
@@ -155,6 +162,7 @@ if($action == "new") {
     } else {
         $pgdata = \ICMS\Util::getEditorPageDataStub("Timeline", $user);
         $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
+        exit;
     }
 }
 

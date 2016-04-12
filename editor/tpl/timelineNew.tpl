@@ -152,7 +152,7 @@
         imgClass.addClass(clas);
         $(".cd-timeline-content h2").html($("#title").val());
         $(".cd-timeline-content p").html($("#text").val() + '<a href="" class="cd-read-more">Mehr ...</a>');
-        var date = new Date(document.getElementById("date").value)
+        var date = new Date(document.getElementById("date").value);
         $(".cd-timeline-content .cd-date").html(date.toLocaleDateString("de-DE", {"{day: 'numeric', month: 'short', year: 'numeric'}"})+" - "+date.toLocaleTimeString("de-DE", {"{hour: 'numeric', minute: 'numeric'}"}));
 
         var lnkSel = $("input:radio[name=lnkType]:checked");
@@ -168,7 +168,7 @@
 
     $("#rdExt").change(function(){
         console.log("Extern");
-        $("#divInt").hide()
+        $("#divInt").hide();
         $("#divExt").show();
         $("#inExt").attr('disabled', false);
         $("select").attr('disabled', false);
