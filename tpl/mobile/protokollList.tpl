@@ -1,5 +1,5 @@
-<div class="indigo white-text">
-    <ul class="tabs indigo white-text" style="overflow: hidden;">
+3<div class="indigo white-text">
+    <ul id="tabs" class="tabs indigo white-text" style="overflow: hidden;">
         <li class="tab col s2"><a class="white-text active" href="#tab1">Orgateam</a></li>
         <li class="tab col s2"><a class="white-text" href="#tab2">Parlament</a></li>
         <li class="tab col s2"><a class="white-text" href="#tab3">AKs</a></li>
@@ -20,7 +20,6 @@
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
-                    </paper-shadow>
                     {/if}
                 {/foreach}
             </ul>
@@ -37,7 +36,6 @@
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
-                        </paper-shadow>
                     {/if}
                 {/foreach}
             </ul>
@@ -54,7 +52,6 @@
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
-                        </paper-shadow>
                     {/if}
                 {/foreach}
             </ul>
@@ -71,7 +68,6 @@
                                 <a href="{$item.dl}" class="secondary-content indigo-text waves-effect waves-circle waves-ripple"><i class="mdi mdi-download"></i></a>
                             </div>
                         </li>
-                        </paper-shadow>
                     {/if}
                 {/foreach}
             </ul>
@@ -79,7 +75,4 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        $('ul.tabs').tabs();
-    });
 </script>

@@ -193,24 +193,34 @@ ini_set("diplay_errors", "on");
                 success: function (msg) {
                     if (parseInt(msg) != -1) {	//if no errors
                         sel = msg.charAt(0);
-                        $('.content').html(msg);	//load the returned html into pageContent
                         if (sel == 1) {
                             $(".menu").css('visibility', 'hidden');
                             $(".menu").css('display', 'none');
                             $(".back").css('visibility', 'visible');
+                            $('.content').html(msg);	//load the returned html into pageContent
                             msg = msg.substr(1);
                         } else if(sel == 2) {
-                            countdown();
                             msg = msg.substr(1);
+                            $('.content').html(msg);	//load the returned html into pageContent
+                            countdown();
+                        } else if(sel == 3) {
+                            msg = msg.substr(1);
+                            $('.content').html(msg);	//load the returned html into pageContent
+                            try {
+                                $('#tabs').tabs();
+                            } catch(err) {
+                                location.reload(true);
+                            }
                         } else {
                             $(".back").css('visibility', 'hidden');
                             $(".menu").css('display', 'block');
                             $(".menu").css('visibility', 'visible');
+                            $('.content').html(msg);	//load the returned html into pageContent
                         }
-                        $('.content').html(msg);	//load the returned html into pageContent
                         $('.networkerror').css('visibility', 'hidden');	//and hide the rotating gif
                         $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
                         console.log(msg);
+                        $('#tabs').tabs();
                     } else {
                         $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
                         $('.networkerror').css('visibility', 'visible');	//and hide the rotating gif
