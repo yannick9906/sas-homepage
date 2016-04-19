@@ -202,6 +202,10 @@ class User {
         }
     }
 
+    public function getUNameFrontEnd() {
+        return self::getPrefixAsHtml()." ".$this->uName;
+    }
+
     /**
      * Checks if the user is permitted to do sth.
      *

@@ -8,6 +8,7 @@
         <link type="text/css" rel="stylesheet" href="../libs/materialize/css/materialize.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
         <link type="text/css" rel="stylesheet" href="../libs/mdi/css/materialdesignicons.min.css" media="all"/>
+        <link href="../libs/magicsuggest/magicsuggest-min.css" rel="stylesheet">
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,9 +19,10 @@
     </head>
     <body>
         <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="../libs/materialize/js/materialize.min.js"></script>
-        <script type="text/javascript" src="../libs/markdown.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="../libs/materialize/js/materialize.min.js"></script>
+        <script src="../libs/markdown.min.js"></script>
+        <script src="../libs/magicsuggest/magicsuggest-min.js"></script>
 
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
@@ -73,7 +75,7 @@
                     </li>
                     <li class="divider"></li>
                     {/if}
-                    {if $args.perm.file_view == 1 or $args.perm.protocols_view == 1}
+                    {if $args.perm.file_view == 1 or $args.perm.protocols_view == 1 or $args.perm.application_view}
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -82,6 +84,7 @@
                                     <ul>
                                         {if $args.perm.file_view == 1}<li><a href="files.php?filter=Alle&sort=ascName">Dateien</a></li>{/if}
                                         {if $args.perm.protocols_view == 1}<li><a href="protocols.php?sort=descName&filter=Alle">Protokolle</a></li>{/if}
+                                        {if $args.perm.application_view == 1}<li><a href="applications.php?sort=descName&filter=Offen">Anträge</a></li>{/if}
                                     </ul>
                                 </div>
                             </li>

@@ -124,7 +124,7 @@ class File {
      *
      * @return File[]
      */
-    public static function getAllFiles($sort, $filter) {
+    public static function getAllFiles($sort = "", $filter = "") {
         $pdo = new PDO_MYSQL();
         $stmt = $pdo->queryMulti("SELECT fID FROM schlopolis_files ".FFILTERING[$filter].FSORTING[$sort]);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\File::fromFID");

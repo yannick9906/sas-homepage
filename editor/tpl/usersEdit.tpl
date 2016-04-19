@@ -105,6 +105,12 @@
                         <tr><td>Datei l&ouml;schen</td><td><div class="switch"><label>Off<input type="checkbox" id="cb25" {if $perm.admin_file_del  == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh25" type="hidden" value="0" name="admin.file.del"/> </td></tr>
                         <tr><td>Datei bearbeiten</td>  <td><div class="switch"><label>Off<input type="checkbox" id="cb26" {if $perm.admin_file_edit == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh26" type="hidden" value="0" name="admin.file.edit"/></td></tr>
 
+                        <tr><td><b>Anträge</b></td></tr>
+                        <tr><td>Antr&auml;ge ansehen</td>     <td><div class="switch"><label>Off<input type="checkbox" id="cb33" {if $perm.application_view   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh33" type="hidden" value="0" name="application.view"/>      </td></tr>
+                        <tr><td>Antr&auml;ge erstellen</td>   <td><div class="switch"><label>Off<input type="checkbox" id="cb34" {if $perm.application_create == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh34" type="hidden" value="0" name="application.create"/>    </td></tr>
+                        <tr><td>Antr&auml;ge bearbeiten</td>  <td><div class="switch"><label>Off<input type="checkbox" id="cb35" {if $perm.application_edit   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh35" type="hidden" value="0" name="application.edit"/>      </td></tr>
+                        <tr><td>Antr&auml;ge l&ouml;schen</td><td><div class="switch"><label>Off<input type="checkbox" id="cb36" {if $perm.application_del    == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh36" type="hidden" value="0" name="application.del"/>       </td></tr>
+
                         <tr><td><b>Protokolle</b></td></tr>
                         <tr><td>Protokolle ansehen</td>      <td><div class="switch"><label>Off<input type="checkbox" id="cb27" {if $perm.protocols_view       == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh27" type="hidden" value="0" name="protocols.view"/>      </td></tr>
                         <tr><td>Protokolle erstellen</td>    <td><div class="switch"><label>Off<input type="checkbox" id="cb28" {if $perm.protocols_create     == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh28" type="hidden" value="0" name="protocols.create"/>    </td></tr>
@@ -114,7 +120,7 @@
                         <tr><td>Protokolle bearbeiten</td>   <td><div class="switch"><label>Off<input type="checkbox" id="cb32" {if $perm.admin_protocols_edit == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh32" type="hidden" value="0" name="admin.protocols.edit"/></td></tr>
 
                         <tr><td><b>Sonstige</b></td></tr>
-                        <tr><td>Datenbank</td> <td><div class="switch"><label>Off<input type="checkbox" id="cb33" {if $perm.admin_database == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh33" type="hidden" value="0" name="admin.database"/></td></tr>
+                        <tr><td>Datenbank</td> <td><div class="switch"><label>Off<input type="checkbox" id="cb37" {if $perm.admin_database == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh37" type="hidden" value="0" name="admin.database"/></td></tr>
                     </table>
                 </form>
             </div>
