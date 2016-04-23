@@ -75,7 +75,7 @@ ini_set("diplay_errors", "on");
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=2"><i class="mdi mdi-bullhorn left"></i>News</a></li>
                         <li class="divider"></li>
-                        <li class="no-padding"><a href="#!"><i class="mdi mdi-city left"></i>Parlament</a></li>
+                        <li class="no-padding"><a href="#p=12"><i class="mdi mdi-city left"></i>Parlament</a></li>
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=10"><i class="mdi mdi-clipboard-text left"></i>Protokolle</a></li>
                         <li class="divider"></li>

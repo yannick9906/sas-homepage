@@ -8,6 +8,8 @@
     require_once 'libs/Mobile_Detect.php'; // Mobile Detect
     require_once 'libs/Parsedown.php'; // Parsedown
     require_once 'libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
+    require_once 'classes/Tag.php';
+    require_once 'classes/ApplicationEntry.php';
     require_once 'classes/TimelineEntry.php';
     require_once 'classes/NewsEntry.php';
     require_once 'classes/PDO_MYSQL.php';
@@ -213,6 +215,32 @@
                     break;
             }
 
+
+            break;
+        case 12:
+            $pageIDParla = 16;
+            $pageIDFrakt = 13;
+            $pgData = ["header" => ["title" => "Parlament"], "page" => []];
+
+            $siteParla = \ICMS\Site::fromPID($pageIDParla)->toTypeObject();
+            $siteFrakt = \ICMS\Site::fromPID($pageIDFrakt)->toTypeObject();
+            $pgData["page"] = ["appls" => [], "highlight" => '', "text" => $siteParla->asArray()["textHTML"], "header" => $siteParla->getHeader()];
+
+            $appls = \ICMS\ApplicationEntry::getAllApplications("descID", "Alle");
+            foreach ($appls as $appl) {
+                array_push($pgData["page"]["appls"], $appl->asArray());
+            }
+            $entries = \ICMS\TypeParty::listParties();
+            for ($i = 0; $i < sizeof($entries); $i++) {
+                if($entries[$i]->getPID() != 13) {
+                    $pgData["page"]["parties"][$i]["id"] = $entries[$i]->getPID();
+                    $pgData["page"]["parties"][$i]["info"] = $entries[$i]->getShort();
+                    $pgData["page"]["parties"][$i]["name"] = $entries[$i]->getName();
+                    $pgData["page"]["parties"][$i]["icon"] = $entries[$i]->getIcon();
+                }
+            }
+
+            if ($detect->isMobile()) $dwoo->output("tpl/mobile/parlament.tpl", $pgData); else $dwoo->output("tpl/mobile/parlament.tpl", $pgData);
 
             break;
         default:

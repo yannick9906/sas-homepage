@@ -8,7 +8,7 @@
 
     namespace ICMS;
 
-    const ASORTING = ["ascName" => " ORDER BY title, state ASC", "ascDate" => " ORDER BY date, state ASC", "ascID" => " ORDER BY aNum, state ASC", "descName" => " ORDER BY title, state DESC", "descDate" => " ORDER BY date, state DESC", "descID" => " ORDER BY aNum, state DESC", "" => " ORDER BY state ASC"];
+    const ASORTING = ["ascName" => " ORDER BY title, state ASC", "ascDate" => " ORDER BY date, state ASC", "ascID" => " ORDER BY aNum, state ASC", "descName" => " ORDER BY title, state DESC", "descDate" => " ORDER BY date, state DESC", "descID" => " ORDER BY state, aNum DESC", "" => " ORDER BY state ASC"];
 
     const AFILTERING = ["" => "", "Alle" => "", "Offen" => " WHERE state = 0", "Angenommen" => " WHERE state = 1", "Abgelehnt" => " WHERE state = 2",];
 
@@ -99,7 +99,7 @@
          */
         public function delete() {
             $pdo = new PDO_MYSQL();
-            $pdo->queryMulti("DELETE FROM schlopolis_applications WHERE aID = :aid", [":aid", $this->aID]);
+            $pdo->queryMulti("DELETE FROM schlopolis_applications WHERE aID = :aid", [":aid" => $this->aID]);
         }
 
         /**
@@ -112,7 +112,8 @@
         public function saveChanges($state, $title, $fID, $shorttext, $tags) {
             $pdo = new PDO_MYSQL();
             $tags = implode(";", $tags);
-            $pdo->query("UPDATE schlopolis_applications SET (state = :state, title = :title, fID = :fid, shorttext = :shorttext, tags = :tags) WHERE aID = :aid", [":state" => $state, ":title" => $title, ":fID" => $fID, ":shorttext" => $shorttext, ":tags" => $tags, ":aid" => $this->aID]);
+            $pdo->query("UPDATE schlopolis_applications SET state = :state, title = :title, fID = :fid, shorttext = :shorttext, tags = :tags WHERE aID = :aid",
+                [":state" => $state, ":title" => $title, ":fid" => $fID, ":shorttext" => $shorttext, ":tags" => $tags, ":aid" => $this->aID]);
         }
 
         /**
@@ -127,7 +128,7 @@
          * @return array
          */
         public function asArray() {
-            return ["aID" => $this->aID, "aNum" => $this->aNum, "state" => $this->state, "stateColor" => self::stateToColor($this->state), "stateText" => self::stateToText($this->state), "fID" => $this->fID, "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(), "filePath" => \ICMS\File::fromFID($this->fID)->getFilePath(), "title" => $this->title, "userID" => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(), "date" => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext, "name" => $this->name, "tags" => $this->getAllTagsAsHtml()];
+            return ["aID" => $this->aID, "aNum" => $this->aNum, "state" => $this->state, "stateColor" => self::stateToColor($this->state), "stateText" => self::stateToText($this->state), "fID" => $this->fID, "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(), "filePath" => File::fromFID($this->fID)->getFilePath(), "title" => $this->title, "userID" => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(), "date" => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext, "name" => $this->name, "tags" => $this->getAllTagsAsHtml(), "tagsList" => $this->tags];
         }
 
         public static function stateToColor($state) {

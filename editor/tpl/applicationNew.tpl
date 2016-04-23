@@ -6,7 +6,7 @@
             <form action="applications.php?action=postNew" method="post" id="form">
                 <div class="input-field col s4">
                     <label for="aNum">Antrag Nummer</label>
-                    <input id="aNum" type="text" value="#" name="aNum" required length="16"/>
+                    <input id="aNum" type="text" value="" name="aNum" required length="7"/>
                 </div>
                 <div class="input-field col s8">
                     <label for="name">Antragssteller</label>

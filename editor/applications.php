@@ -30,8 +30,8 @@
 
     if($action == "new") {
         if ($user->isActionAllowed(PERM_APPLICATION_CREATE)) {
-            $pgdata = \ICMS\Util::getEditorPageDataStub("Antrag erstellen", $user, false, true, "files.php");
-            $entries = \ICMS\File::getAllFiles();
+            $pgdata = \ICMS\Util::getEditorPageDataStub("Antrag erstellen", $user, false, true, "applications.php?filter=Offen&sort=descID");
+            $entries = \ICMS\File::getAllFiles("ascName");
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $pgdata["files"][$i] = $entries[$i]->asArray();
             }
@@ -44,22 +44,23 @@
         }
     } elseif($action == "postNew") {
         if ($user->isActionAllowed(PERM_APPLICATION_CREATE)) {
-            var_dump($_POST);
             \ICMS\ApplicationEntry::createNew($_POST["aNum"], $_POST["state"], $_POST["title"], $_POST["name"], str_replace("f", "",$_POST["file"]), $_POST["text"], $user, \ICMS\Tag::TagNameArrayToTagIDArray($_POST["tags"]));
-            \ICMS\Util::forwardTo("applications.php?sort=descID&filter=Alle");
+            \ICMS\Util::forwardTo("applications.php?filter=Offen&sort=descID");
             exit;
         } else {
             $pgdata = \ICMS\Util::getEditorPageDataStub("Antrag erstellen", $user);
             $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
             exit;
         }
-    } elseif($action == "edit") {
+    } elseif($action == "edit" and is_numeric($aID)) {
         if ($user->isActionAllowed(PERM_APPLICATION_EDIT)) {
-            $pgdata = \ICMS\Util::getEditorPageDataStub("Antrag bearbeiten", $user, false, true, "files.php");
-            $entries = \ICMS\File::getAllFiles();
+            $pgdata = \ICMS\Util::getEditorPageDataStub("Antrag bearbeiten", $user, false, true, "applications.php?filter=Offen&sort=descID");
+            $entries = \ICMS\File::getAllFiles("ascName");
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $pgdata["files"][$i] = $entries[$i]->asArray();
             }
+            $applToEdit = \ICMS\ApplicationEntry::fromAID($aID);
+            $pgdata["edit"] = $applToEdit->asArray();
             $dwoo->output("tpl/applicationEdit.tpl", $pgdata);
             exit; //To not show the list
         } else {
@@ -67,10 +68,11 @@
             $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
             exit;
         }
-    } elseif($action == "postEdit") {
+    } elseif($action == "postEdit" and is_numeric($aID)) {
         if ($user->isActionAllowed(PERM_APPLICATION_EDIT)) {
-            $fileToCreate = \ICMS\File::createFileAndMoveUploaded($_POST['filename'], $user);
-            \ICMS\Util::forwardTo("applications.php?sort=descID&filter=Alle");
+            $applToEdit = \ICMS\ApplicationEntry::fromAID($aID);
+            $applToEdit->saveChanges($_POST["state"], $_POST["title"],  str_replace("f", "",$_POST["file"]), $_POST["text"], \ICMS\Tag::TagNameArrayToTagIDArray($_POST["tags"]));
+            \ICMS\Util::forwardTo("applications.php?filter=Offen&sort=descID");
             exit;
         } else {
             $pgdata = \ICMS\Util::getEditorPageDataStub("Antrage erstellen", $user);
@@ -93,7 +95,7 @@
                 default:
                     break;
             }
-            \ICMS\Util::forwardTo("applications.php?sort=descID&filter=Alle");
+            \ICMS\Util::forwardTo("applications.php?filter=Offen&sort=descID");
         } else {
             $pgdata = \ICMS\Util::getEditorPageDataStub("Antrage erstellen", $user);
             $dwoo->output("tpl/noPrivileges.tpl", $pgdata);
@@ -103,7 +105,7 @@
         if($user->isActionAllowed(PERM_APPLICATION_DELETE)) {
             $applToDelete = \ICMS\ApplicationEntry::fromAID($aID);
             $applToDelete->delete();
-            \ICMS\Util::forwardTo("applications.php?sort=descID&filter=Alle");
+            \ICMS\Util::forwardTo("applications.php?filter=Offen&sort=descID");
             exit;
         } else {
             $pgdata = \ICMS\Util::getEditorPageDataStub("Anträge", $user);
