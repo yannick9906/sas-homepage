@@ -8,7 +8,7 @@
 
     namespace ICMS;
 
-    const ASORTING = ["ascName" => " ORDER BY title, state ASC", "ascDate" => " ORDER BY date, state ASC", "ascID" => " ORDER BY aNum, state ASC", "descName" => " ORDER BY title, state DESC", "descDate" => " ORDER BY date, state DESC", "descID" => " ORDER BY state, aNum DESC", "" => " ORDER BY state ASC"];
+    const ASORTING = ["ascName" => " ORDER BY title, state ASC", "ascDate" => " ORDER BY date, state ASC", "ascID" => " ORDER BY aNum ASC", "descName" => " ORDER BY title, state DESC", "descDate" => " ORDER BY date, state DESC", "descID" => " ORDER BY aNum DESC", "" => " ORDER BY state ASC"];
 
     const AFILTERING = ["" => "", "Alle" => "", "Offen" => " WHERE state = 0", "Angenommen" => " WHERE state = 1", "Abgelehnt" => " WHERE state = 2",];
 

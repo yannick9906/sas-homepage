@@ -77,6 +77,8 @@ ini_set("diplay_errors", "on");
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=12"><i class="mdi mdi-city left"></i>Parlament</a></li>
                         <li class="divider"></li>
+                        <li class="no-padding"><a href="pdf/verf.pdf"><i class="mdi mdi-book-open left"></i>Verfassung</a></li>
+                        <li class="divider"></li>
                         <li class="no-padding"><a href="#p=10"><i class="mdi mdi-clipboard-text left"></i>Protokolle</a></li>
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=11&id=1"><i class="mdi mdi-bank left"></i>Staat</a></li>
@@ -89,7 +91,7 @@ ini_set("diplay_errors", "on");
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=9"><i class="mdi mdi-dots-horizontal left"></i>Impressum</a></li>
                         <li class="divider"></li>
-                        <li class="no-padding" style="height:100px"></li>
+                        <li class="no-padding" style="height:40px"></li>
                         {/if}
                         <li class="indigo" style="position: fixed; width: 240px; bottom: 0; font-size: 12px; line-height: 16px; padding: 10px;">
                             ICMS&trade; Version <? echo \ICMS\Util::getVersionInfo(); ?><br/>&copy;2014-2016 Yannick F&#233;lix
@@ -192,6 +194,7 @@ ini_set("diplay_errors", "on");
                 },
                 success: function (msg) {
                     if (parseInt(msg) != -1) {	//if no errors
+                        console.log(msg);
                         sel = msg.charAt(0);
                         if (sel == 1) {
                             $(".menu").css('visibility', 'hidden');
@@ -208,8 +211,11 @@ ini_set("diplay_errors", "on");
                             $('.content').html(msg);	//load the returned html into pageContent
                             try {
                                 $('#tabs').tabs();
+                                $('.tooltipped').tooltip({delay: 50});
+                                console.log("Worked!");
                             } catch(err) {
                                 location.reload(true);
+                                console.log("Catched!");
                             }
                         } else {
                             $(".back").css('visibility', 'hidden');
@@ -219,8 +225,6 @@ ini_set("diplay_errors", "on");
                         }
                         $('.networkerror').css('visibility', 'hidden');	//and hide the rotating gif
                         $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
-                        console.log(msg);
-                        $('#tabs').tabs();
                     } else {
                         $('.loading').css('visibility', 'hidden');	//and hide the rotating gif
                         $('.networkerror').css('visibility', 'visible');	//and hide the rotating gif

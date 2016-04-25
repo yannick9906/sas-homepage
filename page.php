@@ -232,7 +232,7 @@
             }
             $entries = \ICMS\TypeParty::listParties();
             for ($i = 0; $i < sizeof($entries); $i++) {
-                if($entries[$i]->getPID() != 13) {
+                if($entries[$i]->getPID() != 13 and $entries[$i]->getPID() !=  11) {
                     $pgData["page"]["parties"][$i]["id"] = $entries[$i]->getPID();
                     $pgData["page"]["parties"][$i]["info"] = $entries[$i]->getShort();
                     $pgData["page"]["parties"][$i]["name"] = $entries[$i]->getName();
