@@ -6,7 +6,7 @@
             <form action="applications.php?action=postNew" method="post" id="form">
                 <div class="input-field col s4">
                     <label for="aNum">Antrag Nummer</label>
-                    <input id="aNum" type="text" value="" name="aNum" required length="7"/>
+                    <input id="aNum" type="text" value="" name="aNum" required length="8"/>
                 </div>
                 <div class="input-field col s8">
                     <label for="name">Antragssteller</label>
@@ -34,6 +34,7 @@
                     <select id="state" title="Status" name="state">
                         <option value="0" selected>In Bearbeitung</option>
                         <option value="1">Angenommen</option>
+                        <option value="3">Mit Änderungen angenommen</option>
                         <option value="2">Abgelehnt</option>
                     </select>
                     <label for="state">Status</label>

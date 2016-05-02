@@ -52,7 +52,7 @@
             <ul class="collection">
                 {loop $page.appls}
                     <li class="collection-item avatar">
-                        <i class="circle indigo" style="font-style: normal; font-size: 12px;">{$aNum}</i>
+                        <i class="circle indigo" style="font-style: normal; font-size: {if $font == "big"}12px{else}8px{/if};">{$aNum}</i>
                         <span class="title">{$title}</span>
                         <p>{$date} von {$name}<br/>
                             {$shorttext}<span class="bg badge {$stateColor}">{$stateText}</span>

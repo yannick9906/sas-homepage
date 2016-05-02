@@ -6,7 +6,7 @@
             <form action="applications.php?action=postEdit&aID={$edit.aID}" method="post" id="form">
                 <div class="input-field col s4">
                     <label for="aNum">Antrag Nummer</label>
-                    <input id="aNum" type="text" value="{$edit.aNum}" name="aNum" disabled length="7"/>
+                    <input id="aNum" type="text" value="{$edit.aNum}" name="aNum" disabled length="8"/>
                 </div>
                 <div class="input-field col s8">
                     <label for="name">Antragssteller</label>
@@ -34,6 +34,7 @@
                     <select id="state" title="Status" name="state">
                         <option value="0"{if $edit.state == 0} selected{/if}>In Bearbeitung</option>
                         <option value="1"{if $edit.state == 1} selected{/if}>Angenommen</option>
+                        <option value="3"{if $edit.state == 3} selected{/if}>Mit Änderungen angenommen</option>
                         <option value="2"{if $edit.state == 2} selected{/if}>Abgelehnt</option>
                     </select>
                     <label for="state">Status</label>

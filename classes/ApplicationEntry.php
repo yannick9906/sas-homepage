@@ -10,7 +10,7 @@
 
     const ASORTING = ["ascName" => " ORDER BY title, state ASC", "ascDate" => " ORDER BY date, state ASC", "ascID" => " ORDER BY aNum ASC", "descName" => " ORDER BY title, state DESC", "descDate" => " ORDER BY date, state DESC", "descID" => " ORDER BY aNum DESC", "" => " ORDER BY state ASC"];
 
-    const AFILTERING = ["" => "", "Alle" => "", "Offen" => " WHERE state = 0", "Angenommen" => " WHERE state = 1", "Abgelehnt" => " WHERE state = 2",];
+    const AFILTERING = ["" => "", "Alle" => "", "Offen" => " WHERE state = 0", "Angenommen" => " WHERE state = 1 or state = 3", "Abgelehnt" => " WHERE state = 2",];
 
     use PDO;
 
@@ -128,7 +128,7 @@
          * @return array
          */
         public function asArray() {
-            return ["aID" => $this->aID, "aNum" => $this->aNum, "state" => $this->state, "stateColor" => self::stateToColor($this->state), "stateText" => self::stateToText($this->state), "fID" => $this->fID, "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(), "filePath" => File::fromFID($this->fID)->getFilePath(), "title" => $this->title, "userID" => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(), "date" => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext, "name" => $this->name, "tags" => $this->getAllTagsAsHtml(), "tagsList" => $this->tags];
+            return ["aID" => $this->aID, "aNum" => $this->aNum, "state" => $this->state, "stateColor" => self::stateToColor($this->state), "stateText" => self::stateToText($this->state), "fID" => $this->fID, "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(), "filePath" => File::fromFID($this->fID)->getFilePath(), "title" => $this->title, "userID" => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(), "date" => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext, "name" => $this->name, "tags" => $this->getAllTagsAsHtml(), "tagsList" => $this->tags, "font" => strlen($this->aNum) > 5 ? "small" : "big"];
         }
 
         public static function stateToColor($state) {
@@ -139,6 +139,8 @@
                     return "green";
                 case 2:
                     return "red";
+                case 3:
+                    return "green";
                 default:
                     return "grey";
             }
@@ -152,6 +154,8 @@
                     return "Angenommen";
                 case 2:
                     return "Abgelehnt";
+                case 3:
+                    return "Mit Änderungen angenommen";
                 default:
                     return "invalid";
             }
