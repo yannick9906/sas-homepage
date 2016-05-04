@@ -5,7 +5,8 @@
 
 ## Directory-based project format:
 .idea/
-libs/
+libs
+Piwik_01
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:

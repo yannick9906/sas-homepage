@@ -111,6 +111,12 @@
                         <tr><td>Antr&auml;ge bearbeiten</td>  <td><div class="switch"><label>Off<input type="checkbox" id="cb35" {if $perm.application_edit   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh35" type="hidden" value="0" name="application.edit"/>      </td></tr>
                         <tr><td>Antr&auml;ge l&ouml;schen</td><td><div class="switch"><label>Off<input type="checkbox" id="cb36" {if $perm.application_del    == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh36" type="hidden" value="0" name="application.del"/>       </td></tr>
 
+                        <tr><td><b>Gesetze</b></td></tr>
+                        <tr><td>Gesetze ansehen</td>     <td><div class="switch"><label>Off<input type="checkbox" id="cb38" {if $perm.laws_view   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh38" type="hidden" value="0" name="laws.view"/>      </td></tr>
+                        <tr><td>Gesetze erstellen</td>   <td><div class="switch"><label>Off<input type="checkbox" id="cb39" {if $perm.laws_create == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh39" type="hidden" value="0" name="laws.create"/>    </td></tr>
+                        <tr><td>Gesetze bearbeiten</td>  <td><div class="switch"><label>Off<input type="checkbox" id="cb40" {if $perm.laws_edit   == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh40" type="hidden" value="0" name="laws.edit"/>      </td></tr>
+                        <tr><td>Gesetze l&ouml;schen</td><td><div class="switch"><label>Off<input type="checkbox" id="cb41" {if $perm.laws_del    == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh41" type="hidden" value="0" name="laws.del"/>       </td></tr>
+
                         <tr><td><b>Protokolle</b></td></tr>
                         <tr><td>Protokolle ansehen</td>      <td><div class="switch"><label>Off<input type="checkbox" id="cb27" {if $perm.protocols_view       == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh27" type="hidden" value="0" name="protocols.view"/>      </td></tr>
                         <tr><td>Protokolle erstellen</td>    <td><div class="switch"><label>Off<input type="checkbox" id="cb28" {if $perm.protocols_create     == 1}checked{/if}><span class="lever"></span>On</label></div><input id="hh28" type="hidden" value="0" name="protocols.create"/>    </td></tr>
