@@ -85,6 +85,7 @@
                                         {if $args.perm.file_view == 1}<li><a href="files.php?filter=Alle&sort=ascName">Dateien</a></li>{/if}
                                         {if $args.perm.protocols_view == 1}<li><a href="protocols.php?sort=descName&filter=Alle">Protokolle</a></li>{/if}
                                         {if $args.perm.application_view == 1}<li><a href="applications.php?sort=descName&filter=Offen">Anträge</a></li>{/if}
+                                        {if $args.perm.laws_view == 1}<li><a href="laws.php?sort=descName">Gesetze</a></li>{/if}
                                     </ul>
                                 </div>
                             </li>

@@ -48,10 +48,10 @@ define("PERM_APPLICATION_VIEW",   "application.view");
 define("PERM_APPLICATION_DELETE", "application.del");
 define("PERM_APPLICATION_EDIT",   "application.edit");
 
-define("PERM_LAW_CREATE", "law.create");
-define("PERM_LAW_VIEW",   "law.view");
-define("PERM_LAW_DELETE", "law.del");
-define("PERM_LAW_EDIT",   "law.edit");
+define("PERM_LAWS_CREATE", "laws.create");
+define("PERM_LAWS_VIEW",   "laws.view");
+define("PERM_LAWS_DELETE", "laws.del");
+define("PERM_LAWS_EDIT",   "laws.edit");
 
 define("PERM_SITE_CREATE",          "site.create");
 define("PERM_SITE_VIEW",            "site.view");
