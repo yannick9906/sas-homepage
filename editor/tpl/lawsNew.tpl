@@ -8,10 +8,7 @@
                     <label for="lwNum">Gesetz Nummer</label>
                     <input id="lwNum" type="text" value="" name="lwNum" required length="8"/>
                 </div>
-                <div class="input-field col s8">
-                    <label for="name">Gesetzsteller</label>
-                    <input id="name" type="text" name="name" required length="64"/>
-                </div>
+                    <input id="name" type="hidden" value="Mhh" name="name" required length="64"/>
                 <div class="input-field col s12">
                     <label for="title">Titel</label>
                     <input id="title" type="text" name="title" required length="256"/>

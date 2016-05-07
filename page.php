@@ -9,6 +9,7 @@
     require_once 'libs/Parsedown.php'; // Parsedown
     require_once 'libs/dwoo/lib/Dwoo/Autoloader.php'; //Dwoo Laden
     require_once 'classes/Tag.php';
+    require_once 'classes/Law.php';
     require_once 'classes/ApplicationEntry.php';
     require_once 'classes/TimelineEntry.php';
     require_once 'classes/NewsEntry.php';
@@ -219,7 +220,7 @@
 
 
             break;
-        case 12:
+        case 12: //Parlament
             $pageIDParla = 16;
             $pageIDFrakt = 13;
             $pgData = ["header" => ["title" => "Parlament"], "page" => []];
@@ -228,8 +229,8 @@
             $siteFrakt = \ICMS\Site::fromPID($pageIDFrakt)->toTypeObject();
             $pgData["page"] = ["appls" => [], "highlight" => '', "text" => $siteParla->asArray()["textHTML"], "header" => $siteParla->getHeader()];
 
-            $appls = \ICMS\ApplicationEntry::getAllApplications("descID", "Alle");
-            foreach ($appls as $appl) {
+            $law = \ICMS\ApplicationEntry::getAllApplications("descID", "Alle");
+            foreach ($law as $appl) {
                 array_push($pgData["page"]["appls"], $appl->asArray());
             }
             $entries = \ICMS\TypeParty::listParties();
@@ -243,6 +244,21 @@
             }
 
             if ($detect->isMobile()) $dwoo->output("tpl/mobile/parlament.tpl", $pgData); else $dwoo->output("tpl/mobile/parlament.tpl", $pgData);
+
+            break;
+        case 13: //Laws
+            $pgData = ["header" => ["title" => "Gesetze"], "page" => ["laws" => [], "regl" => []]];
+            $laws = \ICMS\Law::getAllPublicLaws();
+            foreach ($laws as $law) {
+                array_push($pgData["page"]["laws"], $law->asArray());
+            }
+
+            $regl = \ICMS\Law::getAllPublicRegulations();
+            foreach ($regl as $regulation) {
+                array_push($pgData["page"]["regl"], $regulatione->asArray());
+            }
+
+            if ($detect->isMobile()) $dwoo->output("tpl/mobile/laws.tpl", $pgData); else $dwoo->output("tpl/mobile/laws.tpl", $pgData);
 
             break;
         default:

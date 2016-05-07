@@ -10,6 +10,7 @@
 
 
     use PDO;
+    use Piwik\Exception\Exception;
 
     class Tag {
         public $tagID;
@@ -74,9 +75,13 @@
 
         public static function TagNameArrayToTagIDArray($array) {
             $tags = [];
-            foreach($array as $item) {
-                $tag = self::fromTagName($item);
-                array_push($tags, $tag->name);
+            try {
+                foreach ($array as $item) {
+                    $tag = self::fromTagName($item);
+                    array_push($tags, $tag->name);
+                }
+            } catch (Exception $e) {
+                return false;
             }
             return $tags;
         }

@@ -41,7 +41,7 @@
                         <i class="circle indigo" style="font-style: normal; font-size: {if $font == "big"}12px{else}8px{/if};">{$lwNum}</i>
                         <span class="title">{$tags} {$title}</span>
                         <p>{$fileName} | {$username}<br/>
-                            {$date} |  Gesetzersteller: {$name}
+                            {$date}
                         </p>
                         <span class="secondary-content">
                             {if $_.perm.laws_edit == 1}

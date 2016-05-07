@@ -5,13 +5,10 @@
             <br/>
             <form action="laws.php?action=postEdit&lwID={$edit.lwID}" method="post" id="form">
                 <div class="input-field col s4">
-                    <label for="lwNum">Antrag Nummer</label>
+                    <label for="lwNum">Gesetz Nummer</label>
                     <input id="lwNum" type="text" value="{$edit.lwNum}" name="lwNum" disabled length="8"/>
                 </div>
-                <div class="input-field col s8">
-                    <label for="name">Gesetzsteller</label>
-                    <input id="name" type="text" value="{$edit.name}" name="name" disabled length="64"/>
-                </div>
+                    <input id="name" type="hidden" value="{$edit.name}" name="name" disabled length="64"/>
                 <div class="input-field col s12">
                     <label for="title">Titel</label>
                     <input id="title" type="text" value="{$edit.title}" name="title" required length="256"/>

@@ -8,7 +8,9 @@
 
     namespace ICMS;
 
-    const ASORTING = ["ascName" => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC", "ascID" => " ORDER BY lwNum ASC", "descName" => " ORDER BY title DESC", "descDate" => " ORDER BY date DESC", "descID" => " ORDER BY lwNum DESC", "" => ""];
+    const ASORTING = ["ascName"  => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC",
+                      "ascID"    => " ORDER BY lwNum ASC", "descName" => " ORDER BY title DESC",
+                      "descDate" => " ORDER BY date DESC", "descID" => " ORDER BY lwNum DESC", "" => ""];
 
     use PDO;
 
@@ -39,7 +41,6 @@
         public function __construct($lwID, $lwNum, $title, $date, $name, $fID, $shorttext, $uID, $tags) {
             $this->lwID = $lwID;
             $this->lwNum = $lwNum;
-            $this->state = $state;
             $this->title = $title;
             $this->date = strtotime($date);
             $this->name = $name;
@@ -62,6 +63,18 @@
         }
 
         /**
+         * @return Law[]
+         */
+        public static function getAllPublicLaws() {
+            $laws = self::getAllLaws("ascID");
+            $return = [];
+            foreach ($laws as $law) {
+                if ($law->hasTag(3)) array_push($return, $law);
+            }
+            return $return;
+        }
+
+        /**
          * Returns all Applications available in the DB. Sorted by $sort and filtered by $filter
          *
          * @param string $sort
@@ -72,6 +85,22 @@
             $pdo = new PDO_MYSQL();
             $stmt = $pdo->queryMulti("SELECT lwID FROM schlopolis_laws " . ASORTING[$sort]);
             return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Law::fromLWID");
+        }
+
+        public function hasTag($tag) {
+            return in_array($tag, $this->tags);
+        }
+
+        /**
+         * @return Law[]
+         */
+        public static function getAllPublicRegulations() {
+            $laws = self::getAllLaws("ascID");
+            $return = [];
+            foreach ($laws as $law) {
+                if ($law->hasTag(4)) array_push($return, $law);
+            }
+            return $return;
         }
 
         /**
@@ -87,9 +116,17 @@
             var_dump($lwNum);
             $pdo = new PDO_MYSQL();
             $date = date("Y-m-d H:i");
+            if(!is_array($tags) or $tags == []) $tags = [4];
             $tags = implode(";", $tags);
             $user = $user->getUID();
-            $pdo->query("INSERT INTO schlopolis_laws(lwNum, fID, title, user, date, shorttext, name, tags) VALUES (:lwnum, :fid, :title, :user, :date, :shorttext, :name, :tags)", [":lwnum" => $lwNum, ":fid" => $fID, ":title" => $title, ":user" => $user, ":date" => $date, ":shorttext" => $shorttext, ":name" => $name, ":tags" => $tags]);
+            $pdo->query("INSERT INTO schlopolis_laws(lwNum, fID, title, user, date, shorttext, name, tags) VALUES (:lwnum, :fid, :title, :user, :date, :shorttext, :name, :tags)", [":lwnum"     => $lwNum,
+                                                                                                                                                                                    ":fid"       => $fID,
+                                                                                                                                                                                    ":title"     => $title,
+                                                                                                                                                                                    ":user"      => $user,
+                                                                                                                                                                                    ":date"      => $date,
+                                                                                                                                                                                    ":shorttext" => $shorttext,
+                                                                                                                                                                                    ":name"      => $name,
+                                                                                                                                                                                    ":tags"      => $tags]);
         }
 
         /**
@@ -108,16 +145,27 @@
          */
         public function saveChanges($title, $fID, $shorttext, $tags) {
             $pdo = new PDO_MYSQL();
+            var_dump($tags);
+            if(!is_array($tags) or $tags == []) $tags = [4];
             $tags = implode(";", $tags);
-            $pdo->query("UPDATE schlopolis_laws SET title = :title, fID = :fid, shorttext = :shorttext, tags = :tags WHERE lwID = :lwid",
-                [":title" => $title, ":fid" => $fID, ":shorttext" => $shorttext, ":tags" => $tags, ":lwid" => $this->lwID]);
+            $pdo->query("UPDATE schlopolis_laws SET title = :title, fID = :fid, shorttext = :shorttext, tags = :tags WHERE lwID = :lwid", [":title"     => $title,
+                                                                                                                                           ":fid"       => $fID,
+                                                                                                                                           ":shorttext" => $shorttext,
+                                                                                                                                           ":tags"      => $tags,
+                                                                                                                                           ":lwid"      => $this->lwID]);
         }
 
         /**
          * @return array
          */
         public function asArray() {
-            return ["lwID" => $this->lwID, "lwNum" => $this->lwNum, "fID" => $this->fID, "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(), "filePath" => File::fromFID($this->fID)->getFilePath(), "title" => $this->title, "userID" => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(), "date" => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext, "name" => $this->name, "tags" => $this->getAllTagsAsHtml(), "tagsList" => $this->tags, "font" => strlen($this->lwNum) > 5 ? "small" : "big"];
+            return ["lwID"     => $this->lwID, "lwNum" => $this->lwNum, "fID" => $this->fID,
+                    "fileName" => \ICMS\File::fromFID($this->fID)->getFileName(),
+                    "filePath" => File::fromFID($this->fID)->getFilePath(), "title" => $this->title,
+                    "userID"   => $this->uID, "username" => User::fromUID($this->uID)->getUNameFrontEnd(),
+                    "date"     => Util::dbDateToReadableWithTime($this->date), "shorttext" => $this->shorttext,
+                    "name"     => $this->name, "tags" => $this->getAllTagsAsHtml(), "tagsList" => $this->tags,
+                    "font"     => strlen($this->lwNum) > 5 ? "small" : "big"];
         }
 
         public function getAllTagsAsHtml() {
