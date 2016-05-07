@@ -73,19 +73,15 @@ ini_set("diplay_errors", "on");
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=1"><i class="mdi mdi-view-list left"></i>Timeline</a></li>
                         <li class="divider"></li>
-                        <li class="no-padding"><a href="#p=2"><i class="mdi mdi-bullhorn left"></i>News</a></li>
-                        <li class="divider"></li>
                         <li class="no-padding"><a href="#p=12"><i class="mdi mdi-city left"></i>Parlament</a></li>
                         <li class="divider"></li>
-                        <li class="no-padding"><a href="pdf/verf.pdf"><i class="mdi mdi-book-open left"></i>Verfassung</a></li>
+                        <li class="no-padding"><a href="#p=5"><i class="mdi mdi-chart-pie left"></i>Wahlen</a></li>
+                        <li class="divider"></li>
+                        <li class="no-padding"><a href="pdf/verf.pdf"><i class="mdi mdi-book-open left"></i>Gesetze</a></li>
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=10"><i class="mdi mdi-clipboard-text left"></i>Protokolle</a></li>
                         <li class="divider"></li>
-                        <li class="no-padding"><a href="#p=11&id=1"><i class="mdi mdi-bank left"></i>Staat</a></li>
-                        <li class="divider"></li>
                         <li class="no-padding"><a href="#p=3"><i class="mdi mdi-account-multiple left"></i>Arbeitskreise</a></li>
-                        <li class="divider"></li>
-                        <li class="no-padding"><a href="#p=5"><i class="mdi mdi-chart-pie left"></i>Wahlen</a></li>
                         <li class="divider"></li>
                         <li class="no-padding"><a href="#p=7"><i class="mdi mdi-comment left"></i>Fragen</a></li>
                         <li class="divider"></li>

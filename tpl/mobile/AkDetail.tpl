@@ -1,4 +1,3 @@
-1
 <div class="row" style="padding: 0; margin:0;">
     {if $page.img != " "}<img src="{$page.img}" class="prImg col s12"/>{/if}
     <div class="card-panel col s12" {if $page.img != " "}style="position:relative; top: -50px;"{/if}>

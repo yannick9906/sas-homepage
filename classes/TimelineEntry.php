@@ -428,9 +428,9 @@ class TimelineEntry {
     /**
      * @return TimelineEntry[]
      */
-    public static function getAllPublicEntries() {
+    public static function getAllPublicEntries($limit = 99999999) {
         $pdo = new PDO_MYSQL();
-        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc");
+        $stmt = $pdo->queryMulti("SELECT vID FROM (SELECT * FROM schlopolis_timeline WHERE state = 0 and `Date` > CURDATE() ORDER BY tID, version desc) x GROUP BY tID ORDER BY date asc LIMIT ".$limit);
         return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\TimelineEntry::fromVID");
 
     }

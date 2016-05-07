@@ -47,15 +47,17 @@
             //Dwoo
             $pgData = ["header" => ["title" => "Home"], "page" => ["evDate" => $evDate, "evTitle" => $evTitle, "spWeek" => $spWeek, "spText" => $spText, "items" => []]];
 
-            $entries = \ICMS\NewsEntry::getAllPublicEntries();
+            $entries = \ICMS\TimelineEntry::getAllPublicEntries(5);
             for ($i = 0; $i < sizeof($entries); $i++) {
                 $timestamp = $entries[$i]->getDate();
                 if ($timestamp == mktime(0, 0, 0, date("m", $timestamp), date("d", $timestamp), date("Y", $timestamp))) $evDate = \ICMS\Util::dbDateToReadableWithOutTime($timestamp); else
                     $evDate = \ICMS\Util::dbDateToReadableWithTime($timestamp);
                 $pgData["page"]["items"][$i]["title"] = $entries[$i]->getTitle();
-                $pgData["page"]["items"][$i]["text"] = $entries[$i]->getText();
+                $pgData["page"]["items"][$i]["text"] = $entries[$i]->getInfo();
                 $pgData["page"]["items"][$i]["date"] = $evDate;
-                $pgData["page"]["items"][$i]["link"] = \ICMS\Util::handleLinks($entries[$i]->getLink());
+                $pgData["page"]["items"][$i]["link"] = $entries[$i]->getLink();
+                $pgData["page"]["items"][$i]["htmlclass"] = \ICMS\Util::getHtmlClassForCalType($entries[$i]->getType());
+                $pgData["page"]["items"][$i]["imgpath"] = \ICMS\Util::getImgPathForCalType($entries[$i]->getType());
                 if ($i == 5) break;
             }
 
