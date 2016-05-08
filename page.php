@@ -229,8 +229,8 @@
             $siteFrakt = \ICMS\Site::fromPID($pageIDFrakt)->toTypeObject();
             $pgData["page"] = ["appls" => [], "highlight" => '', "text" => $siteParla->asArray()["textHTML"], "header" => $siteParla->getHeader()];
 
-            $law = \ICMS\ApplicationEntry::getAllApplications("descID", "Alle");
-            foreach ($law as $appl) {
+            $appls = \ICMS\ApplicationEntry::getAllApplications("descID", "Alle");
+            foreach ($appls as $appl) {
                 array_push($pgData["page"]["appls"], $appl->asArray());
             }
             $entries = \ICMS\TypeParty::listParties();
@@ -255,7 +255,7 @@
 
             $regl = \ICMS\Law::getAllPublicRegulations();
             foreach ($regl as $regulation) {
-                array_push($pgData["page"]["regl"], $regulatione->asArray());
+                array_push($pgData["page"]["regl"], $regulation->asArray());
             }
 
             if ($detect->isMobile()) $dwoo->output("tpl/mobile/laws.tpl", $pgData); else $dwoo->output("tpl/mobile/laws.tpl", $pgData);

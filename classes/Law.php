@@ -8,7 +8,7 @@
 
     namespace ICMS;
 
-    const ASORTING = ["ascName"  => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC",
+    const LqSORTING = ["ascName"  => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC",
                       "ascID"    => " ORDER BY lwNum ASC", "descName" => " ORDER BY title DESC",
                       "descDate" => " ORDER BY date DESC", "descID" => " ORDER BY lwNum DESC", "" => ""];
 
@@ -83,7 +83,7 @@
          */
         public static function getAllLaws($sort = "") {
             $pdo = new PDO_MYSQL();
-            $stmt = $pdo->queryMulti("SELECT lwID FROM schlopolis_laws " . ASORTING[$sort]);
+            $stmt = $pdo->queryMulti("SELECT lwID FROM schlopolis_laws " . LSORTING[$sort]);
             return $stmt->fetchAll(PDO::FETCH_FUNC, "\\ICMS\\Law::fromLWID");
         }
 
