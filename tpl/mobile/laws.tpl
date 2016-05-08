@@ -16,7 +16,7 @@
                             {$shorttext}
                         </p>
                         <span class="secondary-content">
-                            <a class="waves-effect waves-circle tooltipped" target="_blank" href="{$filePath}" data-position="top" data-delay="50" data-tooltip="Antrag ansehen (in neuem Tab)">
+                            <a class="waves-effect waves-circle tooltipped" target="_blank" href="{$filePath}" data-position="top" data-delay="50" data-tooltip="Gesetz ansehen (in neuem Tab)">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">visibility</i>
                             </a>
                         </span>
@@ -34,7 +34,7 @@
                             {$shorttext}
                         </p>
                         <span class="secondary-content">
-                            <a class="waves-effect waves-circle tooltipped" target="_blank" href="{$filePath}" data-position="top" data-delay="50" data-tooltip="Antrag ansehen (in neuem Tab)">
+                            <a class="waves-effect waves-circle tooltipped" target="_blank" href="{$filePath}" data-position="top" data-delay="50" data-tooltip="Regelung ansehen (in neuem Tab)">
                                 <i style="margin: 0px 5px;" class="material-icons grey-text text-darken-1">visibility</i>
                             </a>
                         </span>
