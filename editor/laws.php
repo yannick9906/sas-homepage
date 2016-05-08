@@ -72,7 +72,7 @@
         if ($user->isActionAllowed(PERM_LAWS_EDIT)) {
             $lawToEdit = \ICMS\Law::fromLWID($lwID);
             $lawToEdit->saveChanges($_POST["title"], str_replace("f", "", $_POST["file"]), $_POST["text"], \ICMS\Tag::TagNameArrayToTagIDArray($_POST["tags"]));
-            \ICMS\Util::forwardTo("laws.php?sort=descID");
+            \ICMS\Util::forwardTo("laws.php?sort=descID"); 
             exit;
         } else {
             $pgdata = \ICMS\Util::getEditorPageDataStub("Gesetz erstellen", $user);
