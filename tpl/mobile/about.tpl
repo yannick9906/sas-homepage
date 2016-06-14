@@ -19,7 +19,7 @@
         <div class="card-panel col s12 m5 offset-m2">
             <h2>Verantwortlich für die Homepage:</h2>
             <p>
-                Technischer Support: Yannick F&#233;lix(11En1) <a href="mailto:yannick.felix@schloss-online.eu">yannick.felix@schloss-online.eu</a><br/>
+                Technischer Support: Yannick F&#233;lix(11En1) <a href="mailto:yannick.felix@schloss-online.eu">yannick.felix@schloss-online.eu</a> <br/>
                 Design(Desktop): Luis Sch&auml;fer(8b), Kerem Ciftci(8b)
             </p>
             <h2>Verantwortlich f&uuml;r den Inhalt:<h2/>
@@ -29,6 +29,9 @@
                 Leo-Trepp-Platz 1<br/>
                 55116 Mainz<br/>
             </p>
+                <p>
+                    Bei inhaltlichen Fragen bitte an <a href="mailto:sas_schlossgymnasium@gmx.de">sas_schlossgymnasium@gmx.de</a> wenden
+                </p>
         </div>
         <div class="card-panel col s12 m5">
             <h2>Haftungsausschluss</h2>
