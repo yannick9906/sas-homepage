@@ -35,6 +35,7 @@
                         <option value="0" selected>In Bearbeitung</option>
                         <option value="1">Angenommen</option>
                         <option value="3">Mit Änderungen angenommen</option>
+                        <option value="4">Zurückgezogen</option>
                         <option value="2">Abgelehnt</option>
                     </select>
                     <label for="state">Status</label>

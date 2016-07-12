@@ -35,6 +35,7 @@
                         <option value="0"{if $edit.state == 0} selected{/if}>In Bearbeitung</option>
                         <option value="1"{if $edit.state == 1} selected{/if}>Angenommen</option>
                         <option value="3"{if $edit.state == 3} selected{/if}>Mit Änderungen angenommen</option>
+                        <option value="4"{if $edit.state == 4} selected{/if}>Zurückgezogen</option>
                         <option value="2"{if $edit.state == 2} selected{/if}>Abgelehnt</option>
                     </select>
                     <label for="state">Status</label>

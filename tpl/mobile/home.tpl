@@ -10,7 +10,15 @@
             <h3>Spruch der Woche {$page.spWeek}</h3>
             <p>{$page.spText}</p>
         </div>
-        <div class="card-panel col s12 m23 grey lighten-4">
+        <div class="card-panel col s12">
+            <h3>Leitfaden für Schlopolis</h3>
+            Wir haben einen kleinen Leitfaden für euch zusammengestellt. Diesen findet ihr <a href="http://schlopolis.de/uploads/96_Leitfaden.pdf">hier</a>
+        </div>
+        <div class="card-panel col s12">
+            <h3>Elternbrief</h3>
+            Für alle, die den Elternbrief nicht auf Papier erhalten haben: <a href="http://schlopolis.de/uploads/97_Elternbrief.pdf">Elternbrief</a>
+        </div>
+        <div class="card-panel col s12 grey lighten-4">
             <h3>Timeline</h3>
             <section id="cd-timeline" class="cd-container">
                 {foreach $page.items item}
@@ -18,7 +26,6 @@
                         <div class="cd-timeline-img {$item.htmlclass}">
                             <img src="libs/vertical-timeline/img/{$item.imgpath}" alt="Picture">
                         </div> <!-- cd-timeline-img -->
-
                         <div class="cd-timeline-content">
                             <h2>{$item.title}</h2>
                             <p>{$item.text}{if $item.link != null}<a href="{$item.link}" class="cd-read-more">Mehr ...</a>{/if}</p>
@@ -29,7 +36,7 @@
             </section>
             <a href="#p=1" class="btn-flat blue-text waves-effect">Mehr...</a>
         </div>
-        <div class="card-panel col s12 m23">
+        <div class="card-panel col s12">
             <h3>Was ist Schlopolis?</h3>
             <p>
                 Schule als Staat (SaS) ist ein groß angelegtes Planspiel, bei dem die gesamte Schulgemeinschaft sich für einige Tage in einen Staat verwandelt. Alle Beteiligten, also alle Schüler und Lehrer, sind gleichberechtigte Bürger des Staates und übernehmen darin eine Rolle, zum Beispiel Staatsoberhaupt oder Regierungsmitglied, Arbeitgeber oder Arbeitnehmer, Mitglied der Verwaltung, Angestellter im öffentlichen Dienst oder ähnliches. Der Staat verfügt - wie in der Realität - über eine Regierung, Verwaltung, Gerichtsbarkeit, Vollzugsorgan, Wirtschaft, Kulturwesen, Banken, Währung, und Flagge sowie selbstverständlich eine große Zahl von Bürgern und Touristen.

@@ -141,6 +141,8 @@
                     return "red";
                 case 3:
                     return "green";
+                case 4:
+                    return "red";
                 default:
                     return "grey";
             }
@@ -156,6 +158,8 @@
                     return "Abgelehnt";
                 case 3:
                     return "Mit Änderungen angenommen";
+                case 4:
+                    return "Zurückgezogen";
                 default:
                     return "invalid";
             }
