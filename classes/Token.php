@@ -37,7 +37,7 @@ class Token {
      */
     public static function fromToken($token) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT * FROM tokens WHERE token = :token", [":token" => $token]);
+        $res = $pdo->query("SELECT * FROM schlopolis_tokens WHERE token = :token", [":token" => $token]);
         return new Token($res->IP, $res->token, $res->ID, $res->date, $res->active);
     }
 
@@ -52,15 +52,15 @@ class Token {
         $validfrom  = date("Y-m-d H:i:s");
         $token      = Util::generateRandomString(32);
         if(!self::validTokenForIP($customerIP)) {
-            $pdo->query("INSERT INTO tokens(token, IP, date, active) VALUES (:token, :ip, :date, 1)", [":token" => $token, ":ip" => $customerIP, ":date" => $validfrom]);
-            $res = $pdo->query("SELECT * FROM tokens ORDER BY ID DESC LIMIT 1");
+            $pdo->query("INSERT INTO schlopolis_tokens(token, IP, date, active) VALUES (:token, :ip, :date, 1)", [":token" => $token, ":ip" => $customerIP, ":date" => $validfrom]);
+            $res = $pdo->query("SELECT * FROM schlopolis_tokens ORDER BY ID DESC LIMIT 1");
             return new Token($customerIP, $token, $res->ID, $validfrom, 1);
         } else return false;
     }
 
     public static function validTokenForIP($ip) {
         $pdo = new PDO_MYSQL();
-        $res = $pdo->query("SELECT COUNT(*) as count FROM tokens WHERE IP = :ip and date >= now() - INTERVAL 1 DAY", [":ip" => $ip]);
+        $res = $pdo->query("SELECT COUNT(*) as count FROM schlopolis_tokens WHERE IP = :ip and date >= now() - INTERVAL 1 DAY", [":ip" => $ip]);
         if($res->count == 1)
             return true;
         else
@@ -76,7 +76,7 @@ class Token {
     public function useIt() {
         if($this->checkIfValid()) {
             $pdo = new PDO_MYSQL();
-            $pdo->query("UPDATE tokens SET active = 0 WHERE token = :token", ["token" => $this->token]);
+            $pdo->query("UPDATE schlopolis_tokens SET active = 0 WHERE token = :token", ["token" => $this->token]);
             return true;
         } else return false;
     }

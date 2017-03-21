@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="card-panel col s12 m12">
-            <img src="http://schlopolis.de/img/other/Organigramm-Orgateam.jpg" width="100%" height="auto"/>
+            <img src="http://schlopolis.tk/img/other/Organigramm-Orgateam.jpg" width="100%" height="auto"/>
         </div>
         <div class="col s12 m10 offset-m1 ">
         {foreach $page.items item}

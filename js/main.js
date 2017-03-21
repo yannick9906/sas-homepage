@@ -3,7 +3,7 @@
  */
 
 // Ziel-Datum in MEZ
-var jahr=2016, monat=7, tag=11, stunde=8, minute=00, sekunde=00;
+var jahr=2016, monat=11, tag=9, stunde=0, minute=0, sekunde=0;
 var zielDatum=new Date(jahr,monat-1,tag,stunde,minute,sekunde);
 
 function countdown() {
@@ -58,11 +58,11 @@ function countdown() {
         (minuten!=1)?minuten=minuten+":":minuten=minuten+":";
         (sekunden!=1)?sekunden=sekunden+"":sekunden=sekunden+"";
 
-        document.getElementById('countdown').innerHTML ="noch "+monate+tage+stunden+minuten+sekunden + " bis Schlopolis";
+        document.getElementById('countdown').innerHTML ="Diese Seite bleibt noch "+monate+tage+stunden+minuten+sekunden + " online.";
 
         setTimeout('countdown()',200);
     }
     // Anderenfalls alles auf Null setzen
-    else document.getElementById('countdown').innerHTML = "Es ist soweit! Schlopolis 2.0 hat begonnen";
+    else document.getElementById('countdown').innerHTML = "Es ist nun entgültig vorbei.";
 
 }

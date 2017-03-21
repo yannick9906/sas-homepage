@@ -8,7 +8,7 @@
 
     namespace ICMS;
 
-    const LqSORTING = ["ascName"  => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC",
+    const LSORTING = ["ascName"  => " ORDER BY title ASC", "ascDate" => " ORDER BY date ASC",
                       "ascID"    => " ORDER BY lwNum ASC", "descName" => " ORDER BY title DESC",
                       "descDate" => " ORDER BY date DESC", "descID" => " ORDER BY lwNum DESC", "" => ""];
 
@@ -78,7 +78,6 @@
          * Returns all Applications available in the DB. Sorted by $sort and filtered by $filter
          *
          * @param string $sort
-         * @param string $filter
          * @return Law[]
          */
         public static function getAllLaws($sort = "") {

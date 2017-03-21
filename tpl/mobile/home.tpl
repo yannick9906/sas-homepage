@@ -12,11 +12,11 @@
         </div>
         <div class="card-panel col s12">
             <h3>Leitfaden für Schlopolis</h3>
-            Wir haben einen kleinen Leitfaden für euch zusammengestellt. Diesen findet ihr <a href="http://schlopolis.de/uploads/96_Leitfaden.pdf">hier</a>
+            Wir haben einen kleinen Leitfaden für euch zusammengestellt. Diesen findet ihr <a href="http://schlopolis.tk/uploads/96_Leitfaden.pdf">hier</a>
         </div>
         <div class="card-panel col s12">
             <h3>Elternbrief</h3>
-            Für alle, die den Elternbrief nicht auf Papier erhalten haben: <a href="http://schlopolis.de/uploads/97_Elternbrief.pdf">Elternbrief</a>
+            Für alle, die den Elternbrief nicht auf Papier erhalten haben: <a href="http://schlopolis.tk/uploads/97_Elternbrief.pdf">Elternbrief</a>
         </div>
         <div class="card-panel col s12 grey lighten-4">
             <h3>Timeline</h3>

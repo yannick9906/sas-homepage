@@ -21,7 +21,7 @@ ini_set("diplay_errors", "on");
         <meta name="mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="libs/materialize/css/materialize.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="css/style.css" />
@@ -29,24 +29,6 @@ ini_set("diplay_errors", "on");
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <!-- Piwik -->
-        <script type="text/javascript">
-          var _paq = _paq || [];
-          if (!window.location.pathname.match(/(\/editor)/))
-          {
-              _paq.push(['trackPageView']);
-              _paq.push(['enableLinkTracking']);
-          }
-          (function() {
-              var u="//piwik.schlopolis.de/";
-              _paq.push(['setTrackerUrl', u+'piwik.php']);
-              _paq.push(['setSiteId', 1]);
-              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-              g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-          })();
-        </script>
-        <noscript><p><img src="//piwik.schlopolis.de/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-        <!-- End Piwik Code -->
     </head>
     <body>
         <!--Import jQuery before materialize.js-->

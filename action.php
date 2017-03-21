@@ -8,7 +8,7 @@
 error_reporting(E_ALL);
 ini_set("diplay_errors", "on");
 
-
+exit();
 $pg = $_GET['p']; // ID der Seite
 if(!is_numeric($pg)) $pg = 0; // Prüfe ob es eine Zahl ist
 $token = $_GET['token'];

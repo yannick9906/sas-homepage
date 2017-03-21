@@ -147,7 +147,7 @@
             }
             break;
         case 7: //FAQ
-            $db = \ICMS\Util::DBConnect();
+            $pdo = new \ICMS\PDO_MYSQL();
 
             $token = \ICMS\Token::generateNewToken();
 
@@ -156,8 +156,8 @@
             $pgData = ["header" => ["title" => "Häufige Fragen (FAQ)"], "page" => ["items" => [], "i" => $_GET["i"], "token" => $tokenTXT]];
 
             $i = 0;
-            $res = $db->query("SELECT * FROM faq");
-            while ($row = $res->fetch_object()) {
+            $stmt = $pdo->queryMulti("SELECT * FROM schlopolis_faq");
+            while ($row = $stmt->fetchObject()) {
                 $pgData["page"]["items"][$i]["ques"] = $row->question;
                 $pgData["page"]["items"][$i]["answ"] = $row->answer;
                 $i++;
